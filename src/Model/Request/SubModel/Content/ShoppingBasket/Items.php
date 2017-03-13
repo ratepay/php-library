@@ -27,23 +27,36 @@ class Items extends AbstractModel
      */
     public $admittedFields = [
         'Item' => [
-            'mandatory' => true,
+            'mandatoryByRule' => true,
             'instanceOf' => __NAMESPACE__ . "\\Items\\Item",
             'multiple' => true
         ]
     ];
 
     /**
-     * Manipulates the parent method to set instance of meta if not already set
+     * Item article number rule : identical article numbers on different items are not allowed
      *
-     * @return array
+     * @return bool
      */
-    /*public function toArray()
+    protected function rule()
     {
+        $articleNumbers = [];
+
         foreach ($this->admittedFields['Item']['value'] as $item) {
-            //$item['cdata'] = $item
+            $articleNumber = $item->admittedFields['ArticleNumber']['value'];
+            if (key_exists('value', $item->admittedFields['UniqueArticleNumber'])) {
+                $articleNumber .= $item->admittedFields['UniqueArticleNumber']['value'];
+            }
+
+            if (in_array($articleNumber, $articleNumbers)) {
+                $this->setErrorMsg("Identical article numbers on different items are not allowed. Please specify with UniqueArticleNumber.");
+                return false;
+            } else {
+                $articleNumbers[] = $articleNumber;
+            }
         }
 
-        return parent::toArray();
-    }*/
+        return true;
+    }
+
 }
