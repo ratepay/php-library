@@ -1,6 +1,6 @@
 <?php
 
-namespace RatePAY;
+namespace RatePAY\Frontend;
 
 use RatePAY\Model\Request\ConfigurationRequest;
 use RatePAY\ModelBuilder;
