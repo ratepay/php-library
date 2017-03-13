@@ -1,0 +1,21 @@
+<?php
+
+    namespace RatePAY\Model\Response;
+
+    class PaymentChange extends AbstractResponse
+    {
+
+        use TraitTransactionId;
+
+        /**
+         * Validates response
+         */
+        public function validateResponse()
+        {
+            if ($this->getStatusCode() == "OK" && $this->getResultCode() == 403) {
+                $this->setTransactionId((string) $this->getResponse()->head->{'transaction-id'});
+                $this->setSuccessful();
+            }
+        }
+
+    }
