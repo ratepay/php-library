@@ -47,7 +47,7 @@ class CommunicationService
      * @param string $xml
      * @return string
      */
-    public function send($xml)
+    public function send($xml, $connectionTimeout = 0, $executionTimeout = 0, $retries = 0, $retryDelay = 0)
     {
         // send XML over Post
         // the following code requires curl-class
@@ -66,6 +66,10 @@ class CommunicationService
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        // the number of milliseconds to wait while trying to connect
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, $connectionTimeout);
+        // the maximum number of milliseconds to allow cURL functions to execute
+        curl_setopt($ch, CURLOPT_TIMEOUT_MS, $executionTimeout);
         // use tls v1.2
         curl_setopt($ch, CURLOPT_SSLVERSION, 6);
         // send to remote and return data to caller.
@@ -73,8 +77,24 @@ class CommunicationService
         // execute curl request
         $response = curl_exec($ch);
 
-        curl_close($ch);
+        $errno = curl_errno($ch);
+
         // close connection
+        curl_close($ch);
+
+        if ($response === false) {
+            if ($retries > 0) {
+                if ($retryDelay > 0) {
+                    // halt time in milliseconds (entered microseconds * 1000)
+                    usleep((int) $retryDelay * 1000);
+                }
+                return $this->send($xml, $connectionTimeout, $executionTimeout, $retries - 1, $retryDelay);
+            }
+
+            if ($errno > 0) {
+                throw new CurlException(curl_strerror($errno));
+            }
+        }
 
         return $response;
     }

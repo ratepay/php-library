@@ -108,6 +108,34 @@ class RequestBuilder
     private $subtype = null;
 
     /**
+     * Connect timeout
+     *
+     * @var int
+     */
+    private $connectionTimeout = 0;
+
+    /**
+     * Execution timeout
+     *
+     * @var int
+     */
+    private $executionTimeout = 0;
+
+    /**
+     * Connection retries
+     *
+     * @var int
+     */
+    private $connectionRetries = 0;
+
+    /**
+     * Retry delay
+     *
+     * @var int
+     */
+    private $retryDelay = 0;
+
+    /**
      * RequestBuilder constructor. Sets sandbox mode
      *
      * @param bool $sandbox
@@ -233,7 +261,13 @@ class RequestBuilder
         $communicationService = new CommunicationService($this->sandbox);
 
         // Execute cURL request and get XML response
-        $this->responseRaw = $communicationService->send($this->requestRaw);
+        $this->responseRaw = $communicationService->send(
+            $this->requestRaw,
+            $this->connectionTimeout,
+            $this->executionTimeout,
+            $this->connectionRetries,
+            $this->retryDelay
+        );
 
         // Convert XML string to SimpleXmlElement
         $this->responseXmlElement = new \SimpleXMLElement($this->responseRaw);
@@ -267,6 +301,54 @@ class RequestBuilder
         $this->subtype = $subtype;
         $this->callRequest();
 
+        return $this;
+    }
+
+    /**
+     * Sets the number of milliseconds to wait while trying to connect
+     *
+     * @param int $timeout
+     * @return $this
+     */
+    public function setConnectionTimeout($timeout = 0)
+    {
+        $this->connectionTimeout = (int) $timeout;
+        return $this;
+    }
+
+    /**
+     * Sets the maximum number of milliseconds to allow cURL functions to execute
+     *
+     * @param int $timeout
+     * @return $this
+     */
+    public function setExecutionTimeout($timeout = 0)
+    {
+        $this->executionTimeout = (int) $timeout;
+        return $this;
+    }
+
+    /**
+     * Sets the number of retries
+     *
+     * @param int $retries
+     * @return $this
+     */
+    public function setConnectionRetries($retries = 0)
+    {
+        $this->connectionRetries = (int) $retries;
+        return $this;
+    }
+
+    /**
+     * Sets the delay between retries in milliseconds
+     *
+     * @param int $delay
+     * @return $this
+     */
+    public function setRetryDelay($delay = 0)
+    {
+        $this->retryDelay = (int) $delay;
         return $this;
     }
 
@@ -343,8 +425,17 @@ class RequestBuilder
     private function clearAttributes()
     {
         foreach (get_class_vars(__CLASS__) as $attribute => $value) {
-            if ("sandbox" == $attribute) continue;
-            $this->$attribute = null;
+            switch ($attribute) {
+                case "sandbox":
+                case "connectionTimeout":
+                case "executionTimeout":
+                case "connectionRetries":
+                case "retryDelay":
+                    continue;
+                    break;
+                default:
+                    $this->$attribute = null;
+            }
         }
     }
 
