@@ -40,6 +40,34 @@ class InstallmentBuilder
      */
     private $lang;
 
+    /**
+     * Connect timeout
+     *
+     * @var int
+     */
+    private $connectionTimeout = 0;
+
+    /**
+     * Execution timeout
+     *
+     * @var int
+     */
+    private $executionTimeout = 0;
+
+    /**
+     * Connection retries
+     *
+     * @var int
+     */
+    private $connectionRetries = 0;
+
+    /**
+     * Retry delay
+     *
+     * @var int
+     */
+    private $retryDelay = 0;
+
 
     public function __construct($sandbox = false, $profileId = null, $securitycode = null, $language = "DE")
     {
@@ -96,6 +124,10 @@ class InstallmentBuilder
     private function getInstallmentConfiguration()
     {
         $rb = new RequestBuilder($this->sandbox);
+        $rb->setConnectionTimeout($this->connectionTimeout)
+            ->setExecutionTimeout($this->executionTimeout)
+            ->setConnectionRetries($this->connectionRetries)
+            ->setRetryDelay($this->retryDelay);
         $configuration = $rb->callConfigurationRequest($this->getHead());
 
         if (!$configuration->isSuccessful()) {
@@ -184,6 +216,10 @@ class InstallmentBuilder
         $mbContent->setArray($installmentCalculation);
 
         $rb = new RequestBuilder($this->sandbox);
+        $rb->setConnectionTimeout($this->connectionTimeout)
+            ->setExecutionTimeout($this->executionTimeout)
+            ->setConnectionRetries($this->connectionRetries)
+            ->setRetryDelay($this->retryDelay);
         $calculation = $rb->callCalculationRequest($this->getHead(), $mbContent)->subtype('calculation-by-' . $type);
         // ToDo: Surround with Try-Catch-Block
 
@@ -262,6 +298,54 @@ class InstallmentBuilder
         ]);
 
         return $mbHead;
+    }
+
+    /**
+     * Sets the number of milliseconds to wait while trying to connect
+     *
+     * @param int $timeout
+     * @return $this
+     */
+    public function setConnectionTimeout($timeout = 0)
+    {
+        $this->connectionTimeout = (int) $timeout;
+        return $this;
+    }
+
+    /**
+     * Sets the maximum number of milliseconds to allow cURL functions to execute
+     *
+     * @param int $timeout
+     * @return $this
+     */
+    public function setExecutionTimeout($timeout = 0)
+    {
+        $this->executionTimeout = (int) $timeout;
+        return $this;
+    }
+
+    /**
+     * Sets the number of retries
+     *
+     * @param int $retries
+     * @return $this
+     */
+    public function setConnectionRetries($retries = 0)
+    {
+        $this->connectionRetries = (int) $retries;
+        return $this;
+    }
+
+    /**
+     * Sets the delay between retries in milliseconds
+     *
+     * @param int $delay
+     * @return $this
+     */
+    public function setRetryDelay($delay = 0)
+    {
+        $this->retryDelay = (int) $delay;
+        return $this;
     }
 
 }
