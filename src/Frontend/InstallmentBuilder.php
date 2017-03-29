@@ -41,7 +41,7 @@ class InstallmentBuilder
     private $lang;
 
 
-    public function __construct($sandbox = false, $profileId = null, $securitycode = null, $language = "DEU")
+    public function __construct($sandbox = false, $profileId = null, $securitycode = null, $language = "DE")
     {
         if ($sandbox) {
             $this->sandbox = true;
@@ -112,7 +112,7 @@ class InstallmentBuilder
      * @param string $template
      * @return string
      */
-    public function getInstallmentConfigByTemplate($amount, $template)
+    public function getInstallmentCalculatorByTemplate($amount, $template)
     {
         $configuration = $this->getInstallmentConfiguration();
 
@@ -135,7 +135,7 @@ class InstallmentBuilder
      * @param $amount
      * @return string
      */
-    public function getInstallmentConfigAsJson($amount)
+    public function getInstallmentCalculatorAsJson($amount)
     {
         $configuration = $this->getInstallmentConfiguration();
 
