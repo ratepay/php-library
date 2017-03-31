@@ -32,22 +32,28 @@ class Customer extends AbstractModel
             'uppercase' => true
         ],
         'Salutation' => [
-            'mandatory' => false
+            'mandatory' => false,
+            'cdata' => true
         ],
         'Title' => [
-            'mandatory' => false
+            'mandatory' => false,
+            'cdata' => true
         ],
         'FirstName' => [
-            'mandatory' => true
+            'mandatory' => true,
+            'cdata' => true
         ],
         'MiddleName' => [
-            'mandatory' => false
+            'mandatory' => false,
+            'cdata' => true
         ],
         'LastName' => [
-            'mandatory' => true
+            'mandatory' => true,
+            'cdata' => true
         ],
         'NameSuffix' => [
-            'mandatory' => false
+            'mandatory' => false,
+            'cdata' => true
         ],
         'DateOfBirth' => [
             'mandatory' => false
@@ -73,26 +79,32 @@ class Customer extends AbstractModel
         ],
         'BankAccount' => [
             'mandatory' => false,
+            'cdata' => true,
             'instanceOf' => __NAMESPACE__ . "\\Customer\\BankAccount"
         ],
         'CompanyName' => [
-            'mandatory' => false
+            'mandatory' => false,
+            'cdata' => true
         ],
         'CompanyType' => [
             'optionalByRule' => true,
             'instanceOf' => "CompanyType"
         ],
         'VatId' => [
-            'optionalByRule' => true
+            'optionalByRule' => true,
+            'cdata' => true
         ],
         'CompanyId' => [
-            'optionalByRule' => true
+            'optionalByRule' => true,
+            'cdata' => true
         ],
         'RegistryLocation' => [
-            'optionalByRule' => true
+            'optionalByRule' => true,
+            'cdata' => true
         ],
         'Homepage' => [
-            'optionalByRule' => false
+            'optionalByRule' => false,
+            'cdata' => true
         ],
     ];
 

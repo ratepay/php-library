@@ -35,28 +35,36 @@ class Address extends AbstractModel
             'mandatory' => false
         ],
         'FirstName' => [
-            'optionalByRule' => true
+            'optionalByRule' => true,
+            'cdata' => true
         ],
         'LastName' => [
-            'optionalByRule' => true
+            'optionalByRule' => true,
+            'cdata' => true
         ],
         'Company' => [
-            'mandatoryByRule' => true
+            'mandatoryByRule' => true,
+            'cdata' => true
         ],
         'Street' => [
-            'mandatory' => true
+            'mandatory' => true,
+            'cdata' => true
         ],
         'StreetAdditional' => [
-            'mandatory' => false
+            'mandatory' => false,
+            'cdata' => true
         ],
         'StreetNumber' => [
-            'mandatory' => false
+            'mandatory' => false,
+            'cdata' => true
         ],
         'ZipCode' => [
-            'mandatory' => true
+            'mandatory' => true,
+            'cdata' => true
         ],
         'City' => [
-            'mandatory' => true
+            'mandatory' => true,
+            'cdata' => true
         ],
         'CountryCode' => [
             'mandatory' => true,

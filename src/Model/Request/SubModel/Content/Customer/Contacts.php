@@ -28,18 +28,22 @@ class Contacts extends AbstractModel
      */
     public $admittedFields = [
         'Email' => [
-            'mandatory' => true
+            'mandatory' => true,
+            'cdata' => true
         ],
         'Mobile' => [
             'mandatoryByRule' => true,
+            'cdata' => true,
             'instanceOf' => __NAMESPACE__ . "\\Contacts\\Phone"
         ],
         'Phone' => [
             'mandatoryByRule' => true,
+            'cdata' => true,
             'instanceOf' => __NAMESPACE__ . "\\Contacts\\Phone"
         ],
         'Fax' => [
             'mandatory' => false,
+            'cdata' => true,
             'instanceOf' => __NAMESPACE__ . "\\Contacts\\Phone"
         ]
     ];

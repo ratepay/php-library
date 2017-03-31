@@ -27,22 +27,28 @@ class BankAccount extends AbstractModel
      */
     public $admittedFields = [
         'Owner' => [
-            'mandatory' => true
+            'mandatory' => true,
+            'cdata' => true
         ],
         'BankName' => [
-            'mandatory' => false
+            'mandatory' => false,
+            'cdata' => true
         ],
         'BankAccountNumber' => [
-            'mandatoryByRule' => true
+            'mandatoryByRule' => true,
+            'cdata' => true
         ],
         'BankCode' => [
-            'mandatoryByRule' => true
+            'mandatoryByRule' => true,
+            'cdata' => true
         ],
         'Iban' => [
-            'mandatoryByRule' => true
+            'mandatoryByRule' => true,
+            'cdata' => true
         ],
         'BicSwift' => [
-            'mandatory' => false // BicSwift is only for customers with billing address in germany optional
+            'mandatory' => false, // BicSwift is only for customers with billing address in germany optional
+            'cdata' => true
         ]
     ];
 

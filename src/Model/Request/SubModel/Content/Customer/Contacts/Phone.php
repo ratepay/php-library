@@ -27,10 +27,12 @@ class Phone extends AbstractModel
      */
     public $admittedFields = [
         'AreaCode' => [
-            'mandatory' => false
+            'mandatory' => false,
+            'cdata' => true
         ],
         'DirectDial' => [
-            'mandatory' => true
+            'mandatory' => true,
+            'cdata' => true
         ]
     ];
 }
