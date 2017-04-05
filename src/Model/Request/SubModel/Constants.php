@@ -33,4 +33,12 @@ class Constants {
      * CustomerAllowCreditInquiry
      */
     const CUSTOMER_ALLOW_CREDIT_INQUIRY = "yes";
+
+    /**
+     * DebitPayTypes
+     */
+    const DEBIT_PAY_TYPES = [
+        2 => "DIRECT-DEBIT",
+        28 => "BANK-TRANSFER"
+    ];
 }
