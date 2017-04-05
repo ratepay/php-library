@@ -20,12 +20,12 @@ class LanguageService
      * @param string $language
      * @throws LanguageException
      */
-    public function __construct($language = "DEU")
+    public function __construct($language = "DE")
     {
         switch (strtoupper($language)) {
-            case "AUT":
-            case "CHE":
-                $this->language = "DEU";
+            case "AU":
+            case "CH":
+                $this->language = "DE";
                 break;
             default:
                 if (key_exists(strtoupper($language), $this->textBlocks)) {
@@ -71,7 +71,7 @@ class LanguageService
      ****************************/
 
     private $textBlocks = [
-        'DEU' => [
+        'DE' => [
             'rp_insert_wishrate' => "Wunschrate eingeben",
             'rp_insert_runtime' => "Laufzeit w&auml;hlen",
             'rp_calculate_runtime' => "Laufzeit jetzt berechnen",
@@ -131,7 +131,7 @@ class LanguageService
             'rp_reason_code_translation_698' => "Die Rate war zu niedrig f&uuml;r die maximal verf&uuml;gbare Laufzeit. Die Rate wurde erh&ouml;ht.",
             'rp_reason_code_translation_699' => "Die Rate ist zu hoch f&uuml;r die minimal verf&uuml;gbare Laufzeit. Die Rate wurde verringert."
         ],
-        'ENG' => [''],
-        'NLD' => [''],
+        //'EN' => [''],
+        //'NL' => ['']
     ];
 }
