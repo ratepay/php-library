@@ -68,13 +68,13 @@
          * @param string|null $value
          * @return string
          */
-        public static function templateReplacer($template, $dataSet = [], $key = null, $value = null)
+        public static function templateReplace($template, $dataSet = [], $key = null, $value = null)
         {
             $tpl = $template;
 
             if (is_null($key)) {
                 foreach ($dataSet as $key => $value) {
-                    $tpl = self::templateReplacer($tpl, $dataSet, $key, $value);
+                    $tpl = self::templateReplace($tpl, $dataSet, $key, $value);
                 }
             } else {
                 $tpl = str_replace("{{ " . $key . " }}", $value, $tpl);
@@ -90,7 +90,7 @@
          * @param $loopDataSet
          * @return string
          */
-        public static function templateLooper($template, $loopDataSet)
+        public static function templateLoop($template, $loopDataSet)
         {
             $tpl = $template;
 
@@ -103,7 +103,7 @@
                 foreach ($loopDataSet as $key => $loopValue) {
                     if (is_array($loopValue)) {
                         foreach ($loopValue as $value) {
-                            $tplLoopedContent .= self::templateReplacer($splitTpl['innerText'], [], $key, $value);
+                            $tplLoopedContent .= self::templateReplace($splitTpl['innerText'], [], $key, $value);
                         }
                     }
                 }

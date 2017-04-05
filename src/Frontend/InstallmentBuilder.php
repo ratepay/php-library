@@ -3,6 +3,7 @@
 namespace RatePAY\Frontend;
 
 use RatePAY\Model\Request\ConfigurationRequest;
+use RatePAY\Model\Request\SubModel\Constants as CONSTANTS;
 use RatePAY\ModelBuilder;
 use RatePAY\RequestBuilder;
 use RatePAY\Service\Util;
@@ -41,6 +42,13 @@ class InstallmentBuilder
     private $lang;
 
     /**
+     * Customers billing country
+     *
+     * @var string
+     */
+    private $billingCountry = "DE";
+
+    /**
      * Connect timeout
      *
      * @var int
@@ -69,7 +77,7 @@ class InstallmentBuilder
     private $retryDelay = 0;
 
 
-    public function __construct($sandbox = false, $profileId = null, $securitycode = null, $language = "DE")
+    public function __construct($sandbox = false, $profileId = null, $securitycode = null, $language = "DE", $country = "DE")
     {
         if ($sandbox) {
             $this->sandbox = true;
@@ -84,6 +92,7 @@ class InstallmentBuilder
         }
 
         $this->lang = new LanguageService($language);
+        $this->billingCountry = $country;
     }
 
     /**
@@ -113,6 +122,16 @@ class InstallmentBuilder
     public function setLanguage($language)
     {
         $this->lang = new LanguageService($language);
+    }
+
+    /**
+     * Sets customer billing country which is necessary to allow classic account number
+     *
+     * @param $country
+     */
+    public function setBillingCountry($country)
+    {
+        $this->billingCountry = $country;
     }
 
     /**
@@ -152,11 +171,12 @@ class InstallmentBuilder
             ['rp_minimumRate' => $configuration->getMinRate()],
             ['rp_maximumRate' => $configuration->getMaxRate($amount)],
             ['rp_amount'      => $amount],
+            $this->getDebitPayType($configuration->getValidPaymentFirstdays()), // Necessary here or just trough if-statementer
             $this->lang->getArray()
         );
 
-        $returnTemplate = Util::templateReplacer($template, $replacements);
-        $returnTemplate = Util::templateLooper($returnTemplate, ['rp_allowedMonths' => $configuration->getAllowedMonths($amount)]);
+        $returnTemplate = Util::templateReplace($template, $replacements);
+        $returnTemplate = Util::templateLoop($returnTemplate, ['rp_allowedMonths' => $configuration->getAllowedMonths($amount)]);
 
         return $returnTemplate;
     }
@@ -174,18 +194,19 @@ class InstallmentBuilder
         return json_encode([
             'rp_minimumRate'   => $configuration->getMinRate(),
             'rp_maximumRate'   => $configuration->getMaxRate($amount),
-            'rp_allowedMonths' => $configuration->getAllowedMonths($amount)
+            'rp_allowedMonths' => $configuration->getAllowedMonths($amount),
+            'rp_debitPayType' => $this->getDebitPayType($configuration->getValidPaymentFirstdays())
         ]);
     }
 
 
     /**
-     * Calls Calculation Request
+     * Calls CalculationRequest
      *
      * @return CalculationRequest
      * @throws RequestException
      */
-    private function getInstallmentCalculation($type, $value, $amount)
+    private function getInstallmentCalculation($type, $value, $amount, $firstday = null)
     {
         if (floatval($value) <= 0) {
             throw new RequestException("Invalid calculation value");
@@ -210,6 +231,10 @@ class InstallmentBuilder
                 break;
             default:
                 throw new RequestException("Invalid calculation type. 'time' or 'rate' expected");
+        }
+
+        if (!is_null($firstday)) {
+            $installmentCalculation['InstallmentCalculation']['PaymentFirstday'] = $firstday;
         }
 
         $mbContent = new ModelBuilder('Content');
@@ -239,9 +264,9 @@ class InstallmentBuilder
      * @param $template
      * @return string
      */
-    public function getInstallmentPlanByTemplate($amount, $type, $value, $template)
+    public function getInstallmentPlanByTemplate($template, $amount, $type, $value, $firstday = null)
     {
-        $calculation = $this->getInstallmentCalculation($type, $value, $amount);
+        $calculation = $this->getInstallmentCalculation($type, $value, $amount, $firstday);
 
         $rpReasonCodeTranslation = 'rp_reason_code_translation_' . $calculation->getReasonCode();
 
@@ -263,7 +288,7 @@ class InstallmentBuilder
             $this->lang->getArray()
         );
 
-        return Util::templateReplacer($template, $replacements);
+        return Util::templateReplace($template, $replacements);
     }
 
     /**
@@ -282,7 +307,7 @@ class InstallmentBuilder
     }
 
     /**
-     * Returns commen head model
+     * Returns common head model
      *
      * @return \RatePAY\ModelBuilder
      */
@@ -298,6 +323,41 @@ class InstallmentBuilder
         ]);
 
         return $mbHead;
+    }
+
+    /**
+     * Maps valid first days to pay types
+     *
+     * @param array|int $validPaymentFirstdays
+     * @return array
+     */
+    private function getDebitPayType($validPaymentFirstdays)
+    {
+        $result = [
+            'rp_paymentType_directDebit' => false,
+            'rp_paymentType_bankTransfer' => false
+        ];
+
+        if (is_array($validPaymentFirstdays)) {
+            foreach ($validPaymentFirstdays as $validPaymentFirstday) {
+                $result = array_merge($result, $this->getDebitPayType($validPaymentFirstday));
+            }
+        } else {
+            if (key_exists($validPaymentFirstdays, CONSTANTS::DEBIT_PAY_TYPES)) {
+                switch (CONSTANTS::DEBIT_PAY_TYPES[$validPaymentFirstdays]) {
+                    case "DIRECT-DEBIT":
+                        $result['rp_paymentType_directDebit'] = true;
+                        $result['rp_paymentType_directDebit_firstday'] = $validPaymentFirstdays;
+                        break;
+                    case "BANK-TRANSFER":
+                        $result['rp_paymentType_bankTransfer'] = true;
+                        $result['rp_paymentType_bankTransfer_firstday'] = $validPaymentFirstdays;
+                        break;
+                }
+            }
+        }
+
+        return $result;
     }
 
     /**
