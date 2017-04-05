@@ -20,7 +20,9 @@
                 $this->setResult(['monthLongrun' => (int) $this->getResponse()->content->{'installment-configuration-result'}->{'month-longrun'}]);
                 $this->setResult(['amountMinLongrun' => (float) $this->getResponse()->content->{'installment-configuration-result'}->{'amount-min-longrun'}]);
                 $this->setResult(['monthAllowed' => array_map('intval', explode(',', (string) $this->getResponse()->content->{'installment-configuration-result'}->{'month-allowed'}))]);
-                $this->setResult(['validPaymentFirstdays' => (int) $this->getResponse()->content->{'installment-configuration-result'}->{'valid-payment-firstdays'}]);
+                $this->setResult(['validPaymentFirstdays' => $this->getResponse()->content->{'installment-configuration-result'}->{'valid-payment-firstdays'}]);
+                $validPaymentFirstdays = (string) $this->getResponse()->content->{'installment-configuration-result'}->{'valid-payment-firstdays'};
+                $this->setResult(['validPaymentFirstdays' => (!strstr($validPaymentFirstdays, ',')) ? (int) $validPaymentFirstdays : array_map('intval', explode(',', $validPaymentFirstdays))]);
                 $this->setResult(['paymentFirstday' => (int) $this->getResponse()->content->{'installment-configuration-result'}->{'payment-firstday'}]);
                 $this->setResult(['paymentAmount' => (float) $this->getResponse()->content->{'installment-configuration-result'}->{'payment-amount'}]);
                 $this->setResult(['paymentLastrate' => (float) $this->getResponse()->content->{'installment-configuration-result'}->{'payment-lastrate'}]);
@@ -85,6 +87,16 @@
             $maxRate = $orderAmount / min($this->result['monthAllowed']);
 
             return ceil($maxRate);
+        }
+
+        /**
+         * Returns valid payment firstdays
+         *
+         * @return int|array
+         */
+        public function getValidPaymentFirstdays()
+        {
+            return $this->result['validPaymentFirstdays'];
         }
 
 
