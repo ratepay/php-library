@@ -1,9 +1,0 @@
-.DS_Store
-composer.lock
-/vendor/
-/.idea/
-
-#ignore SDK files
-example*
-helper*
-ratepay_credentials.php
