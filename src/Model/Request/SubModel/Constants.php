@@ -22,7 +22,7 @@ class Constants {
     /**
      * API SDK version
      */
-    const API_SDK_VERSION = "0.9.2";
+    const API_SDK_VERSION = "0.9.2.1";
 
     /**
      * Supported RatePAY API version
