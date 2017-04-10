@@ -171,7 +171,7 @@ class InstallmentBuilder
             ['rp_minimumRate' => $configuration->getMinRate()],
             ['rp_maximumRate' => $configuration->getMaxRate($amount)],
             ['rp_amount'      => $amount],
-            $this->getDebitPayType($configuration->getValidPaymentFirstdays()), // Necessary here or just trough if-statementer
+            $this->getDebitPayType($configuration->getValidPaymentFirstdays()),
             $this->lang->getArray()
         );
 
@@ -340,7 +340,7 @@ class InstallmentBuilder
 
         if (is_array($validPaymentFirstdays)) {
             foreach ($validPaymentFirstdays as $validPaymentFirstday) {
-                $result = array_merge($result, $this->getDebitPayType($validPaymentFirstday));
+                $result = Util::merge_array_replace($result, $this->getDebitPayType($validPaymentFirstday));
             }
         } else {
             if (key_exists($validPaymentFirstdays, CONSTANTS::DEBIT_PAY_TYPES)) {

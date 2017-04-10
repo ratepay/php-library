@@ -47,7 +47,8 @@
          * @param string $case
          * @return string
          */
-        private static function changeCase($string, $delimiter, $case = '') {
+        private static function changeCase($string, $delimiter, $case = '')
+        {
             $stringFormatted = preg_split('/(?=[A-Z])/', $string, -1, PREG_SPLIT_NO_EMPTY);
             $stringFormatted = implode($delimiter, $stringFormatted);
             if ($case == 'upper') {
@@ -115,6 +116,30 @@
         }
 
         /**
+         * Merges all entered array and replaces multiple keys by highest value
+         *
+         * @param array
+         * @return array
+         */
+        public static function merge_array_replace()
+        {
+            $inputArrays = func_get_args();
+            $outputArray = [];
+
+            foreach ($inputArrays as $array) {
+                foreach ($array as $key => $value) {
+                    if (!key_exists($key, $outputArray)) {
+                        $outputArray[$key] = $value;
+                    } elseif ((int) $value > (int) $outputArray[$key]) {
+                        $outputArray[$key] = $value;
+                    }
+                }
+            }
+
+            return $outputArray;
+        }
+
+        /**
          * Splits entered string by delimiter commands
          *
          * @param string $template
@@ -122,7 +147,8 @@
          * @param string $cmdEnd
          * @return array
          */
-        private static function splitStringByCommand($template, $cmdBegin, $cmdEnd) {
+        private static function splitStringByCommand($template, $cmdBegin, $cmdEnd)
+        {
             $tplPreText = strstr($template, $cmdBegin, true); // Get part before cmdBegin
             $tplPosTextBegin = strpos($template, $cmdBegin) + strlen($cmdBegin); // Get innerText starting position
             $tplTextContent = strstr(substr($template, $tplPosTextBegin), $cmdEnd, true); // Get innerText
@@ -135,5 +161,4 @@
                 'postText' => $tplPostText
             ];
         }
-
     }
