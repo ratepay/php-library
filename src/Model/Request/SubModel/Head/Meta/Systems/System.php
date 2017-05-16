@@ -30,12 +30,12 @@
             'Name' => [
                 'mandatory' => true,
                 'isAttribute' => true,
-                'default' => CONSTANTS::API_SDK_SYSTEM_NAME,
+                'default' => CONSTANTS::LIBRARY_SYSTEM_NAME,
             ],
             'Version' => [
                 'mandatory' => true,
                 'isAttribute' => true,
-                'default' => CONSTANTS::API_SDK_VERSION
+                'default' => CONSTANTS::LIBRARY_VERSION
             ],
         ];
 
@@ -47,7 +47,7 @@
         public function toArray()
         {
             if (key_exists('value', $this->admittedFields['Name'])) {
-                $this->admittedFields['Name']['value'] .= " via " . $this->admittedFields['Name']['default'];
+                $this->admittedFields['Name']['value'] .= "/" . $this->admittedFields['Name']['default'];
             }
 
             if (key_exists('value', $this->admittedFields['Version'])) {

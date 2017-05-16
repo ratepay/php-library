@@ -15,14 +15,14 @@ class Constants {
     ];
 
     /**
-     * API SDK version
+     * Library system name default
      */
-    const API_SDK_SYSTEM_NAME = "RatePAY API PHP SDK";
+    const LIBRARY_SYSTEM_NAME = "RP PHP Lib";
 
     /**
-     * API SDK version
+     * Library version
      */
-    const API_SDK_VERSION = "0.9.2";
+    const LIBRARY_VERSION = "0.9.2";
 
     /**
      * Supported RatePAY API version
