@@ -272,18 +272,19 @@ class InstallmentBuilder
 
         $replacements = array_merge(
             [
-                'rp_amount'               => number_format($amount, 2, ",", "."),
-                'rp_serviceCharge'        => $calculation->getServiceCharge(),
-                'rp_annualPercentageRate' => $calculation->getAnnualPercentageRate(),
-                'rp_monthlyDebitInterest' => $calculation->getMonthlyDebitInterest(),
-                'rp_interestRate'         => $calculation->getInterestRate(),
-                'rp_interestAmount'       => $calculation->getInterestAmount(),
-                'rp_totalAmount'          => $calculation->getTotalAmount(),
-                'rp_numberOfRatesFull'    => $calculation->getNumberOfRatesFull(),
-                'rp_numberOfRates'        => $calculation->getNumberOfRates(),
-                'rp_rate'                 => $calculation->getRate(),
-                'rp_lastRate'             => $calculation->getLastRate(),
-                'rp_responseText'         => $this->lang->$rpReasonCodeTranslation()
+                'rp_amount'                      => number_format($amount, 2, ",", "."),
+                'rp_serviceCharge'               => $calculation->getServiceCharge(),
+                'rp_annualPercentageRate'        => $calculation->getAnnualPercentageRate(),
+                'rp_monthlyDebitInterest'        => $calculation->getMonthlyDebitInterest(),
+                'rp_interestRate'                => $calculation->getInterestRate(),
+                'rp_interestAmount'              => $calculation->getInterestAmount(),
+                'rp_totalAmount'                 => $calculation->getTotalAmount(),
+                'rp_numberOfRatesFull'           => $calculation->getNumberOfRatesFull(),
+                'rp_numberOfRatesDecreasedByOne' => $calculation->getNumberOfRatesFull() - 1,
+                'rp_numberOfRates'               => $calculation->getNumberOfRates(),
+                'rp_rate'                        => $calculation->getRate(),
+                'rp_lastRate'                    => $calculation->getLastRate(),
+                'rp_responseText'                => $this->lang->$rpReasonCodeTranslation()
             ],
             $this->lang->getArray()
         );
