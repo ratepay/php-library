@@ -17,12 +17,12 @@ class Constants {
     /**
      * Library system name default
      */
-    const LIBRARY_SYSTEM_NAME = "RP PHP Lib";
+    const LIBRARY_SYSTEM_NAME = "RP PHP LIB";
 
     /**
      * Library version
      */
-    const LIBRARY_VERSION = "0.9.3";
+    const LIBRARY_VERSION = "0.9.3.1";
 
     /**
      * Supported RatePAY API version
