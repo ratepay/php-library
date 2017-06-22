@@ -27,7 +27,7 @@
          */
         public $admittedFields = [
             'DeviceToken' => [
-                'mandatory' => true,
+                'mandatory' => false,
             ],
         ];
 
