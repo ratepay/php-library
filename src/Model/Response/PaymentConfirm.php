@@ -13,9 +13,10 @@
         public function validateResponse()
         {
             if ($this->getStatusCode() == "OK" && $this->getResultCode() == 400) {
-                $this->setTransactionId((string) $this->getResponse()->head->{'transaction-id'});
                 $this->setSuccessful();
             }
+
+            $this->setTransactionId((string) $this->getResponse()->head->{'transaction-id'});
         }
 
     }

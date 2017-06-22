@@ -20,7 +20,6 @@
         public function validateResponse()
         {
             if ($this->getStatusCode() == "OK" && $this->getResultCode() == 402) {
-                $this->setTransactionId((string) $this->getResponse()->head->{'transaction-id'});
                 $this->setResult(['descriptor' => (string) $this->getResponse()->content->payment->descriptor]);
                 $this->setResult(['address' => (array) $this->getResponse()->content->customer->addresses->address]);
                 $this->setSuccessful();
@@ -30,6 +29,8 @@
                 }
                 $this->setResult(['customerMessage' => (string) $this->getResponse()->head->processing->{'customer-message'}]);
             }
+
+            $this->setTransactionId((string) $this->getResponse()->head->{'transaction-id'});
         }
 
         /**

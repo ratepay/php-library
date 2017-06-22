@@ -13,12 +13,13 @@
         public function validateResponse()
         {
             if ($this->getStatusCode() == "OK" && $this->getResultCode() == 402) {
-                $this->setTransactionId((string) $this->getResponse()->head->{'transaction-id'});
                 foreach ($this->getResponse()->content->products->product as $product) {
                     $this->setResult([(string) $product->attributes()->method]);
                 }
                 $this->setSuccessful();
             }
+
+            $this->setTransactionId((string) $this->getResponse()->head->{'transaction-id'});
         }
 
         /**
