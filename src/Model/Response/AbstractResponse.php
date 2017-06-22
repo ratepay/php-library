@@ -85,8 +85,6 @@ abstract class AbstractResponse
             $this->setReasonCode((int) $this->getResponse()->head->processing->reason->attributes()->code);
             $this->setReasonMessage((string) $this->getResponse()->head->processing->reason);
         }
-
-        //$this->result = new ResultModel;
     }
 
     /**
