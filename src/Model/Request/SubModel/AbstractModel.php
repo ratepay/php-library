@@ -94,26 +94,26 @@ abstract class AbstractModel
                 $fieldSettings['value'] = strtoupper($fieldSettings['value']);
             }
 
-            if (key_exists('mandatory', $fieldSettings) && $fieldSettings['mandatory'] === true) {    // If field is mandatory
-                if (key_exists('value', $fieldSettings)) {                                            // If value is not empty
+            if (key_exists('mandatory', $fieldSettings) && $fieldSettings['mandatory'] === true) { // If field is mandatory
+                if (key_exists('value', $fieldSettings)) {                                         // If value is not empty
                     $returnPush = true;
-                } elseif (key_exists('default', $fieldSettings)) {                                    // If value is empty but default is defined
+                } elseif (key_exists('default', $fieldSettings)) {                                 // If value is empty but default is defined
                     $fieldSettings['value'] = $fieldSettings['default'];
                     $returnPush = true;
                 } else {
                     throw new ModelException("Field '" . $fieldName . "' is required");
                 }
-            } elseif(key_exists('mandatoryByRule', $fieldSettings)) {                                 // If field is mandatory by rule
-                if ($this->rule() === true) {                                                               // If rule is passed
-                    if (key_exists('value', $fieldSettings)) {                                        // If value is not empty
+            } elseif(key_exists('mandatoryByRule', $fieldSettings)) {                              // If field is mandatory by rule
+                if ($this->rule() === true) {                                                      // If rule is passed
+                    if (key_exists('value', $fieldSettings)) {                                     // If value is not empty
                         $returnPush = true;
                     }
                 } else {
                     throw new RuleSetException($this->getErrorMsg());
                 }
-            } else {                                                                                        // If field is optional
-                if (key_exists('value', $fieldSettings)) {                                            // If value is not empty
-                    if (key_exists('optionalByRule', $fieldSettings) && $this->rule() !== true) {     // If field is optional by rule but rule isn't passed
+            } else {                                                                               // If field is optional
+                if (key_exists('value', $fieldSettings)) {                                         // If value is not empty
+                    if (key_exists('optionalByRule', $fieldSettings) && $this->rule() !== true) {  // If field is optional by rule but rule isn't passed
                         continue;
                     }
                     $returnPush = true;
@@ -121,7 +121,7 @@ abstract class AbstractModel
             }
 
             if ($returnPush) {
-                if (key_exists('instanceOf', $fieldSettings)) {                                       // If value is a submodel object call toArray function
+                if (key_exists('instanceOf', $fieldSettings)) {                                    // If value is a submodel object call toArray function
                     if (!key_exists('instanceAsAttributes', $fieldSettings)) {
                         if (key_exists('multiple', $fieldSettings)) {
                             foreach ($fieldSettings['value'] as $fieldSettingSingle) {
@@ -130,11 +130,11 @@ abstract class AbstractModel
                         } else {
                             $return[$xmlField] = $this->changeDescriptionToValue($fieldSettings['value']);
                         }
-                    } else {                                                                                // If instanced submodel should be an attribute to current field
+                    } else {                                                                       // If instanced submodel should be an attribute to current field
                         $return[$xmlField]['attributes'] = $fieldSettings['value']->toArray();
                     }
                 } else {
-                    if (key_exists('cdata', $fieldSettings)) {                                        // If value should be encapsulated inside CDATA tag
+                    if (key_exists('cdata', $fieldSettings)) {                                     // If value should be encapsulated inside CDATA tag
                         if (!mb_detect_encoding($fieldSettings['value'], 'UTF-8', true)) {
                             throw new ModelException("Value of '" . $fieldName . "' has to be encoded in UTF-8");
                         }
@@ -142,7 +142,7 @@ abstract class AbstractModel
 
                     if (key_exists('isAttribute', $fieldSettings)) {
                         $return['attributes'][$xmlField]['value'] = $fieldSettings['value'];
-                    } elseif (key_exists('isAttributeTo', $fieldSettings)) {                                                                                // If current field should be an attribute to another field
+                    } elseif (key_exists('isAttributeTo', $fieldSettings)) {                          // If current field should be an attribute to another field
                         $return[Util::changeCamelCaseToDash($fieldSettings['isAttributeTo'])]['attributes'][$xmlField]['value'] = $fieldSettings['value'];
                     } else {
                         if (key_exists('cdata', $fieldSettings)) {
