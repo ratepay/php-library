@@ -40,7 +40,7 @@ class Item extends AbstractModel
             'isAttribute' => true
         ],
         'Quantity' => [
-            'mandatory' => true,
+            'mandatoryByRule' => true,
             'isAttribute' => true
         ],
         'UnitPriceGross' => [
@@ -64,6 +64,21 @@ class Item extends AbstractModel
             'isAttribute' => true
         ]
     ];
+
+    /**
+     * Quantity rule : reject basket if quantity is <= 0
+     *
+     * @return bool
+     */
+    protected function rule()
+    {
+        if (!key_exists('value', $this->admittedFields['Quantity']) || (int) $this->admittedFields['Quantity']['value'] <= 0) {
+            $this->setErrorMsg("Quantity must be at least 1");
+            return false;
+        }
+
+        return true;
+    }
 
     /**
      * Changes discount to negative value (if necessary)
