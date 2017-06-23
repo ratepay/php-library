@@ -88,7 +88,7 @@ class Customer extends AbstractModel
         ],
         'CompanyType' => [
             'optionalByRule' => true,
-            'instanceOf' => "CompanyType"
+            'cdata' => true
         ],
         'VatId' => [
             'optionalByRule' => true,
@@ -115,11 +115,20 @@ class Customer extends AbstractModel
      */
     protected function rule()
     {
-        if (key_exists('value', $this->admittedFields['CompanyName'])) {
-            return true;
-        } else {
-            return false;
+        foreach ($this->admittedFields as $fieldName => $value) {
+            switch ($fieldName) {
+                case "CompanyType":
+                case "VatId":
+                case "CompanyId":
+                case "RegistryLocation":
+                case "Homepage":
+                    if (!key_exists('value', $this->admittedFields['CompanyName'])) {
+                        return false;
+                    }
+            }
         }
+
+        return true;
     }
 
 }
