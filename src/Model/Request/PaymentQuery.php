@@ -32,11 +32,6 @@ class PaymentQuery extends AbstractRequest
             return false;
         }
 
-        if (!key_exists('value', $this->getHead()->admittedFields['CustomerDevice'])) {
-            $this->setErrorMsg("Payment Query expects customer device / device token");
-            return false;
-        }
-
         return true;
     }
 
