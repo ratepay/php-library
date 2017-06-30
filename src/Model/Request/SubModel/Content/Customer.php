@@ -62,6 +62,10 @@ class Customer extends AbstractModel
             'mandatory' => false,
             'uppercase' => true
         ],
+        'Language' => [
+            'mandatory' => false,
+            'uppercase' => true
+        ],
         'IpAddress' => [
             'mandatory' => true
         ],
