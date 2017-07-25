@@ -28,7 +28,7 @@ class Items extends AbstractModel
     public $admittedFields = [
         'Item' => [
             'mandatoryByRule' => true,
-            'instanceOf' => __NAMESPACE__ . "\\Items\\Item",
+            'instanceOf' => "Content\\ShoppingBasket\\Items\\Item",
             'multiple' => true
         ]
     ];

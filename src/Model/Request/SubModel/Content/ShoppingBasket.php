@@ -38,15 +38,15 @@ class ShoppingBasket extends AbstractModel
         ],
         'Items' => [
             'mandatory' => false,
-            'instanceOf' => __NAMESPACE__ . "\\ShoppingBasket\\Items"
+            'instanceOf' => "Content\\ShoppingBasket\\Items"
         ],
         'Shipping' => [
             'mandatory' => false,
-            'instanceOf' => __NAMESPACE__ . "\\ShoppingBasket\\Shipping"
+            'instanceOf' => "Content\\ShoppingBasket\\Shipping"
         ],
         'Discount' => [
             'mandatory' => false,
-            'instanceOf' => __NAMESPACE__ . "\\ShoppingBasket\\Discount"
+            'instanceOf' => "Content\\ShoppingBasket\\Discount"
         ],
     ];
 

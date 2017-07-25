@@ -23,6 +23,16 @@ abstract class AbstractModel
      */
     private $errorMsg = "";
 
+    public function __construct()
+    {
+        array_walk($this->admittedFields, function (&$value) {
+            if (key_exists('instanceOf', $value)) {
+                $namespace = __NAMESPACE__;
+                $value['instanceOf'] = __NAMESPACE__ . "\\" . $value['instanceOf'];
+            }
+        });
+    }
+
     /**
      * Collecting call function to validate action+field and split in getter and setter
      *
@@ -135,7 +145,7 @@ abstract class AbstractModel
                     }
                 } else {
                     if (key_exists('cdata', $fieldSettings)) {                                     // If value should be encapsulated inside CDATA tag
-                        if (!mb_detect_encoding($fieldSettings['value'], 'UTF-8', true)) {
+                        if (function_exists("mb_detect_encoding") && !mb_detect_encoding($fieldSettings['value'], 'UTF-8', true)) { // Check only if php mdstring extension is loaded
                             throw new ModelException("Value of '" . $fieldName . "' has to be encoded in UTF-8");
                         }
                     }

@@ -28,7 +28,7 @@
         public $admittedFields = [
             'Systems' => [
                 'mandatory' => true,
-                'instanceOf' => __NAMESPACE__ . "\\Meta\\Systems"
+                'instanceOf' => "Head\\Meta\\Systems"
             ],
         ];
 

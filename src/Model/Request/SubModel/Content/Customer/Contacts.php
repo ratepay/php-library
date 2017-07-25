@@ -34,17 +34,17 @@ class Contacts extends AbstractModel
         'Mobile' => [
             'mandatoryByRule' => true,
             'cdata' => true,
-            'instanceOf' => __NAMESPACE__ . "\\Contacts\\Phone"
+            'instanceOf' => "Content\\Customer\\Contacts\\Phone"
         ],
         'Phone' => [
             'mandatoryByRule' => true,
             'cdata' => true,
-            'instanceOf' => __NAMESPACE__ . "\\Contacts\\Phone"
+            'instanceOf' => "Content\\Customer\\Contacts\\Phone"
         ],
         'Fax' => [
             'mandatory' => false,
             'cdata' => true,
-            'instanceOf' => __NAMESPACE__ . "\\Contacts\\Phone"
+            'instanceOf' => "Content\\Customer\\Contacts\\Phone"
         ]
     ];
 

@@ -39,7 +39,7 @@
             ],
             'Tracking' => [
                 'mandatory' => false,
-                'instanceOf' => __NAMESPACE__ . "\\External\\Tracking"
+                'instanceOf' => "Head\\External\\Tracking"
             ],
             'ShopLanguage' => [
                 'mandatory' => false,

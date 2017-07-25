@@ -75,16 +75,16 @@ class Customer extends AbstractModel
         ],
         'Addresses' => [
             'mandatory' => true,
-            'instanceOf' => __NAMESPACE__ . "\\Customer\\Addresses"
+            'instanceOf' => "Content\\Customer\\Addresses"
         ],
         'Contacts' => [
             'mandatory' => true,
-            'instanceOf' => __NAMESPACE__ . "\\Customer\\Contacts"
+            'instanceOf' => "Content\\Customer\\Contacts"
         ],
         'BankAccount' => [
             'mandatory' => false,
             'cdata' => true,
-            'instanceOf' => __NAMESPACE__ . "\\Customer\\BankAccount"
+            'instanceOf' => "Content\\Customer\\BankAccount"
         ],
         'CompanyName' => [
             'mandatory' => false,

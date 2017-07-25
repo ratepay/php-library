@@ -28,7 +28,7 @@ class Addresses extends AbstractModel
     public $admittedFields = [
         'Address' => [
             'mandatory' => true,
-            'instanceOf' => __NAMESPACE__ . "\\Addresses\\Address",
+            'instanceOf' => "Content\\Customer\\Addresses\\Address",
             'multiple' => true
         ]
     ];

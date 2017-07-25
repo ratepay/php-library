@@ -40,19 +40,19 @@
                 ],
             'Credential' => [
                 'mandatory' => true,
-                'instanceOf' => __NAMESPACE__ . "\\Head\\Credential"
+                'instanceOf' => "Head\\Credential"
             ],
             'External' => [
                 'mandatory' => false,
-                'instanceOf' => __NAMESPACE__ . "\\Head\\External"
+                'instanceOf' => "Head\\External"
             ],
             'CustomerDevice' => [
                 'mandatory' => false,
-                'instanceOf' => __NAMESPACE__ . "\\Head\\CustomerDevice"
+                'instanceOf' => "Head\\CustomerDevice"
             ],
             'Meta' => [
                 'mandatory' => true,
-                'instanceOf' => __NAMESPACE__ . "\\Head\\Meta"
+                'instanceOf' => "Head\\Meta"
             ],
         ];
 

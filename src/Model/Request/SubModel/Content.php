@@ -26,27 +26,27 @@
         public $admittedFields = [
             'Customer' => [
                 'mandatory' => false,
-                'instanceOf' => __NAMESPACE__ . "\\Content\\Customer"
+                'instanceOf' => "Content\\Customer"
             ],
             'ShoppingBasket' => [
                 'mandatory' => false,
-                'instanceOf' => __NAMESPACE__ . "\\Content\\ShoppingBasket"
+                'instanceOf' => "Content\\ShoppingBasket"
             ],
             'Payment' => [
                 'mandatory' => false,
-                'instanceOf' => __NAMESPACE__ . "\\Content\\Payment"
+                'instanceOf' => "Content\\Payment"
             ],
             'Invoicing' => [
                 'mandatory' => false,
-                'instanceOf' => __NAMESPACE__ . "\\Content\\Invoicing"
+                'instanceOf' => "Content\\Invoicing"
             ],
             'InstallmentCalculation' => [
                 'mandatory' => false,
-                'instanceOf' => __NAMESPACE__ . "\\Content\\InstallmentCalculation"
+                'instanceOf' => "Content\\InstallmentCalculation"
             ],
             'Additional' => [
                 'mandatory' => false,
-                'instanceOf' => __NAMESPACE__ . "\\Content\\Additional"
+                'instanceOf' => "Content\\Additional"
             ]
         ];
 

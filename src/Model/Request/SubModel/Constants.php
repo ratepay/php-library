@@ -4,16 +4,6 @@ namespace RatePAY\Model\Request\SubModel;
 
 class Constants {
 
-    /*
-     *  All available RatePAY payment methods
-     */
-    const RATEPAY_PAYMENT_METHODS = [
-        "INVOICE",
-        "INSTALLMENT",
-        "ELV",
-        "PREPAYMENT"
-    ];
-
     /**
      * Library system name default
      */
@@ -33,12 +23,4 @@ class Constants {
      * CustomerAllowCreditInquiry
      */
     const CUSTOMER_ALLOW_CREDIT_INQUIRY = "yes";
-
-    /**
-     * DebitPayTypes
-     */
-    const DEBIT_PAY_TYPES = [
-        2 => "DIRECT-DEBIT",
-        28 => "BANK-TRANSFER"
-    ];
 }

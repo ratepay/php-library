@@ -29,7 +29,7 @@
         public $admittedFields = [
             'System' => [
                 'mandatory' => true,
-                'instanceOf' => __NAMESPACE__ . "\\Systems\\System",
+                'instanceOf' => "Head\\Meta\\Systems\\System",
                 'default' => ""
             ],
             'ApiVersion' => [
