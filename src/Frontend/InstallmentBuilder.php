@@ -3,7 +3,6 @@
 namespace RatePAY\Frontend;
 
 use RatePAY\Model\Request\ConfigurationRequest;
-use RatePAY\Model\Request\SubModel\Constants as CONSTANTS;
 use RatePAY\ModelBuilder;
 use RatePAY\RequestBuilder;
 use RatePAY\Service\Util;

@@ -50,6 +50,14 @@ class ShoppingBasket extends AbstractModel
         ],
     ];
 
+    /*
+     * List of settings.
+     * In addition to API fields there are settings possible to control library behavior.
+     */
+    public $settings = [
+        'AutoDelivery' => false
+    ];
+
     /**
      * Totalizes item amounts and sets shopping basket amount.
      *

@@ -45,6 +45,14 @@ class Discount extends AbstractModel
         ]
     ];
 
+    /*
+     * List of settings.
+     * In addition to API fields there are settings possible to control library behavior.
+     */
+    public $settings = [
+        'AutoDelivery' => false
+    ];
+
     /**
      * Changes discount to negative value (if necessary)
      *

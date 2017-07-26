@@ -65,6 +65,14 @@ class Item extends AbstractModel
         ]
     ];
 
+    /*
+     * List of settings.
+     * In addition to API fields there are settings possible to control library behavior.
+     */
+    public $settings = [
+        'AutoDelivery' => false
+    ];
+
     /**
      * Quantity rule : reject basket if quantity is <= 0
      *

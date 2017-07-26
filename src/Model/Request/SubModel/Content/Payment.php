@@ -3,7 +3,6 @@
 namespace RatePAY\Model\Request\SubModel\Content;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
-use RatePAY\Model\Request\SubModel\Constants as CONSTANTS;
 
 class Payment extends AbstractModel
 {

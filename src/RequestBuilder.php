@@ -253,8 +253,6 @@ class RequestBuilder
         // Get request model as XML object (type of SimpleXmlElement)
         $this->requestXmlElement = XmlBuilder::getXmlElement($this->requestModel->toArray());
 
-        //if ($requestModelName == "PaymentRequest") die(var_dump($this->requestModel->toArray(), $this->requestXmlElement, $this->requestXmlElement->asXML()));
-
         // Get raw XML string
         $this->requestRaw = $this->requestXmlElement->asXML();
         // Initialize communication service and select sandbox mode

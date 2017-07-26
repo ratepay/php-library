@@ -45,8 +45,8 @@ abstract class AbstractModel
         $action = substr($name, 0, 3);
         $field = substr($name, 3);
 
-        if ($action != 'set') {
-            throw new RequestException("Action invalid");
+        if (!key_exists($field, $this->admittedFields) && (property_exists($this, "settings") && !key_exists($field, $this->settings))) {
+            throw new RequestException("Field '" . $field . "' invalid");
         }
 
         if (!key_exists($field, $this->admittedFields)) {
@@ -65,7 +65,11 @@ abstract class AbstractModel
      */
     public function commonSetter($field, $arguments) {
         if (is_array($arguments) && $arguments[0] !== "") {
-            if (!key_exists($field, $this->admittedFields)) {
+            if (property_exists($this, 'settings') && key_exists($field, $this->settings)) { // If it's a setting, save argument into settings
+                // @ToDo: find a better structure
+                $this->settings[$field] = $arguments[0];
+                return $this;
+            } elseif (!key_exists($field, $this->admittedFields)) {
                 throw new ModelException("Invalid field '" . $field . "'");
             }
 
