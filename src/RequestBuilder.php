@@ -160,7 +160,17 @@ class RequestBuilder
     public function __call($name, $arguments)
     {
         if (substr($name, 0, 4) == "call") {
-            $this->clearAttributes(); // Clearing all former attributes in case of reuse of current instance of RequestBuilder
+            return $this->callMethod($name, $arguments);
+        } elseif (substr($name, 0, 3) == "get" || substr($name, 0, 2) == "is") {
+            return $this->getMethod($name, $arguments);
+        } else {
+            throw new RequestException("Action '" . $name . "' not valid");
+        }
+    }
+
+    private function callMethod($name, $arguments)
+    {
+        $this->clearAttributes(); // Clearing all former attributes in case of reuse of current instance of RequestBuilder
 
             $requestModelName = substr($name, 4);
             $requestModelWithPath = ModelMapper::getFullPathRequestModel($requestModelName);

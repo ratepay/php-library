@@ -49,11 +49,15 @@ abstract class AbstractModel
             throw new RequestException("Field '" . $field . "' invalid");
         }
 
-        if (!key_exists($field, $this->admittedFields)) {
-            throw new RequestException("Field invalid");
+        if ($action == "set") {
+            return $this->commonSetter($field, $arguments);
+        } elseif ($action == "get") {
+            return $this->commonGetter($field);
+        } else {
+            throw new RequestException("Action invalid");
         }
 
-        return $this->commonSetter($field, $arguments);
+
     }
 
     /**
@@ -85,6 +89,22 @@ abstract class AbstractModel
 
         }
         return $this;
+    }
+
+    /**
+     * Common getter
+     *
+     * @param $field
+     * @return mixed
+     */
+    public function commonGetter($field) {
+        if (property_exists($this, "settings") && key_exists($field, $this->settings)) {
+            return $this->settings[$field];
+        } elseif (key_exists("value", $this->admittedFields[$field])) {
+            return $this->admittedFields[$field]['value'];
+        }
+
+        return null;
     }
 
     /**
