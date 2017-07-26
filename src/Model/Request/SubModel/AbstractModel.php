@@ -40,7 +40,6 @@ abstract class AbstractModel
      * @param $arguments
      * @return bool|null
      */
-
     public function __call($name, $arguments) {
         $action = substr($name, 0, 3);
         $field = substr($name, 3);
