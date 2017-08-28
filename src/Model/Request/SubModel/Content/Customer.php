@@ -23,6 +23,8 @@ class Customer extends AbstractModel
      * isAttributeTo        = field is xml attribute to field (in value)
      * instanceOf           = value has to be an instance of class (in value)
      * cdata                = value will be wrapped in CDATA tag
+     * uppercase            = value will be changed to upper case
+     * lowercase            = value will be changed to lower case
      *
      * @var array
      */
@@ -64,7 +66,7 @@ class Customer extends AbstractModel
         ],
         'Language' => [
             'mandatory' => false,
-            'uppercase' => true
+            'lowercase' => true
         ],
         'IpAddress' => [
             'mandatory' => true

@@ -93,17 +93,4 @@ class Address extends AbstractModel
         }
         return true;
     }
-
-    /**
-     * Manipulates the parent method to change address type and country code to upper case
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-        $this->admittedFields['Type']['value'] = strtoupper($this->admittedFields['Type']['value']);
-        $this->admittedFields['CountryCode']['value'] = strtoupper($this->admittedFields['CountryCode']['value']);
-
-        return parent::toArray();
-    }
 }

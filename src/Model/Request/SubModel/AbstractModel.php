@@ -122,9 +122,12 @@ abstract class AbstractModel
             $returnPush = false;
 
             if (key_exists('value', $fieldSettings) &&
-                is_string($fieldSettings['value']) &&
-                key_exists('uppercase', $fieldSettings)) {
-                $fieldSettings['value'] = strtoupper($fieldSettings['value']);
+                is_string($fieldSettings['value'])) {
+                if (key_exists('uppercase', $fieldSettings) && $fieldSettings['uppercase'] === true) {
+                    $fieldSettings['value'] = strtoupper($fieldSettings['value']);
+                } elseif (key_exists('lowercase', $fieldSettings) && $fieldSettings['lowercase'] === true) {
+                    $fieldSettings['value'] = strtolower($fieldSettings['value']);
+                }
             }
 
             if (key_exists('mandatory', $fieldSettings) && $fieldSettings['mandatory'] === true) { // If field is mandatory
