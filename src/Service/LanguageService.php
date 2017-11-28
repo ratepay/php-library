@@ -121,7 +121,7 @@ class LanguageService
             ### SEPA part
             'rp_switch_payment_type_bank_transfer' => "Ich m&ouml;chte die Ratenzahlungen selbst vornehmen und nicht per Lastschrift begleichen",
             'rp_switch_payment_type_direct_debit' => "Ich m&ouml;chte die Ratenzahlungen bequem per Lastschrift begleichen",
-            'rp_address' => "RatePAY GmbH, Franklinstraße 28-29, 10587 Berlin",
+            'rp_address' => "RatePAY GmbH, Franklinstra&szlig;e 28-29, 10587 Berlin",
             'wcd_address' => "Wirecard Bank AG, Einsteinring 35, 85609 Aschheim",
             'rp_creditor' => "Gl&auml;ubiger-ID",
             'rp_creditor_id' => "DE39RPY00000568463",
