@@ -1,7 +1,7 @@
 {
   "name": "ratepay/php-library",
   "description": "RatePAY API PHP Library",
-  "version": "0.9.4.1",
+  "version": "0.9.4.2",
   "license": "MIT",
   "type": "library",
   "homepage": "https://dev.ratepay.com",

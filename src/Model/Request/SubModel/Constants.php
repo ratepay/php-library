@@ -12,7 +12,7 @@ class Constants {
     /**
      * Library version
      */
-    const LIBRARY_VERSION = "0.9.4.1";
+    const LIBRARY_VERSION = "0.9.4.2";
 
     /**
      * Supported RatePAY API version
