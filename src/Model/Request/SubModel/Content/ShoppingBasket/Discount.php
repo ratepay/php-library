@@ -60,7 +60,8 @@ class Discount extends AbstractModel
      */
     public function toArray()
     {
-        $this->admittedFields['UnitPriceGross']['value'] = Util::changeValueToNegative($this->admittedFields['UnitPriceGross']['value']);
+        $unitPrice = Util::changeAmountToFloat($this->admittedFields['UnitPriceGross']['value']);
+        $this->admittedFields['UnitPriceGross']['value'] = Util::changeValueToNegative($unitPrice);
 
         return parent::toArray();
     }

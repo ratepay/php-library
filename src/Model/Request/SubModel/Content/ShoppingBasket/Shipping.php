@@ -3,6 +3,7 @@
 namespace RatePAY\Model\Request\SubModel\Content\ShoppingBasket;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
+use RatePAY\Service\Util;
 
 class Shipping extends AbstractModel
 {
@@ -51,5 +52,12 @@ class Shipping extends AbstractModel
     public $settings = [
         'AutoDelivery' => false
     ];
+
+    public function toArray()
+    {
+        $this->admittedFields['UnitPriceGross']['value'] = Util::changeAmountToFloat($this->admittedFields['UnitPriceGross']['value']);
+
+        return parent::toArray();
+    }
 
 }

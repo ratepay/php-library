@@ -23,4 +23,9 @@ class Constants {
      * CustomerAllowCreditInquiry
      */
     const CUSTOMER_ALLOW_CREDIT_INQUIRY = "yes";
+
+    /**
+     * NumberFormat
+     */
+    const NUMBER_FORMAT = "EN";
 }

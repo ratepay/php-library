@@ -2,6 +2,8 @@
 
     namespace RatePAY\Service;
 
+    use RatePAY\Model\Request\SubModel\Constants;
+
     class Util
     {
 
@@ -160,5 +162,29 @@
                 'innerText' => $tplTextContent,
                 'postText' => $tplPostText
             ];
+        }
+
+        /**
+         * Changes amount with comma separated thousands sep to float
+         *
+         * @param $amount
+         * @return float
+         */
+        public static function changeAmountToFloat($amount) {
+            if (is_string($amount)) {
+                if (Constants::NUMBER_FORMAT == 'EN') {
+                    if (strstr($amount, ',')) {
+                        $amount = str_replace(',', '', $amount);
+                        $amount = number_format($amount, 2, '.', '');
+                    }
+                } elseif (Constants::NUMBER_FORMAT == 'DE') {
+                    if (strstr($amount, ',')) {
+                        $amount = str_replace('.', '', $amount);
+                        $amount = str_replace(',', '.', $amount);
+                        $amount = number_format($amount, 2, '.', '');
+                    }
+                }
+            }
+            return $amount;
         }
     }

@@ -99,6 +99,8 @@ class Item extends AbstractModel
             $this->admittedFields['Discount']['value'] = Util::changeValueToNegative($this->admittedFields['Discount']['value']);
         }
 
+        $this->admittedFields['UnitPriceGross']['value'] = Util::changeAmountToFloat($this->admittedFields['UnitPriceGross']['value']);
+
         return parent::toArray();
     }
 
