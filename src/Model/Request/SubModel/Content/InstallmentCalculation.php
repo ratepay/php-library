@@ -47,6 +47,13 @@ class InstallmentCalculation extends AbstractModel
         'CalculationStart' => [
             'mandatory' => false,
         ],
+        // Following fields are necessary for offline installment calculation
+        'ServiceCharge' => [
+            'mandatory' => false,
+        ],
+        'InterestRate' => [
+            'mandatory' => false,
+        ]
     ];
 
     /**
