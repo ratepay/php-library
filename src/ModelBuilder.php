@@ -42,6 +42,7 @@ class ModelBuilder
      * @param $name
      * @param $arguments
      * @return mixed|ModelBuilder
+     * @throws ModelException
      */
     public function __call($name, $arguments)
     {
@@ -95,6 +96,7 @@ class ModelBuilder
      * Sets and fills model instance by array
      *
      * @param $array
+     * @throws ModelException
      */
     public function setArray($array)
     {
@@ -117,6 +119,7 @@ class ModelBuilder
      * Converts JSON input to array and uses setArray method
      *
      * @param $json
+     * @throws ModelException
      */
     public function setJson($json) {
         $this->setArray(json_decode($json, true));

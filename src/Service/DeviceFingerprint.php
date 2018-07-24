@@ -30,7 +30,7 @@ class DeviceFingerprint {
      */
     public function getDeviceIdentSnippet($deviceIdentToken) {
         $snippet   = sprintf(
-            "<script language=\"JavaScript\">var di = %s;</script>",
+            '<script language="JavaScript">var di = %s;</script>',
             json_encode([
                 't' => $deviceIdentToken,
                 'v' => $this->deviceIdentSId,
@@ -39,8 +39,8 @@ class DeviceFingerprint {
         );
 
         $snippet .= sprintf(
-            "<script type=\"text/javascript\" src=\"//d.ratepay.com/%1$s/di.js\"></script>
-             <noscript><link rel=\"stylesheet\" type=\"text/css\" href=\"//d.ratepay.com/di.css?t=%2$t&v=%1$s&l=Checkout\"></noscript>",
+            '<script type=\"text/javascript\" src=\"//d.ratepay.com/%1$s/di.js\"></script>
+             <noscript><link rel=\"stylesheet\" type=\"text/css\" href=\"//d.ratepay.com/di.css?t=%2$t&v=%1$s&l=Checkout\"></noscript>',
             $this->deviceIdentSId,
             $deviceIdentToken
         );

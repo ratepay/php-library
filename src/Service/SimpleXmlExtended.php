@@ -10,9 +10,7 @@
          *
          * @param string $sName
          * @param string $sValue
-         * @param bool   $utfMode
-         *
-         * @return SimpleXMLElement
+         * @return \SimpleXMLElement
          */
         public function addCDataChild($sName, $sValue)
         {

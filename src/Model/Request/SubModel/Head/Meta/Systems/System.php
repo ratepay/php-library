@@ -43,6 +43,8 @@
          * Manipulates the parent method to merge set system name and version with default
          *
          * @return array
+         * @throws \RatePAY\Exception\ModelException
+         * @throws \RatePAY\Exception\RuleSetException
          */
         public function toArray()
         {

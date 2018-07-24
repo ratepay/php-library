@@ -91,7 +91,7 @@ class DeviceFingerprintBuilder
     public function getDfpSnippetCode($smarty = false)
     {
         $snippet = sprintf(
-            (!$smarty) ? "<script language=\"JavaScript\">var di = %s;</script>" : "<script language=\"JavaScript\">{literal}var di = %s;{/literal}</script>",
+            (!$smarty) ? '<script language="JavaScript">var di = %s;</script>' : '<script language="JavaScript">{literal}var di = %s;{/literal}</script>',
             json_encode([
                 't' => $this->token,
                 'v' => $this->snippetId,
@@ -100,13 +100,13 @@ class DeviceFingerprintBuilder
         );
 
         $snippet .= sprintf(
-            "<script type=\"text/javascript\" src=\"%s/%s/di.js\"></script>",
+            '<script type="text/javascript" src="%s/%s/di.js"></script>',
             $this->uri,
             $this->snippetId
         );
 
         $snippet .= sprintf(
-            "<noscript><link rel=\"stylesheet\" type=\"text/css\" href=\"%s/di.css?t=%s&v=%s&l=%s\"></noscript>",
+            '<noscript><link rel="stylesheet" type="text/css" href="%s/di.css?t=%s&v=%s&l=%s"></noscript>',
             $this->uri,
             $this->token,
             $this->snippetId,
