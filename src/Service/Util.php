@@ -187,4 +187,20 @@
             }
             return $amount;
         }
+
+        /**
+         * @param object $object
+         * @param string $method
+         * @return bool
+         */
+        public static function existsAndNotEmpty($object, $method)
+        {
+            if (method_exists($object, $method)) {
+                $var = $object->$method();
+                if (!empty($var)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
