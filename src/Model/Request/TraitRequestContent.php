@@ -6,7 +6,6 @@ use RatePAY\Model\Request\SubModel\Content;
 
 trait TraitRequestContent
 {
-
     /**
      * @var Content
      */
@@ -37,6 +36,8 @@ trait TraitRequestContent
      * Returns all values as Array
      *
      * @return array
+     * @throws \RatePAY\Exception\ModelException
+     * @throws \RatePAY\Exception\RuleSetException
      */
     public function toArray()
     {

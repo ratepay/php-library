@@ -15,6 +15,11 @@ class DirectDebitBuilder
      */
     private $lang;
 
+    /**
+     * DirectDebitBuilder constructor.
+     * @param string $language
+     * @throws \RatePAY\Exception\LanguageException
+     */
     public function __construct($language = "DE")
     {
         $this->lang = new LanguageService($language);
@@ -24,6 +29,7 @@ class DirectDebitBuilder
      * Sets current language
      *
      * @param $language
+     * @throws \RatePAY\Exception\LanguageException
      */
     public function setLanguage($language)
     {

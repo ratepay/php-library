@@ -7,3 +7,4 @@ composer.lock
 example*
 helper*
 ratepay_credentials.php
+build/

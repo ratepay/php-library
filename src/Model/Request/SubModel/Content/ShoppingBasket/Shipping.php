@@ -53,6 +53,11 @@ class Shipping extends AbstractModel
         'AutoDelivery' => false
     ];
 
+    /**
+     * @return array
+     * @throws \RatePAY\Exception\ModelException
+     * @throws \RatePAY\Exception\RuleSetException
+     */
     public function toArray()
     {
         $this->admittedFields['UnitPriceGross']['value'] = Util::changeAmountToFloat($this->admittedFields['UnitPriceGross']['value']);

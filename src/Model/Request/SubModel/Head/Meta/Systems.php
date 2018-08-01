@@ -42,11 +42,14 @@
          * Manipulates the parent method to set instance of systems if not already set
          *
          * @return array
+         * @throws \RatePAY\Exception\ModelException
+         * @throws \RatePAY\Exception\RuleSetException
          */
         public function toArray()
         {
             if (!key_exists('value', $this->admittedFields['System'])) {
-                $this->admittedFields['System']['value'] = new $this->admittedFields['System']['instanceOf'];
+                $prototype = $this->admittedFields['System']['instanceOf'];
+                $this->admittedFields['System']['value'] = new $prototype;
             }
 
             return parent::toArray();

@@ -40,7 +40,8 @@
         public function toArray()
         {
             if (!key_exists('value', $this->admittedFields['Systems'])) {
-                $this->admittedFields['Systems']['value'] = new $this->admittedFields['Systems']['instanceOf'];
+                $prototype = $this->admittedFields['Systems']['instanceOf'];
+                $this->admittedFields['Systems']['value'] = new $prototype;
             }
 
             return parent::toArray();

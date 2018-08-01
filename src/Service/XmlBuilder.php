@@ -12,7 +12,7 @@ class XmlBuilder
     /**
      * Initial xml base string including ratepay urn
      */
-    const XML_BASE_STRING = "<?xml version=\"1.0\"?><request xmlns=\"urn://www.ratepay.com/payment/1_0\" version=\"1.0\"></request>";
+    const XML_BASE_STRING = '<?xml version="1.0"?><request xmlns="urn://www.ratepay.com/payment/1_0" version="1.0"></request>';
 
     /**
      * Returns SimpleXmlExtended element

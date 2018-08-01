@@ -63,6 +63,8 @@ class ShoppingBasket extends AbstractModel
      * Totalizes item amounts and sets shopping basket amount.
      *
      * @return array
+     * @throws \RatePAY\Exception\ModelException
+     * @throws \RatePAY\Exception\RuleSetException
      */
     public function toArray()
     {

@@ -92,6 +92,8 @@ class Item extends AbstractModel
      * Changes discount to negative value (if necessary)
      *
      * @return array
+     * @throws \RatePAY\Exception\ModelException
+     * @throws \RatePAY\Exception\RuleSetException
      */
     public function toArray()
     {

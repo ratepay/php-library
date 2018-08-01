@@ -125,6 +125,7 @@ class InstallmentBuilder
      * Sets current language
      *
      * @param $language
+     * @throws \RatePAY\Exception\LanguageException
      */
     public function setLanguage($language)
     {
@@ -169,6 +170,7 @@ class InstallmentBuilder
      * @param float $amount
      * @param string $template
      * @return string
+     * @throws RequestException
      */
     public function getInstallmentCalculatorByTemplate($amount, $template)
     {
@@ -193,6 +195,7 @@ class InstallmentBuilder
      *
      * @param $amount
      * @return string
+     * @throws RequestException
      */
     public function getInstallmentCalculatorAsJson($amount)
     {
@@ -210,8 +213,13 @@ class InstallmentBuilder
     /**
      * Calls CalculationRequest
      *
+     * @param $type
+     * @param $value
+     * @param $amount
+     * @param null $firstday
      * @return CalculationRequest
      * @throws RequestException
+     * @throws \RatePAY\Exception\ModelException
      */
     private function getInstallmentCalculation($type, $value, $amount, $firstday = null)
     {

@@ -16,7 +16,6 @@ use RatePAY\Exception\RequestException;
  */
 class RequestBuilder
 {
-
     /**
      * Instance of current request class
      *
@@ -62,14 +61,14 @@ class RequestBuilder
     /**
      * Request object
      *
-     * @var SimpleXMLElement
+     * @var \SimpleXMLElement
      */
     private $requestXmlElement;
 
     /**
      * Response object
      *
-     * @var SimpleXMLElement
+     * @var \SimpleXMLElement
      */
     private $responseXmlElement;
 
@@ -157,6 +156,7 @@ class RequestBuilder
      * @param $name
      * @param $arguments
      * @return RequestBuilder
+     * @throws RequestException
      */
     public function __call($name, $arguments)
     {
@@ -169,6 +169,12 @@ class RequestBuilder
         }
     }
 
+    /**
+     * @param $name
+     * @param $arguments
+     * @return $this|bool|RequestBuilder
+     * @throws RequestException
+     */
     private function callMethod($name, $arguments)
     {
         $this->clearAttributes(); // Clearing all former attributes in case of reuse of current instance of RequestBuilder
@@ -239,6 +245,12 @@ class RequestBuilder
         return $this;
     }
 
+    /**
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     * @throws RequestException
+     */
     private function getMethod($name, $arguments)
     {
         if (method_exists($this->responseModel, $name)) {
@@ -255,6 +267,8 @@ class RequestBuilder
 
     /**
      * Calls requested request and saves results in class attributes
+     *
+     * @throws Exception\CurlException
      */
     private function callRequest()
     {
@@ -306,6 +320,8 @@ class RequestBuilder
      *
      * @param $subtype
      * @return $this
+     * @throws Exception\CurlException
+     * @throws RequestException
      */
     public function subtype($subtype)
     {
@@ -421,7 +437,7 @@ class RequestBuilder
     /**
      * Returns the request as SimpleXMLElement
      *
-     * @return SimpleXMLElement
+     * @return \SimpleXMLElement
      */
     public function getRequestXmlElement()
     {
@@ -431,7 +447,7 @@ class RequestBuilder
     /**
      * Returns the response as SimpleXMLElement
      *
-     * @return SimpleXMLElement
+     * @return \SimpleXMLElement
      */
     public function getResponseXmlElement()
     {
@@ -482,6 +498,7 @@ class RequestBuilder
      * Checks if shopping basket contains auto-deliver items and calls an automated ConfirmationDeliver request
      *
      * @return bool|RequestBuilder
+     * @throws Exception\ModelException
      */
     private function callAutomaticConfirmationDeliver()
     {

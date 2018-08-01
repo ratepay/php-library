@@ -27,7 +27,6 @@ abstract class AbstractModel
     {
         array_walk($this->admittedFields, function (&$value) {
             if (key_exists('instanceOf', $value)) {
-                $namespace = __NAMESPACE__;
                 $value['instanceOf'] = __NAMESPACE__ . "\\" . $value['instanceOf'];
             }
         });
@@ -39,6 +38,8 @@ abstract class AbstractModel
      * @param $name
      * @param $arguments
      * @return bool|null
+     * @throws ModelException
+     * @throws RequestException
      */
     public function __call($name, $arguments) {
         $action = substr($name, 0, 3);
@@ -65,6 +66,7 @@ abstract class AbstractModel
      * @param $field
      * @param $arguments
      * @return $this
+     * @throws ModelException
      */
     public function commonSetter($field, $arguments) {
         if (is_array($arguments) && $arguments[0] !== "") {
@@ -110,6 +112,8 @@ abstract class AbstractModel
      * Return all values as Array
      *
      * @return array
+     * @throws ModelException
+     * @throws RuleSetException
      */
     public function toArray()
     {
