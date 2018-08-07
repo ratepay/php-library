@@ -19,7 +19,9 @@ class Math
     {
         $withTax = $netPrice + $netPrice * $taxPercentage / 100;
 
-        return $withTax;
+        $rounded = round($withTax, 2);
+
+        return $rounded;
     }
 
 }
