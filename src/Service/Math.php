@@ -9,7 +9,6 @@ namespace RatePAY\Service;
  */
 class Math
 {
-
     /**
      * @param float $netPrice
      * @param float|int $taxPercentage
@@ -23,5 +22,4 @@ class Math
 
         return $rounded;
     }
-
 }
