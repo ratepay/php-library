@@ -28,17 +28,13 @@ class CommunicationService
      * CommunicationService constructor.
      * @param bool $sandbox
      */
-    public function __construct($sandbox = false)
+    public function __construct($sandbox = false, $gatewayUrl = null)
     {
         if (!$this->isCurl()) {
             throw new CurlException("Curl function not available");
         }
 
-        if ($sandbox) {
-            $this->ratepayGatewayUrl = self::RATEPAY_INTEGRATION_GATEWAY_URL;
-        } else {
-            $this->ratepayGatewayUrl = self::RATEPAY_PRODUCTION_GATEWAY_URL;
-        }
+        $this->ratepayGatewayUrl = empty($gatewayUrl) ? $this->getStandardRatepayGateway($sandbox) : $gatewayUrl;
     }
 
     /**
@@ -104,8 +100,19 @@ class CommunicationService
      *
      * @return bool
      */
-    private function isCurl ()
+    private function isCurl()
     {
         return function_exists('curl_init');
+    }
+
+    /**
+     * Gets the standard Gateway URL-Address.
+     *
+     * @param bool $sandbox
+     * @return string
+     */
+    private function getStandardRatepayGateway($sandbox)
+    {
+        return (!!$sandbox) ? self::RATEPAY_INTEGRATION_GATEWAY_URL : self::RATEPAY_PRODUCTION_GATEWAY_URL;
     }
 }
