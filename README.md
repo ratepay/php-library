@@ -1,9 +1,11 @@
 # RatePAY GmbH
-============================================
 
-|Repository | Common RatePAY PHP Library
-|------|----------
-|Author | Aarne Welschlau, Annegret Seufert
-|Version | `0.9.6`
-|Link | http://www.ratepay.com
-|Mail | integration@ratepay.com
+RatePAY Integration Toolkit for PHP
+
+| Repository | Common RatePAY PHP Library
+|------------|----------
+| Author     | Marc Trösken, Eduardo Iriarte-Mendez
+| Version    | `0.9.7`
+| Link       | http://www.ratepay.com
+| Mail       | integration@ratepay.com
+

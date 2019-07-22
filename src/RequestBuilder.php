@@ -136,15 +136,22 @@ class RequestBuilder
     private $retryDelay = 0;
 
     /**
+     * Gateway URL (optional)
+     * If not defined default production or integration URLs will be used.
+     *
+     * @var int
+     */
+    private $gatewayUrl = null;
+
+    /**
      * RequestBuilder constructor. Sets sandbox mode
      *
      * @param bool $sandbox
      */
-    public function __construct($sandbox = false)
+    public function __construct($sandbox = false, $gatewayUrl = null)
     {
-        if ($sandbox) {
-            $this->sandbox = true;
-        }
+        $this->sandbox = !!$sandbox;
+        $this->gatewayUrl = empty($gatewayUrl) ? null : $gatewayUrl;
     }
 
     /**
@@ -259,7 +266,6 @@ class RequestBuilder
             } else {
                 return $this->responseModel->$name();
             }
-
         } else {
             throw new RequestException("Action '" . $name . "' not valid");
         }
@@ -291,7 +297,7 @@ class RequestBuilder
         // Get raw XML string
         $this->requestRaw = $this->requestXmlElement->asXML();
         // Initialize communication service and select sandbox mode
-        $communicationService = new CommunicationService($this->sandbox);
+        $communicationService = new CommunicationService($this->sandbox, $this->gatewayUrl);
 
         // Execute cURL request and get XML response
         $this->responseRaw = $communicationService->send(
@@ -548,5 +554,4 @@ class RequestBuilder
 
         return true;
     }
-
 }
