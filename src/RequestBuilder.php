@@ -472,6 +472,7 @@ class RequestBuilder
                 case "executionTimeout":
                 case "connectionRetries":
                 case "retryDelay":
+                case "gatewayUrl":
                     continue;
                     break;
                 default:
