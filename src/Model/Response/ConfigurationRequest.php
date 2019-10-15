@@ -54,9 +54,13 @@
             $interestRateMonth = $interestRate / 12;
 
             foreach ($allowedMonths as $runtime){
-                $rateAmount = ceil($orderAmount * (($interestRateMonth * pow((1 + $interestRateMonth), $runtime)) / (pow((1 + $interestRateMonth), $runtime) - 1)));
-
-                if($rateAmount >= $rateMinNormal){
+                if($interestRate > 0) {
+                    $rateAmount = $orderAmount * (($interestRateMonth * pow((1 + $interestRateMonth), $runtime)) / (pow((1 + $interestRateMonth), $runtime) - 1));
+                } else {
+                    $rateAmount = $orderAmount / $interestRateMonth;
+                }
+                $rateAmount = ceil($rateAmount);
+                if ($rateAmount >= $rateMinNormal) {
                     $possibleMonths[] = $runtime;
                 }
             }
