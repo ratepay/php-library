@@ -61,7 +61,11 @@ class Item extends AbstractModel
         ],
         'DescriptionAddition' => [
             'mandatory' => false,
-            'isAttribute' => true
+            'isAttribute' => true,
+        ],
+        'ShopId' => [
+            'mandatory' => false,
+            'isAttribute' => true,
         ]
     ];
 
