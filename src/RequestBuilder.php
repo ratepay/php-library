@@ -473,7 +473,7 @@ class RequestBuilder
                 case "connectionRetries":
                 case "retryDelay":
                 case "gatewayUrl":
-                    continue;
+                    continue 2;
                     break;
                 default:
                     $this->$attribute = null;
