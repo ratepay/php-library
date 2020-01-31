@@ -16,11 +16,11 @@
         public static function changeValueToNegative($value)
         {
             $value = floatval($value);
-			$value =  ($value > 0) ? $value * -1 : $value;
+            $value =  ($value > 0) ? $value * -1 : $value;
 
-			$value = number_format($value, 2, ".", "");
+            $value = number_format($value, 2, ".", "");
 
-			return $value;
+            return $value;
         }
 
         /**
