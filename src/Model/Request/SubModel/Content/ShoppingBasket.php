@@ -96,6 +96,7 @@ class ShoppingBasket extends AbstractModel
                 $amount += floatval($unitPrice);
             }
             
+            $amount = number_format($amount, 2, ".", "");
             $this->admittedFields['Amount']['value'] = $amount;
         }
 
