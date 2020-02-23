@@ -15,6 +15,10 @@
       "email": "aarne.welschlau@ratepay.com"
     }
   ],
+  "scripts": {
+    "test": "vendor/bin/phpunit --coverage-clover=coverage.xml",
+    "publish-coverage": "bash <(curl -s https://codecov.io/bash)"
+  },
   "require": {
     "php": ">=5.4"
   },

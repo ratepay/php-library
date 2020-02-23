@@ -30,6 +30,8 @@ class UtilTest extends TestCase
         return [
             [10, -10],
             [-10, -10],
+            [-9.75, -9.75],
+            [9.75, -9.75],
             [0, 0],
             [null, 0],
             [true, -1],
