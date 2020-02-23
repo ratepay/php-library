@@ -8,7 +8,6 @@
 
 namespace RatePAY\Tests\Unit\Service;
 
-
 use PHPUnit\Framework\TestCase;
 use RatePAY\Service\LanguageService;
 

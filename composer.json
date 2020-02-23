@@ -19,7 +19,8 @@
     "php": ">=5.4"
   },
   "require-dev": {
-    "phpunit/phpunit": "5.7.*"
+    "phpunit/phpunit": "5.7.*",
+    "donatj/mock-webserver": "v2.1.0"
   },
   "minimum-stability": "dev",
   "autoload": {
