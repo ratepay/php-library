@@ -40,6 +40,8 @@ class ModelMapper
                 'BankAccount'       => "Content\\Customer\\BankAccount",
                 'Contacts'          => "Content\\Customer\\Contacts",
                     'Phone'         => "Content\\Customer\\Contacts\\Phone",
+                    'Fax'           => "Content\\Customer\\Contacts\\Phone",
+                    'Mobile'         => "Content\\Customer\\Contacts\\Phone",
                 'Addresses'         => "Content\\Customer\\Addresses",
                     'Address'       => "Content\\Customer\\Addresses\\Address",
             'InstallmentCalculation'=> "Content\\InstallmentCalculation",
