@@ -1,17 +1,27 @@
 <?php
 
+/*
+ * RatePAY PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * RatePAY GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by RatePAY GmbH.
+ * All rights reserved by RatePAY GmbH.
+ *
+ * Copyright (c) 2020 RatePAY GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request\SubModel\Content\InstallmentCalculation;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
 class Configuration extends AbstractModel
 {
-
     /**
      * List of admitted fields.
      * Each field is public accessible by certain getter and setter.
      * E.g:
-     * Set payment interest rate by using setInterestRate(var). Get interest rate by using getInterestRate(). (Please consider the camel case)
+     * Set payment interest rate by using setInterestRate(var). Get interest rate by using getInterestRate(). (Please consider the camel case).
      *
      * Settings:
      * mandatory            = field is mandatory (or optional)
@@ -30,5 +40,4 @@ class Configuration extends AbstractModel
             'mandatory' => false,
         ],
     ];
-
 }

@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * RatePAY PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * RatePAY GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by RatePAY GmbH.
+ * All rights reserved by RatePAY GmbH.
+ *
+ * Copyright (c) 2020 RatePAY GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request\SubModel\Content;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
@@ -7,12 +18,11 @@ use RatePAY\Model\Request\SubModel\Constants as CONSTANTS;
 
 class Customer extends AbstractModel
 {
-
     /**
      * List of admitted fields.
      * Each field is public accessible by certain getter and setter.
      * E.g:
-     * Set firstname value by using setFirstName(var). Get firstname by using getFirstName(). (Please consider the camel case)
+     * Set firstname value by using setFirstName(var). Get firstname by using getFirstName(). (Please consider the camel case).
      *
      * Settings:
      * mandatory            = field is mandatory (or optional)
@@ -31,91 +41,91 @@ class Customer extends AbstractModel
     public $admittedFields = [
         'Gender' => [
             'mandatory' => true,
-            'uppercase' => true
+            'uppercase' => true,
         ],
         'Salutation' => [
             'mandatory' => false,
-            'cdata' => true
+            'cdata' => true,
         ],
         'Title' => [
             'mandatory' => false,
-            'cdata' => true
+            'cdata' => true,
         ],
         'FirstName' => [
             'mandatory' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'MiddleName' => [
             'mandatory' => false,
-            'cdata' => true
+            'cdata' => true,
         ],
         'LastName' => [
             'mandatory' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'NameSuffix' => [
             'mandatory' => false,
-            'cdata' => true
+            'cdata' => true,
         ],
         'DateOfBirth' => [
-            'mandatory' => false
+            'mandatory' => false,
         ],
         'Nationality' => [
             'mandatory' => false,
-            'uppercase' => true
+            'uppercase' => true,
         ],
         'Language' => [
             'mandatory' => false,
-            'lowercase' => true
+            'lowercase' => true,
         ],
         'IpAddress' => [
-            'mandatory' => true
+            'mandatory' => true,
         ],
         'CustomerAllowCreditInquiry' => [
             'mandatory' => true,
-            'default' => CONSTANTS::CUSTOMER_ALLOW_CREDIT_INQUIRY
+            'default' => CONSTANTS::CUSTOMER_ALLOW_CREDIT_INQUIRY,
         ],
         'Addresses' => [
             'mandatory' => true,
-            'instanceOf' => "Content\\Customer\\Addresses"
+            'instanceOf' => 'Content\\Customer\\Addresses',
         ],
         'Contacts' => [
             'mandatory' => true,
-            'instanceOf' => "Content\\Customer\\Contacts"
+            'instanceOf' => 'Content\\Customer\\Contacts',
         ],
         'BankAccount' => [
             'mandatory' => false,
             'cdata' => true,
-            'instanceOf' => "Content\\Customer\\BankAccount"
+            'instanceOf' => 'Content\\Customer\\BankAccount',
         ],
         'CompanyName' => [
             'mandatory' => false,
-            'cdata' => true
+            'cdata' => true,
         ],
         'CompanyType' => [
             'optionalByRule' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'VatId' => [
             'optionalByRule' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'CompanyId' => [
             'optionalByRule' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'RegistryLocation' => [
             'optionalByRule' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'Homepage' => [
             'optionalByRule' => false,
-            'cdata' => true
+            'cdata' => true,
         ],
     ];
 
     /**
-     * Company rule : additional company fields will only passed if company name is set
+     * Company rule : additional company fields will only passed if company name is set.
      *
      * @return bool
      */
@@ -123,11 +133,11 @@ class Customer extends AbstractModel
     {
         foreach ($this->admittedFields as $fieldName => $value) {
             switch ($fieldName) {
-                case "CompanyType":
-                case "VatId":
-                case "CompanyId":
-                case "RegistryLocation":
-                case "Homepage":
+                case 'CompanyType':
+                case 'VatId':
+                case 'CompanyId':
+                case 'RegistryLocation':
+                case 'Homepage':
                     if (!key_exists('value', $this->admittedFields['CompanyName'])) {
                         return false;
                     }
@@ -136,5 +146,4 @@ class Customer extends AbstractModel
 
         return true;
     }
-
 }

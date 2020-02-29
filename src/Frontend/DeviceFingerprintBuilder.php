@@ -1,58 +1,67 @@
 <?php
 
+/*
+ * RatePAY PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * RatePAY GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by RatePAY GmbH.
+ * All rights reserved by RatePAY GmbH.
+ *
+ * Copyright (c) 2020 RatePAY GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Frontend;
 
 use RatePAY\Exception\FrontendException;
 
 class DeviceFingerprintBuilder
 {
-
     /**
-     * DFP Snippet Id (vendor)
+     * DFP Snippet Id (vendor).
      *
      * @var string
      */
     private $snippetId;
 
     /**
-     * Location of DFP snippet
+     * Location of DFP snippet.
      *
      * @var string
      */
-    private $location = "checkout";
+    private $location = 'checkout';
 
     /**
-     * DFP token
+     * DFP token.
      *
      * @var string
      */
     private $token;
 
     /**
-     * DFP URI
+     * DFP URI.
      *
      * @var string
      */
-    private $uri = "//d.ratepay.com";
-
+    private $uri = '//d.ratepay.com';
 
     /**
      * DeviceFingerprintBuilder constructor.
      *
      * @param $uniqueIdentifier
      */
-    public function __construct($snippetId = "", $uniqueIdentifier = "")
+    public function __construct($snippetId = '', $uniqueIdentifier = '')
     {
         if (!empty($snippetId)) {
             $this->setSnippetId($snippetId);
         } else {
-            throw new FrontendException("DeviceFingerprintBuilder: Snippet id must be set");
+            throw new FrontendException('DeviceFingerprintBuilder: Snippet id must be set');
         }
 
         if (!empty($uniqueIdentifier)) {
             $this->createToken($uniqueIdentifier);
         } else {
-            throw new FrontendException("DeviceFingerprintBuilder: Transaction identifier must be set");
+            throw new FrontendException('DeviceFingerprintBuilder: Transaction identifier must be set');
         }
     }
 
@@ -65,7 +74,7 @@ class DeviceFingerprintBuilder
     }
 
     /**
-     * Sets DFP token
+     * Sets DFP token.
      *
      * @param string $token
      */
@@ -75,7 +84,7 @@ class DeviceFingerprintBuilder
     }
 
     /**
-     * Returns DFP token
+     * Returns DFP token.
      *
      * @return string
      */
@@ -85,7 +94,8 @@ class DeviceFingerprintBuilder
     }
 
     /**
-     * Returns DFP snippet code (JS code)
+     * Returns DFP snippet code (JS code).
+     *
      * @return string
      */
     public function getDfpSnippetCode($smarty = false)
@@ -95,7 +105,7 @@ class DeviceFingerprintBuilder
             json_encode([
                 't' => $this->token,
                 'v' => $this->snippetId,
-                'l' => $this->location
+                'l' => $this->location,
             ])
         );
 
@@ -117,12 +127,12 @@ class DeviceFingerprintBuilder
     }
 
     /**
-     * Creates unique token
+     * Creates unique token.
      *
      * @param $uniqueIdentifier
      */
-    private function createToken($uniqueIdentifier) {
-        $this->token = md5($this->snippetId . "_" . $uniqueIdentifier . "_" . microtime());
+    private function createToken($uniqueIdentifier)
+    {
+        $this->token = md5($this->snippetId . '_' . $uniqueIdentifier . '_' . microtime());
     }
-
 }

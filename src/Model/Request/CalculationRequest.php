@@ -1,16 +1,26 @@
 <?php
 
+/*
+ * RatePAY PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * RatePAY GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by RatePAY GmbH.
+ * All rights reserved by RatePAY GmbH.
+ *
+ * Copyright (c) 2020 RatePAY GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request;
 
 class CalculationRequest extends AbstractRequest
 {
-
     use TraitRequestContent;
     use TraitRequestSubtype;
 
     /**
      * CalculationRequest constructor.
-     * Defines subtype as required and sets admitted subtypes
+     * Defines subtype as required and sets admitted subtypes.
      */
     public function __construct()
     {
@@ -21,18 +31,18 @@ class CalculationRequest extends AbstractRequest
     // ToDo : Reducing subtype to 'rate' and 'time'
 
     /**
-     * Request rule set
+     * Request rule set.
      *
      * @return bool
      */
     public function rule()
     {
         if (key_exists('value', $this->getHead()->admittedFields['TransactionId'])) {
-            $this->setErrorMsg("Calculation Request does not allow transaction id");
+            $this->setErrorMsg('Calculation Request does not allow transaction id');
+
             return false;
         }
 
         return true;
     }
-
 }

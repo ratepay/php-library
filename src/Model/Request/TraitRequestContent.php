@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * RatePAY PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * RatePAY GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by RatePAY GmbH.
+ * All rights reserved by RatePAY GmbH.
+ *
+ * Copyright (c) 2020 RatePAY GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request;
 
 use RatePAY\Model\Request\SubModel\Content;
@@ -12,7 +23,7 @@ trait TraitRequestContent
     private $content;
 
     /**
-     * Sets the value for $content
+     * Sets the value for $content.
      *
      * @return Content
      */
@@ -22,7 +33,7 @@ trait TraitRequestContent
     }
 
     /**
-     * Returns the value of $content
+     * Returns the value of $content.
      *
      * @param Content $content‚
      */
@@ -31,11 +42,11 @@ trait TraitRequestContent
         $this->content = $content;
     }
 
-
     /**
-     * Returns all values as Array
+     * Returns all values as Array.
      *
      * @return array
+     *
      * @throws \RatePAY\Exception\ModelException
      * @throws \RatePAY\Exception\RuleSetException
      */
@@ -44,9 +55,8 @@ trait TraitRequestContent
         return array_merge(
             parent::toArray(),
             [
-                'content' => $this->getContent()->toArray()
+                'content' => $this->getContent()->toArray(),
             ]
         );
     }
-
 }

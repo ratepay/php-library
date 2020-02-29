@@ -15,5 +15,8 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
+      - name: PHP CheckStyle tests
+        run: composer run-script lint
+
       - name: PHPUnit tests
         run: composer run-script test
