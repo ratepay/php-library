@@ -1,0 +1,11 @@
+{
+    "header": "# PHP-Library Changelog",
+    "tagPrefix": "",
+    "bumpfiles": [
+      {
+        "filename": "composer.json",
+        "type": "json"
+      }
+    ]
+  }
+  

@@ -1,7 +1,7 @@
 {
   "name": "ratepay/php-library",
   "description": "RatePAY API PHP Library",
-  "version": "0.10.1",
+  "version": "1.0.0",
   "license": "MIT",
   "type": "library",
   "homepage": "https://ratepay.gitbook.io/docs/",
@@ -34,7 +34,7 @@
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "RatePAY\\" : "src/"
+      "RatePAY\\": "src/"
     }
   },
   "autoload-dev": {
