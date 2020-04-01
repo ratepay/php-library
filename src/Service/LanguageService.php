@@ -43,7 +43,7 @@ class LanguageService
         $language = in_array(strtoupper($language), ['AU', 'CH']) ? 'DE' : $language;
 
         if (!$this->localeFileExists($language)) {
-            throw new LanguageException("No translation table for '" . $language . "' available");
+            $language = 'DE';
         }
 
         $this->language = strtoupper($language);
