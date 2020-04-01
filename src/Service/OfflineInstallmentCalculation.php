@@ -1,53 +1,64 @@
 <?php
 
+/*
+ * RatePAY PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * RatePAY GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by RatePAY GmbH.
+ * All rights reserved by RatePAY GmbH.
+ *
+ * Copyright (c) 2020 RatePAY GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Service;
+
 use RatePAY\Exception\RequestException;
 use RatePAY\ModelBuilder as ModelBuilder;
 
 /**
- * Class OfflineInstallmentCalculation
+ * Class OfflineInstallmentCalculation.
  */
 class OfflineInstallmentCalculation
 {
     /**
-     * Basket amount
+     * Basket amount.
      *
      * @var int
      */
     private $_basketAmount = 0;
 
     /**
-     * Runtime
+     * Runtime.
      *
      * @var int
      */
     private $_runtime = 0;
 
     /**
-     * Service charge
+     * Service charge.
      *
      * @var float
      */
     private $_serviceCharge = 0;
 
     /**
-     * Interest rate
+     * Interest rate.
      *
      * @var float
      */
     private $_interestRate = 0;
 
     /**
-     * Payment firstday
+     * Payment firstday.
      *
      * @var int
      */
     private $_paymentFirstday = 0;
 
     /**
-     * Set class attributes
+     * Set class attributes.
      *
-     * @param ModelBuilder $mbContent
      * @return $this
      */
     public function callOfflineCalculation(ModelBuilder $mbContent)
@@ -64,21 +75,23 @@ class OfflineInstallmentCalculation
     }
 
     /**
-     * Call calculation method by subtype
+     * Call calculation method by subtype.
      *
      * @param $subtype
+     *
      * @return float
+     *
      * @throws RequestException
      */
     public function subtype($subtype)
     {
         switch ($subtype) {
-            case 'calculation-by-time' :
+            case 'calculation-by-time':
                 return $this->callCalculationByTime();
                 break;
 
             case '':
-                throw new RequestException("Subtype is missing");
+                throw new RequestException('Subtype is missing');
                 break;
 
             default:
@@ -88,13 +101,13 @@ class OfflineInstallmentCalculation
     }
 
     /**
-     * Calculate installment by time
+     * Calculate installment by time.
      *
      * @return float
      */
     private function callCalculationByTime()
     {
-        $datePaymentFirstday = mktime(0, 0, 0, $this->_paymentFirstday == 28 ? (int) date("m") + 1 : (int) date("m") + 2, $this->_paymentFirstday, date("Y"));
+        $datePaymentFirstday = mktime(0, 0, 0, $this->_paymentFirstday == 28 ? (int) date('m') + 1 : (int) date('m') + 2, $this->_paymentFirstday, date('Y'));
         $today = time();
         $difference = $datePaymentFirstday - $today;
 
@@ -143,5 +156,4 @@ class OfflineInstallmentCalculation
 
         return round($installment, 2);
     }
-
 }

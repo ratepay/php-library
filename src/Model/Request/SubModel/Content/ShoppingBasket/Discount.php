@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * RatePAY PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * RatePAY GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by RatePAY GmbH.
+ * All rights reserved by RatePAY GmbH.
+ *
+ * Copyright (c) 2020 RatePAY GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request\SubModel\Content\ShoppingBasket;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
@@ -7,12 +18,11 @@ use RatePAY\Service\Util;
 
 class Discount extends AbstractModel
 {
-
     /**
      * List of admitted fields.
      * Each field is public accessible by certain getter and setter.
      * E.g:
-     * Set payment unit price gross by using setUnitPriceGross(var). Get unit price gross by using getUnitPriceGross(). (Please consider the camel case)
+     * Set payment unit price gross by using setUnitPriceGross(var). Get unit price gross by using getUnitPriceGross(). (Please consider the camel case).
      *
      * Settings:
      * mandatory            = field is mandatory (or optional)
@@ -29,20 +39,20 @@ class Discount extends AbstractModel
     public $admittedFields = [
         'Description' => [
             'mandatory' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'UnitPriceGross' => [
             'mandatory' => true,
-            'isAttribute' => true
+            'isAttribute' => true,
         ],
         'TaxRate' => [
             'mandatory' => true,
-            'isAttribute' => true
+            'isAttribute' => true,
         ],
         'DescriptionAddition' => [
             'mandatory' => false,
-            'isAttribute' => true
-        ]
+            'isAttribute' => true,
+        ],
     ];
 
     /*
@@ -50,11 +60,11 @@ class Discount extends AbstractModel
      * In addition to API fields there are settings possible to control library behavior.
      */
     public $settings = [
-        'AutoDelivery' => false
+        'AutoDelivery' => false,
     ];
 
     /**
-     * Changes discount to negative value (if necessary)
+     * Changes discount to negative value (if necessary).
      *
      * @return array
      */
@@ -65,5 +75,4 @@ class Discount extends AbstractModel
 
         return parent::toArray();
     }
-
 }

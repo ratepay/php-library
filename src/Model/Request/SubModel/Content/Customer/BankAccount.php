@@ -1,17 +1,27 @@
 <?php
 
+/*
+ * RatePAY PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * RatePAY GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by RatePAY GmbH.
+ * All rights reserved by RatePAY GmbH.
+ *
+ * Copyright (c) 2020 RatePAY GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request\SubModel\Content\Customer;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
 class BankAccount extends AbstractModel
 {
-
     /**
      * List of admitted fields.
      * Each field is public accessible by certain getter and setter.
      * E.g:
-     * Set bank code value by using setBankCode(var). Get bank code by using getBankCode(). (Please consider the camel case)
+     * Set bank code value by using setBankCode(var). Get bank code by using getBankCode(). (Please consider the camel case).
      *
      * Settings:
      * mandatory            = field is mandatory (or optional)
@@ -28,32 +38,32 @@ class BankAccount extends AbstractModel
     public $admittedFields = [
         'Owner' => [
             'mandatory' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'BankName' => [
             'mandatory' => false,
-            'cdata' => true
+            'cdata' => true,
         ],
         'BankAccountNumber' => [
             'mandatoryByRule' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'BankCode' => [
             'mandatoryByRule' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'Iban' => [
             'mandatoryByRule' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'BicSwift' => [
             'mandatory' => false, // BicSwift is only for customers with billing address in germany optional
-            'cdata' => true
-        ]
+            'cdata' => true,
+        ],
     ];
 
     /**
-     * Bank data rule : if classic bank account number is used bank code is mandatory
+     * Bank data rule : if classic bank account number is used bank code is mandatory.
      *
      * @return bool
      */
@@ -61,7 +71,8 @@ class BankAccount extends AbstractModel
     {
         if (key_exists('value', $this->admittedFields['BankAccountNumber'])) {
             if (!key_exists('value', $this->admittedFields['BankCode'])) {
-                $this->setErrorMsg("Bank code is required");
+                $this->setErrorMsg('Bank code is required');
+
                 return false;
             } else {
                 return true;
@@ -69,7 +80,8 @@ class BankAccount extends AbstractModel
         } elseif (key_exists('value', $this->admittedFields['Iban'])) {
             return true;
         } else {
-            $this->setErrorMsg("Bank account number or IBAN are required");
+            $this->setErrorMsg('Bank account number or IBAN are required');
+
             return false;
         }
     }

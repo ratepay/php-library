@@ -1,40 +1,60 @@
 <?php
+
+/*
+ * RatePAY PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * RatePAY GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by RatePAY GmbH.
+ * All rights reserved by RatePAY GmbH.
+ *
+ * Copyright (c) 2020 RatePAY GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Service;
 
-class DeviceFingerprint {
-
+class DeviceFingerprint
+{
     /**
      * @var string
      */
     protected $deviceIdentSId;
 
-    public function __construct($deviceIdentSId) {
+    public function __construct($deviceIdentSId)
+    {
         $this->deviceIdentSId = $deviceIdentSId;
     }
 
     /**
-     * Creates a DeviceIdentToken by microtime and given $identifier
+     * Creates a DeviceIdentToken by microtime and given $identifier.
+     *
      * @param $randomizer
+     *
      * @return string
      */
-    public static function createDeviceIdentToken($identifier) {
+    public static function createDeviceIdentToken($identifier)
+    {
         $microtime = microtime();
-        $deviceFingerprintToken = md5($identifier . "_" . $microtime);
+        $deviceFingerprintToken = md5($identifier . '_' . $microtime);
+
         return $deviceFingerprintToken;
     }
 
     /**
-     * Returns an HTML snippet which must be injected in the checkout page
+     * Returns an HTML snippet which must be injected in the checkout page.
+     *
      * @param string $deviceIdentToken - Device Ident Token which must be generated via the generateDeviceIdentToken() function
+     *
      * @return string
      */
-    public function getDeviceIdentSnippet($deviceIdentToken) {
-        $snippet   = sprintf(
+    public function getDeviceIdentSnippet($deviceIdentToken)
+    {
+        $snippet = sprintf(
             '<script language="JavaScript">var di = %s;</script>',
             json_encode([
                 't' => $deviceIdentToken,
                 'v' => $this->deviceIdentSId,
-                'l' => "Checkout"
+                'l' => 'Checkout',
             ])
         );
 
@@ -47,5 +67,4 @@ class DeviceFingerprint {
 
         return $snippet;
     }
-
 }

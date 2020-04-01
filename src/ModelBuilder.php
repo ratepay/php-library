@@ -1,14 +1,25 @@
 <?php
+
+/*
+ * RatePAY PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * RatePAY GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by RatePAY GmbH.
+ * All rights reserved by RatePAY GmbH.
+ *
+ * Copyright (c) 2020 RatePAY GmbH / Berlin / Germany
+ */
+
 namespace RatePAY;
 
-use RatePAY\Service\ModelMapper;
 use RatePAY\Exception\ModelException;
+use RatePAY\Service\ModelMapper;
 
 class ModelBuilder
 {
-
     /**
-     * Current model object
+     * Current model object.
      *
      * @var mixed
      */
@@ -17,7 +28,9 @@ class ModelBuilder
     /**
      * ModelBuilder constructor. Loads requested model.
      *
-     * @param null|string $modelName
+     * @param string|null $modelName
+     *
+     * @throws ModelException
      */
     public function __construct($modelName = null)
     {
@@ -30,18 +43,20 @@ class ModelBuilder
                 throw new ModelException("Model '" . $modelName . "' invalid");
             }
         } else { // If no model is set initialize with Head model
-            $this->setModel(ModelMapper::getFullPathRequestSubModel("Head"));
+            $this->setModel(ModelMapper::getFullPathRequestSubModel('Head'));
         }
     }
 
     /**
      * Catches all calls.
      * If called as setter, call magic setter of current model object
-     * If called as model name, start and return new ModelBuilder instance with requested model
+     * If called as model name, start and return new ModelBuilder instance with requested model.
      *
      * @param $name
      * @param $arguments
+     *
      * @return mixed|ModelBuilder
+     *
      * @throws ModelException
      */
     public function __call($name, $arguments)
@@ -50,7 +65,7 @@ class ModelBuilder
         $field = false;
         $requestedModel = false;
 
-        if ($prefix == "set" || $prefix == "get") {
+        if ($prefix == 'set' || $prefix == 'get') {
             $field = substr($name, 3);
         } else {
             $requestedModel = $name;
@@ -61,8 +76,9 @@ class ModelBuilder
                 throw new ModelException("Field '" . $field . "' invalid");
             }
 
-            if ($prefix == "set") {
+            if ($prefix == 'set') {
                 $this->model->commonSetter($field, $arguments);
+
                 return $this->model;
             } else {
                 return $this->model->commonGetter($field);
@@ -73,7 +89,7 @@ class ModelBuilder
     }
 
     /**
-     * Returns the current model object
+     * Returns the current model object.
      *
      * @return mixed
      */
@@ -83,19 +99,20 @@ class ModelBuilder
     }
 
     /**
-     * Sets model as current model (expects full namespaced model path)
+     * Sets model as current model (expects full namespaced model path).
      *
      * @param $model
      */
     private function setModel($model)
     {
-        $this->model = new $model;
+        $this->model = new $model();
     }
 
     /**
-     * Sets and fills model instance by array
+     * Sets and fills model instance by array.
      *
      * @param $array
+     *
      * @throws ModelException
      */
     public function setArray($array)
@@ -116,13 +133,14 @@ class ModelBuilder
     }
 
     /**
-     * Converts JSON input to array and uses setArray method
+     * Converts JSON input to array and uses setArray method.
      *
      * @param $json
+     *
      * @throws ModelException
      */
-    public function setJson($json) {
+    public function setJson($json)
+    {
         $this->setArray(json_decode($json, true));
     }
-
 }

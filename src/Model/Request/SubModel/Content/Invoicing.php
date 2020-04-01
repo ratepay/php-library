@@ -1,17 +1,27 @@
 <?php
 
+/*
+ * RatePAY PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * RatePAY GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by RatePAY GmbH.
+ * All rights reserved by RatePAY GmbH.
+ *
+ * Copyright (c) 2020 RatePAY GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request\SubModel\Content;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
 class Invoicing extends AbstractModel
 {
-
     /**
      * List of admitted fields.
      * Each field is public accessible by certain getter and setter.
      * E.g:
-     * Set invoice id value by using setInvoiceId(var). Get invoice id by using getInvoiceId(). (Please consider the camel case)
+     * Set invoice id value by using setInvoiceId(var). Get invoice id by using getInvoiceId(). (Please consider the camel case).
      *
      * Settings:
      * mandatory            = field is mandatory (or optional)
@@ -27,16 +37,16 @@ class Invoicing extends AbstractModel
      */
     public $admittedFields = [
         'InvoiceId' => [
-            'mandatory' => false
+            'mandatory' => false,
         ],
         'InvoiceDate' => [
-            'mandatory' => false
+            'mandatory' => false,
         ],
         'DeliveryDate' => [
-            'mandatory' => false
+            'mandatory' => false,
         ],
         'DueDate' => [
-            'mandatory' => false
+            'mandatory' => false,
         ],
     ];
 }

@@ -1,17 +1,27 @@
 <?php
 
+/*
+ * RatePAY PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * RatePAY GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by RatePAY GmbH.
+ * All rights reserved by RatePAY GmbH.
+ *
+ * Copyright (c) 2020 RatePAY GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request\SubModel\Content\Customer\Addresses;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
 class Address extends AbstractModel
 {
-
     /**
      * List of admitted fields.
      * Each field is public accessible by certain getter and setter.
      * E.g:
-     * Set firstname value by using setFirstName(var). Get firstname by using getFirstName(). (Please consider the camel case)
+     * Set firstname value by using setFirstName(var). Get firstname by using getFirstName(). (Please consider the camel case).
      *
      * Settings:
      * mandatory            = field is mandatory (or optional)
@@ -29,51 +39,51 @@ class Address extends AbstractModel
         'Type' => [
             'mandatory' => true,
             'isAttribute' => true,
-            'uppercase' => true
+            'uppercase' => true,
         ],
         'Salutation' => [
-            'mandatory' => false
+            'mandatory' => false,
         ],
         'FirstName' => [
             'optionalByRule' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'LastName' => [
             'optionalByRule' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'Company' => [
             'mandatoryByRule' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'Street' => [
             'mandatory' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'StreetAdditional' => [
             'mandatory' => false,
-            'cdata' => true
+            'cdata' => true,
         ],
         'StreetNumber' => [
             'mandatory' => false,
-            'cdata' => true
+            'cdata' => true,
         ],
         'ZipCode' => [
             'mandatory' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'City' => [
             'mandatory' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'CountryCode' => [
             'mandatory' => true,
-            'uppercase' => true
+            'uppercase' => true,
         ],
     ];
 
     /**
-     * Address rule : names are only mandatory in billing addresses, company is mandatory in registry addresses
+     * Address rule : names are only mandatory in billing addresses, company is mandatory in registry addresses.
      *
      * @return bool
      */
@@ -81,16 +91,19 @@ class Address extends AbstractModel
     {
         if (strtoupper($this->admittedFields['Type']['value']) == 'DELIVERY') {
             if (!key_exists('value', $this->admittedFields['FirstName']) || !key_exists('value', $this->admittedFields['LastName'])) {
-                $this->setErrorMsg("Delivery address requires firstname and lastname");
+                $this->setErrorMsg('Delivery address requires firstname and lastname');
+
                 return false;
             }
         }
         if (strtoupper($this->admittedFields['Type']['value']) == 'REGISTRY') {
             if (!key_exists('value', $this->admittedFields['Company'])) {
-                $this->setErrorMsg("Registry address requires company");
+                $this->setErrorMsg('Registry address requires company');
+
                 return false;
             }
         }
+
         return true;
     }
 }

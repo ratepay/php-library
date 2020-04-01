@@ -1,17 +1,27 @@
 <?php
 
+/*
+ * RatePAY PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * RatePAY GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by RatePAY GmbH.
+ * All rights reserved by RatePAY GmbH.
+ *
+ * Copyright (c) 2020 RatePAY GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request\SubModel\Content\ShoppingBasket;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
 class Items extends AbstractModel
 {
-
     /**
      * List of admitted fields.
      * Each field is public accessible by certain getter and setter.
      * E.g:
-     * Set payment unit price gross by using setUnitPriceGross(var). Get unit price gross by using getUnitPriceGross(). (Please consider the camel case)
+     * Set payment unit price gross by using setUnitPriceGross(var). Get unit price gross by using getUnitPriceGross(). (Please consider the camel case).
      *
      * Settings:
      * mandatory            = field is mandatory (or optional)
@@ -28,13 +38,13 @@ class Items extends AbstractModel
     public $admittedFields = [
         'Item' => [
             'mandatoryByRule' => true,
-            'instanceOf' => "Content\\ShoppingBasket\\Items\\Item",
-            'multiple' => true
-        ]
+            'instanceOf' => 'Content\\ShoppingBasket\\Items\\Item',
+            'multiple' => true,
+        ],
     ];
 
     /**
-     * Item article number rule : identical article numbers on different items are not allowed
+     * Item article number rule : identical article numbers on different items are not allowed.
      *
      * @return bool
      */
@@ -50,7 +60,8 @@ class Items extends AbstractModel
                 }
 
                 if (in_array($articleNumber, $articleNumbers)) {
-                    $this->setErrorMsg("Identical article numbers on different items are not allowed. Please specify with UniqueArticleNumber.");
+                    $this->setErrorMsg('Identical article numbers on different items are not allowed. Please specify with UniqueArticleNumber.');
+
                     return false;
                 } else {
                     $articleNumbers[] = $articleNumber;
@@ -60,5 +71,4 @@ class Items extends AbstractModel
 
         return true;
     }
-
 }
