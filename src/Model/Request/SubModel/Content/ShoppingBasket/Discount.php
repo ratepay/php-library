@@ -38,7 +38,7 @@ class Discount extends AbstractModel
      */
     public $admittedFields = [
         'Description' => [
-            'mandatory' => true,
+            'mandatory' => false,
             'cdata' => true,
         ],
         'UnitPriceGross' => [
