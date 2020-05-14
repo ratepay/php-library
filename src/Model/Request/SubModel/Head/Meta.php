@@ -14,7 +14,12 @@
 namespace RatePAY\Model\Request\SubModel\Head;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
+use RatePAY\Model\Request\SubModel\Head\Meta\Systems;
 
+/**
+ * @method $this   setSystems(Systems $systems)
+ * @method Systems getSystems()
+ */
 class Meta extends AbstractModel
 {
     /**

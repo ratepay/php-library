@@ -63,13 +63,23 @@ abstract class AbstractModel
             throw new RequestException("Field '" . $field . "' invalid");
         }
 
-        if ($action == 'set') {
+        if ($action == 'set' || $action == 'add') {
             return $this->commonSetter($field, $arguments);
         } elseif ($action == 'get') {
             return $this->commonGetter($field);
         } else {
             throw new RequestException('Action invalid');
         }
+    }
+
+    public function __set($field, $value)
+    {
+        return $this->commonSetter($field, [$value]);
+    }
+
+    public function __get($field)
+    {
+        return $this->commonGetter($field);
     }
 
     /**

@@ -15,6 +15,7 @@ namespace RatePAY;
 
 use RatePAY\Exception\RequestException;
 use RatePAY\Model\Request\SubModel\Content\ShoppingBasket;
+use RatePAY\Model\Response\AbstractResponse;
 use RatePAY\Service\CommunicationService;
 use RatePAY\Service\ModelMapper;
 use RatePAY\Service\Util;
@@ -41,9 +42,9 @@ class RequestBuilder
     private $response;
 
     /**
-     * Instance of ValidateGatewayResponse.
+     * Instance of AbstractResponse.
      *
-     * @var ValidateGatewayResponse
+     * @var AbstractResponse
      */
     private $responseModel;
 
@@ -586,5 +587,13 @@ class RequestBuilder
         }
 
         return true;
+    }
+
+    /**
+     * @return AbstractResponse
+     */
+    public function getResponse()
+    {
+        return $this->responseModel;
     }
 }

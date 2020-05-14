@@ -15,6 +15,10 @@ namespace RatePAY\Model\Request\SubModel\Head;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
+/**
+ * @method $this  setDeviceToken(string $deviceToken)
+ * @method string getDeviceToken()
+ */
 class CustomerDevice extends AbstractModel
 {
     /**

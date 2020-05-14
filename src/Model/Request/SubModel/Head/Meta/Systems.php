@@ -15,7 +15,14 @@ namespace RatePAY\Model\Request\SubModel\Head\Meta;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 use RatePAY\Model\Request\SubModel\Constants as CONSTANTS;
+use RatePAY\Model\Request\SubModel\Head\Meta\Systems\System;
 
+/**
+ * @method $this  setSystem(System $system)
+ * @method System getSystem()
+ * @method $this  setApiVersion(string $apiVersion)
+ * @method string getApiVersion()
+ */
 class Systems extends AbstractModel
 {
     /**

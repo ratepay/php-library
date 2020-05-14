@@ -15,6 +15,30 @@ namespace RatePAY\Model\Request\SubModel\Content\Customer\Addresses;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
+/**
+ * @method $this  setType(string $type)
+ * @method string getType()
+ * @method $this  setSalutation(string $salutation)
+ * @method string getSalutation()
+ * @method $this  setFirstName(string $firstName)
+ * @method string getFirstName()
+ * @method $this  setLastName(string $lastName)
+ * @method string getLastName()
+ * @method $this  setCompany(string $company)
+ * @method string getCompany()
+ * @method $this  setStreet(string $street)
+ * @method string getStreet()
+ * @method $this  setStreetAdditional(string $streetAdditional)
+ * @method string getStreetAdditional()
+ * @method $this  setStreetNumber(string $streetNumber)
+ * @method string getStreetNumber()
+ * @method $this  setZipCode(string $zipCode)
+ * @method string getZipCode()
+ * @method $this  setCity(string $city)
+ * @method string getCity()
+ * @method $this  setCountryCode(string $countryCode)
+ * @method string getCountryCode()
+ */
 class Address extends AbstractModel
 {
     /**

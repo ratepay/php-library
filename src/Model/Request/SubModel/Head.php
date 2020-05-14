@@ -13,6 +13,29 @@
 
 namespace RatePAY\Model\Request\SubModel;
 
+use RatePAY\Model\Request\SubModel\Head\Credential;
+use RatePAY\Model\Request\SubModel\Head\CustomerDevice;
+use RatePAY\Model\Request\SubModel\Head\External;
+use RatePAY\Model\Request\SubModel\Head\Meta;
+
+/**
+ * @method $this          setSystemId(string $systemId)
+ * @method string         getSystemId()
+ * @method $this          setTransactionId(string $transactionId)
+ * @method string         getTransactionId()
+ * @method $this          setOperation(string $operation)
+ * @method string         getOperation()
+ * @method $this          setSubtype(string $subType)
+ * @method string         getSubtype()
+ * @method $this          setCredential(Credential $credential)
+ * @method Credential     getCredential()
+ * @method $this          setExternal(External $external)
+ * @method External       getExternal()
+ * @method $this          setCustomerDevice(CustomerDevice $customerDevice)
+ * @method CustomerDevice getCustomerDevice()
+ * @method $this          setMeta(Meta $meta)
+ * @method Meta           getMeta()
+ */
 class Head extends AbstractModel
 {
     /**

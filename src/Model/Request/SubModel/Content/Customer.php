@@ -15,7 +15,54 @@ namespace RatePAY\Model\Request\SubModel\Content;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 use RatePAY\Model\Request\SubModel\Constants as CONSTANTS;
+use RatePAY\Model\Request\SubModel\Content\Customer\Addresses;
+use RatePAY\Model\Request\SubModel\Content\Customer\BankAccount;
+use RatePAY\Model\Request\SubModel\Content\Customer\Contacts;
 
+/**
+ * @method $this       setGender(string $value)
+ * @method string      getGender()
+ * @method $this       setSalutation(string $value)
+ * @method string      getSalutation()
+ * @method $this       setTitle(string $value)
+ * @method string      getTitle()
+ * @method $this       setFirstName(string $value)
+ * @method string      getFirstName()
+ * @method $this       setMiddleName(string $value)
+ * @method string      getMiddleName()
+ * @method $this       setLastName(string $value)
+ * @method string      getLastName()
+ * @method $this       setNameSuffix(string $value)
+ * @method string      getNameSuffix()
+ * @method $this       setDateOfBirth(string $value)
+ * @method string      getDateOfBirth()
+ * @method $this       setNationality(string $value)
+ * @method string      getNationality()
+ * @method $this       setLanguage(string $value)
+ * @method string      getLanguage()
+ * @method $this       setIpAddress(string $value)
+ * @method string      getIpAddress()
+ * @method $this       setCustomerAllowCreditInquiry(string $value)
+ * @method string      getCustomerAllowCreditInquiry()
+ * @method $this       setAddresses(Addresses $value)
+ * @method Addresses   getAddresses()
+ * @method $this       setContacts(Contacts $value)
+ * @method Contacts    getContacts()
+ * @method $this       setBankAccount(BankAccount $value)
+ * @method BankAccount getBankAccount()
+ * @method $this       setCompanyName(string $value)
+ * @method string      getCompanyName()
+ * @method $this       setCompanyType(string $value)
+ * @method string      getCompanyType()
+ * @method $this       setVatId(string $value)
+ * @method string      getVatId()
+ * @method $this       setCompanyId(string $value)
+ * @method string      getCompanyId()
+ * @method $this       setRegistryLocation(string $value)
+ * @method string      getRegistryLocation()
+ * @method $this       setHomepage(string $value)
+ * @method string      getHomepage()
+ */
 class Customer extends AbstractModel
 {
     /**

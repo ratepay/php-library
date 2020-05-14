@@ -15,6 +15,12 @@ namespace RatePAY\Model\Request\SubModel\Head\External;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
+/**
+ * @method $this  setId(string $id)
+ * @method string getId()
+ * @method $this  setProvider(string $provider)
+ * @method string getProvider()
+ */
 class Tracking extends AbstractModel
 {
     /**

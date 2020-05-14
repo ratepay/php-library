@@ -13,6 +13,27 @@
 
 namespace RatePAY\Model\Request\SubModel;
 
+use RatePAY\Model\Request\SubModel\Content\Additional;
+use RatePAY\Model\Request\SubModel\Content\Customer;
+use RatePAY\Model\Request\SubModel\Content\InstallmentCalculation;
+use RatePAY\Model\Request\SubModel\Content\Invoicing;
+use RatePAY\Model\Request\SubModel\Content\Payment;
+use RatePAY\Model\Request\SubModel\Content\ShoppingBasket;
+
+/**
+ * @method $this                  setCustomer(Customer $customer)
+ * @method Customer               getCustomer()
+ * @method $this                  setShoppingBasket(ShoppingBasket $shoppingBasket)
+ * @method ShoppingBasket         getShoppingBasket()
+ * @method $this                  setPayment(Payment $payment)
+ * @method Payment                getPayment()
+ * @method $this                  setInvoicing(Invoicing $invoicing)
+ * @method Invoicing              getInvoicing()
+ * @method $this                  setInstallmentCalculation(InstallmentCalculation $installmentCalculation)
+ * @method InstallmentCalculation getInstallmentCalculation()
+ * @method $this                  setAdditional(Additional $additional)
+ * @method Additional             getAdditional()
+ */
 class Content extends AbstractModel
 {
     /**
