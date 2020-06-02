@@ -15,6 +15,12 @@ namespace RatePAY\Model\Request\SubModel\Content\Customer\Contacts;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
+/**
+ * @method $this  setAreaCode(string $areaCode)
+ * @method string getAreaCode()
+ * @method $this  setDirectDial(string $directDial)
+ * @method string getDirectDial()
+ */
 class Phone extends AbstractModel
 {
     /**

@@ -16,6 +16,28 @@ namespace RatePAY\Model\Request\SubModel\Content\ShoppingBasket\Items;
 use RatePAY\Model\Request\SubModel\AbstractModel;
 use RatePAY\Service\Util;
 
+/**
+ * @method $this  setDescription(string $description)
+ * @method string getDescription()
+ * @method $this  setArticleNumber(string $articleNumber)
+ * @method string getArticleNumber()
+ * @method $this  setUniqueArticleNumber(string $uniqueArticleNumber)
+ * @method string getUniqueArticleNumber()
+ * @method $this  setQuantity(float $quantity)
+ * @method float  getQuantity()
+ * @method $this  setUnitPriceGross(float $unitPriceGross)
+ * @method float  getUnitPriceGross()
+ * @method $this  setTaxRate(float $taxRate)
+ * @method float  getTaxRate()
+ * @method $this  setCategory(string $category)
+ * @method string getCategory()
+ * @method $this  setDiscount(float $discount)
+ * @method float  getDiscount()
+ * @method $this  setDescriptionAddition(string $amount)
+ * @method string getDescriptionAddition()
+ * @method $this  setShopId(string $shopId)
+ * @method string getShopId()
+ */
 class Item extends AbstractModel
 {
     /**

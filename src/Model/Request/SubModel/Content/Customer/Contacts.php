@@ -14,7 +14,18 @@
 namespace RatePAY\Model\Request\SubModel\Content\Customer;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
+use RatePAY\Model\Request\SubModel\Content\Customer\Contacts\Phone;
 
+/**
+ * @method $this  setEmail(string $email)
+ * @method string getEmail()
+ * @method $this  setMobile(Phone $mobile)
+ * @method Phone  getMobile()
+ * @method $this  setPhone(Phone $phone)
+ * @method Phone  getPhone()
+ * @method $this  setFax(Phone $fax)
+ * @method Phone  getFax()
+ */
 class Contacts extends AbstractModel
 {
     /**

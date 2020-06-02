@@ -15,6 +15,20 @@ namespace RatePAY\Model\Request\SubModel\Content\Customer;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
+/**
+ * @method $this  setOwner(string $owner)
+ * @method string getOwner()
+ * @method $this  setBankName(string $bankName)
+ * @method string getBankName()
+ * @method $this  setBankAccountNumber(string $bankAccountNumber)
+ * @method string getBankAccountNumber()
+ * @method $this  setBankCode(string $bankCode)
+ * @method string getBankCode()
+ * @method $this  setIban(string $iban)
+ * @method string getIban()
+ * @method $this  setBicSwift(string $bicSwift)
+ * @method string getBicSwift()
+ */
 class BankAccount extends AbstractModel
 {
     /**

@@ -14,7 +14,18 @@
 namespace RatePAY\Model\Request\SubModel\Content;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
+use RatePAY\Model\Request\SubModel\Content\Payment\InstallmentDetails;
 
+/**
+ * @method $this              setMethod(string $method)
+ * @method string             getMethod()
+ * @method $this              setAmount(float $amount)
+ * @method float              getAmount()
+ * @method $this              setInstallmentDetails(InstallmentDetails $installmentDetails)
+ * @method InstallmentDetails getInstallmentDetails()
+ * @method $this              setDebitPayType(string $debitPayType)
+ * @method string             getDebitPayType()
+ */
 class Payment extends AbstractModel
 {
     /**

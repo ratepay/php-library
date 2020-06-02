@@ -16,6 +16,16 @@ namespace RatePAY\Model\Request\SubModel\Content\ShoppingBasket;
 use RatePAY\Model\Request\SubModel\AbstractModel;
 use RatePAY\Service\Util;
 
+/**
+ * @method $this  setDescription(string $description)
+ * @method string getDescription()
+ * @method $this  setUnitPriceGross(float $unitPriceGross)
+ * @method float  getUnitPriceGross()
+ * @method $this  setTaxRate(float $taxRate)
+ * @method float  getTaxRate()
+ * @method $this  setDescriptionAddition(string $amount)
+ * @method string getDescriptionAddition()
+ */
 class Shipping extends AbstractModel
 {
     /**

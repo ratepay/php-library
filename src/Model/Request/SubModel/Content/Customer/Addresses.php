@@ -14,7 +14,12 @@
 namespace RatePAY\Model\Request\SubModel\Content\Customer;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
+use RatePAY\Model\Request\SubModel\Content\Customer\Addresses\Address;
 
+/**
+ * @method $this     addAddress(Address $address)
+ * @method Address[] getAddresses()
+ */
 class Addresses extends AbstractModel
 {
     /**

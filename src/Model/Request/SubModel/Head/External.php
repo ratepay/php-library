@@ -14,7 +14,22 @@
 namespace RatePAY\Model\Request\SubModel\Head;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
+use RatePAY\Model\Request\SubModel\Head\External\Tracking;
 
+/**
+ * @method $this    setOrderId(string $orderId)
+ * @method string   getOrderId()
+ * @method $this    setMerchantConsumerId(string $merchantConsumerId)
+ * @method string   getMerchantConsumerId()
+ * @method $this    setMerchantConsumerClassification(string $merchantConsumerClassification)
+ * @method string   getMerchantConsumerClassification()
+ * @method $this    setTracking(Tracking $tracking)
+ * @method Tracking getTracking()
+ * @method $this    setShopLanguage(string $shopLanguage)
+ * @method string   getShopLanguage()
+ * @method $this    setReferenceId(string $referenceId)
+ * @method string   getReferenceId()
+ */
 class External extends AbstractModel
 {
     /**

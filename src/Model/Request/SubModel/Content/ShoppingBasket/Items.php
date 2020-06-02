@@ -14,7 +14,12 @@
 namespace RatePAY\Model\Request\SubModel\Content\ShoppingBasket;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
+use RatePAY\Model\Request\SubModel\Content\ShoppingBasket\Items\Item;
 
+/**
+ * @method $this  addItem(Item $item)
+ * @method Item[] getItems()
+ */
 class Items extends AbstractModel
 {
     /**

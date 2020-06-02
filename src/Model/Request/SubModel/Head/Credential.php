@@ -15,6 +15,12 @@ namespace RatePAY\Model\Request\SubModel\Head;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
+/**
+ * @method $this  setProfileId(string $profileId)
+ * @method string getProfileId()
+ * @method $this  setSecuritycode(string $securityCode)
+ * @method string getSecuritycode()
+ */
 class Credential extends AbstractModel
 {
     /**

@@ -14,8 +14,23 @@
 namespace RatePAY\Model\Request\SubModel\Content;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
+use RatePAY\Model\Request\SubModel\Content\ShoppingBasket\Discount;
+use RatePAY\Model\Request\SubModel\Content\ShoppingBasket\Items;
+use RatePAY\Model\Request\SubModel\Content\ShoppingBasket\Shipping;
 use RatePAY\Service\Util;
 
+/**
+ * @method $this    setAmount(float $amount)
+ * @method float    getAmount()
+ * @method $this    setCurrency(string $currency)
+ * @method string   getCurrency()
+ * @method $this    setItems(Items $items)
+ * @method Items    getItems()
+ * @method $this    setShipping(Shipping $shipping)
+ * @method Shipping getShipping()
+ * @method $this    setDiscount(Discount $discount)
+ * @method Discount getDiscount()
+ */
 class ShoppingBasket extends AbstractModel
 {
     /**
