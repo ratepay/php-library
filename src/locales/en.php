@@ -1,4 +1,5 @@
 <?php
+
 /*
  * RatePAY PHP-Library
  *
