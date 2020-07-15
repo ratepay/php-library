@@ -1,4 +1,11 @@
 # PHP-Library Changelog
+### [1.0.2](http://bitbucket.ratepay.com:7999///compare/1.0.1...1.0.2) (2020-07-15)
+
+
+### Bug Fixes
+
+* **locale:** include missing translations ([af27f74](http://bitbucket.ratepay.com:7999///commit/af27f74772b19d1240bff879417fd55e60ebe1ad))
+
 ### [1.0.1](https://github.com/ratepay/php-library/compare/1.0.0...1.0.1) (2020-04-08)
 
 
