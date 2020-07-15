@@ -38,12 +38,12 @@ class LanguageService
      *
      * @throws LanguageException
      */
-    public function __construct($language = 'DE')
+    public function __construct($language = 'EN')
     {
         $language = in_array(strtoupper($language), ['AU', 'CH']) ? 'DE' : $language;
 
         if (!$this->localeFileExists($language)) {
-            $language = 'DE';
+            $language = 'EN';
         }
 
         $this->language = strtoupper($language);
