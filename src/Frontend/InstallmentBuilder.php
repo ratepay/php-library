@@ -343,6 +343,7 @@ class InstallmentBuilder
         $result = $configuration->getResult();
         $rpReasonCodeTranslation = 'rp_reason_code_translation_' . $configuration->getReasonCode();
         $result['responseText'] = $this->lang->$rpReasonCodeTranslation();
+
         return json_encode($result);
     }
 
