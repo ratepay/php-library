@@ -1,14 +1,14 @@
 <?php
 
 /*
- * RatePAY PHP-Library
+ * Ratepay PHP-Library
  *
  * This document contains trade secret data which are the property of
- * RatePAY GmbH, Berlin, Germany. Information contained herein must not be used,
- * copied or disclosed in whole or part unless permitted in writing by RatePAY GmbH.
- * All rights reserved by RatePAY GmbH.
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
  *
- * Copyright (c) 2020 RatePAY GmbH / Berlin / Germany
+ * Copyright (c) 2020 Ratepay GmbH / Berlin / Germany
  */
 
 return [
@@ -59,8 +59,8 @@ return [
   'rp_reason_code_translation_699' => 'Die Rate ist zu hoch f&uuml;r die minimal verf&uuml;gbare Laufzeit. Die Rate wurde verringert.',
   'rp_switch_payment_type_bank_transfer' => 'Ich m&ouml;chte die Ratenzahlungen selbst vornehmen und nicht per Lastschrift begleichen.',
   'rp_switch_payment_type_direct_debit' => 'Ich m&ouml;chte die Ratenzahlungen bequem per Lastschrift begleichen.',
-  'rp_address' => 'RatePAY GmbH, Franklinstra&szlig;e 28-29, 10587 Berlin',
-  'wcd_address' => 'Wirecard Bank AG, Einsteinring 35, 85609 Aschheim',
+  'rp_address' => 'Ratepay GmbH, Franklinstra&szlig;e 28-29, 10587 Berlin',
+  'wcd_address' => 'Ratepay GmbH, Franklinstra&szlig;e 28-29, 10587 Berlin',
   'rp_creditor' => 'Gl&auml;ubiger-ID',
   'rp_creditor_id' => 'DE39RPY00000568463',
   'wcd_creditor_id' => 'DE49ZZZ00000002773',
@@ -76,15 +76,15 @@ return [
   'rp_sepa_link' => 'Einwilligungserkl&auml;rung zum SEPA-Mandat lesen',
   'rp_sepa_terms_block_1' => 'Ich willige hiermit in die Weiterleitung meiner Daten an ',
   'rp_sepa_terms_block_2' => 'gem&auml;&szlig; ',
-  'rp_sepa_terms_block_3' => 'ein und erm&auml;chtige diese, mit diesem Kaufvertrag in Zusammenhang stehende Zahlungen von meinem o.a. Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von RatePAY GmbH auf mein Konto gezogenen Lastschriften einzul&ouml;sen.',
+  'rp_sepa_terms_block_3' => 'ein und erm&auml;chtige diese, mit diesem Kaufvertrag in Zusammenhang stehende Zahlungen von meinem o.a. Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von Ratepay GmbH auf mein Konto gezogenen Lastschriften einzul&ouml;sen.',
   'rp_data_privacy_policy' => 'zusätzliche AGB und Datenschutzhinweise',
   'rp_data_privacy_policy_url' => 'https://www.ratepay.com/legal/',
   'rp_sepa_notice_block_1' => 'Hinweis:',
-  'rp_sepa_notice_block_2' => 'Nach Zustandekommen des Vertrags wird mir die Mandatsreferenz von RatePAY mitgeteilt.',
+  'rp_sepa_notice_block_2' => 'Nach Zustandekommen des Vertrags wird mir die Mandatsreferenz von Ratepay mitgeteilt.',
   'rp_sepa_notice_block_3' => 'Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen.',
   'wcd_sepa_notice_block' => 'Bitte geben Sie Ihre Bankverbindung f&uuml;r den monatlichen Einzug zum jeweils 2. des Kalendermonats an. Liegt dieser auf einem Sonn- oder Feiertag, so erfolgt der Einzug am darauffolgenden Werktag.',
   'wcd_sepa_terms_please_note' => 'Hinweis',
-  'wcd_sepa_terms_block_1' => 'Ich erm&auml;chtige die Wirecard Bank AG von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von der Wirecard Bank AG auf mein Konto gezogenen Lastschriften einzul&ouml;sen.',
+  'wcd_sepa_terms_block_1' => 'Ich erm&auml;chtige die Ratepay GmbH von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von der Ratepay GmbH auf mein Konto gezogenen Lastschriften einzul&ouml;sen.',
   'wcd_sepa_terms_block_2' => 'Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen.',
   'wcd_sepa_terms_block_3' => 'Es gelten dabei die mit dem Kreditinstitut vereinbarten Bedingungen.',
 ];

@@ -61,7 +61,7 @@ return [
   'rp_switch_payment_type_bank_transfer' => 'I would like to make the instalments myself and not pay by direct debit',
   'rp_switch_payment_type_direct_debit' => 'I would like to pay the instalments conveniently by direct debit',
   'rp_address' => 'RatePAY GmbH, Franklinstra&szlig;e 28-29, 10587 Berlin',
-  'wcd_address' => 'Wirecard Bank AG, Einsteinring 35, 85609 Aschheim',
+  'wcd_address' => 'RatePAY GmbH, Franklinstra&szlig;e 28-29, 10587 Berlin',
   'rp_creditor' => 'Creditor ID',
   'rp_creditor_id' => 'DE39RPY00000568463',
   'wcd_creditor_id' => 'DE49ZZZ00000002773',
@@ -85,7 +85,7 @@ return [
   'rp_sepa_notice_block_3' => 'As part of my rights, I am entitled to a refund from my bank under the terms and conditions of my agreement with my bank. A refund must be claimed within 8 weeks starting from the date on which my account was debited. My rights are explained in a statement that I can obtain from my bank.',
   'wcd_sepa_notice_block' => 'Please enter your bank details for the monthly withdrawal on the 2nd of each calendar month. If this is on a Sunday or public holiday, the withdrawal takes place on the following working day',
   'wcd_sepa_terms_please_note' => 'Note, ',
-  'wcd_sepa_terms_block_1' => 'I hereby authorise Wirecard Bank AG to collect payments from my account by direct debit. At the same time, I authorise my bank to debit my account in accordance with the instructions from Wirecard Bank AG.',
+  'wcd_sepa_terms_block_1' => 'I hereby authorise Ratepay GmbH to collect payments from my account by direct debit. At the same time, I authorise my bank to debit my account in accordance with the instructions from Ratepay GmbH.',
   'wcd_sepa_terms_block_2' => 'As part of my rights, I am entitled to a refund from my bank under the terms and conditions of my agreement with my bank. A refund must be claimed within 8 weeks starting from the date on which my account was debited. ',
   'wcd_sepa_terms_block_3' => 'My rights are explained in a statement that I can obtain from my bank.',
 ];
