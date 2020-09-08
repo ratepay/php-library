@@ -1,14 +1,14 @@
 <?php
 
 /*
- * RatePAY PHP-Library
+ * Ratepay PHP-Library
  *
  * This document contains trade secret data which are the property of
- * RatePAY GmbH, Berlin, Germany. Information contained herein must not be used,
- * copied or disclosed in whole or part unless permitted in writing by RatePAY GmbH.
- * All rights reserved by RatePAY GmbH.
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
  *
- * Copyright (c) 2020 RatePAY GmbH / Berlin / Germany
+ * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
  */
 
 namespace RatePAY\Model\Request\SubModel\Content\ShoppingBasket;

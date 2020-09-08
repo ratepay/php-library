@@ -1,6 +1,6 @@
 {
   "name": "ratepay/php-library",
-  "description": "RatePAY API PHP Library",
+  "description": "Ratepay Payment-API PHP Library",
   "version": "1.0.2",
   "license": "MIT",
   "type": "library",
