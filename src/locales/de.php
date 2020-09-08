@@ -4,11 +4,11 @@
  * Ratepay PHP-Library
  *
  * This document contains trade secret data which are the property of
- * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
- * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
- * All rights reserved by Ratepay GmbH.
+ * RatePAY GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by RatePAY GmbH.
+ * All rights reserved by RatePAY GmbH.
  *
- * Copyright (c) 2020 Ratepay GmbH / Berlin / Germany
+ * Copyright (c) 2019 RatePAY GmbH / Berlin / Germany
  */
 
 return [
