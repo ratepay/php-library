@@ -1,18 +1,50 @@
 <?php
 
+/*
+ * Ratepay PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
+ *
+ * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request\SubModel\Content\ShoppingBasket\Items;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 use RatePAY\Service\Util;
 
+/**
+ * @method $this  setDescription(string $description)
+ * @method string getDescription()
+ * @method $this  setArticleNumber(string $articleNumber)
+ * @method string getArticleNumber()
+ * @method $this  setUniqueArticleNumber(string $uniqueArticleNumber)
+ * @method string getUniqueArticleNumber()
+ * @method $this  setQuantity(float $quantity)
+ * @method float  getQuantity()
+ * @method $this  setUnitPriceGross(float $unitPriceGross)
+ * @method float  getUnitPriceGross()
+ * @method $this  setTaxRate(float $taxRate)
+ * @method float  getTaxRate()
+ * @method $this  setCategory(string $category)
+ * @method string getCategory()
+ * @method $this  setDiscount(float $discount)
+ * @method float  getDiscount()
+ * @method $this  setDescriptionAddition(string $amount)
+ * @method string getDescriptionAddition()
+ * @method $this  setShopId(string $shopId)
+ * @method string getShopId()
+ */
 class Item extends AbstractModel
 {
-
     /**
      * List of admitted fields.
      * Each field is public accessible by certain getter and setter.
      * E.g:
-     * Set payment unit price gross by using setUnitPriceGross(var). Get unit price gross by using getUnitPriceGross(). (Please consider the camel case)
+     * Set payment unit price gross by using setUnitPriceGross(var). Get unit price gross by using getUnitPriceGross(). (Please consider the camel case).
      *
      * Settings:
      * mandatory            = field is mandatory (or optional)
@@ -29,19 +61,19 @@ class Item extends AbstractModel
     public $admittedFields = [
         'Description' => [
             'mandatory' => true,
-            'cdata' => true
+            'cdata' => true,
         ],
         'ArticleNumber' => [
             'mandatory' => true,
-            'isAttribute' => true
+            'isAttribute' => true,
         ],
         'UniqueArticleNumber' => [
             'mandatory' => false,
-            'isAttribute' => true
+            'isAttribute' => true,
         ],
         'Quantity' => [
             'mandatoryByRule' => true,
-            'isAttribute' => true
+            'isAttribute' => true,
         ],
         'UnitPriceGross' => [
             'mandatory' => true,
@@ -53,7 +85,7 @@ class Item extends AbstractModel
         ],
         'Category' => [
             'mandatory' => false,
-            'isAttribute' => true
+            'isAttribute' => true,
         ],
         'Discount' => [
             'mandatory' => false,
@@ -66,7 +98,7 @@ class Item extends AbstractModel
         'ShopId' => [
             'mandatory' => false,
             'isAttribute' => true,
-        ]
+        ],
     ];
 
     /*
@@ -74,18 +106,19 @@ class Item extends AbstractModel
      * In addition to API fields there are settings possible to control library behavior.
      */
     public $settings = [
-        'AutoDelivery' => false
+        'AutoDelivery' => false,
     ];
 
     /**
-     * Quantity rule : reject basket if quantity is <= 0
+     * Quantity rule : reject basket if quantity is <= 0.
      *
      * @return bool
      */
     protected function rule()
     {
         if (!key_exists('value', $this->admittedFields['Quantity']) || (int) $this->admittedFields['Quantity']['value'] <= 0) {
-            $this->setErrorMsg("Quantity must be at least 1");
+            $this->setErrorMsg('Quantity must be at least 1');
+
             return false;
         }
 
@@ -93,9 +126,10 @@ class Item extends AbstractModel
     }
 
     /**
-     * Changes discount to negative value (if necessary)
+     * Changes discount to negative value (if necessary).
      *
      * @return array
+     *
      * @throws \RatePAY\Exception\ModelException
      * @throws \RatePAY\Exception\RuleSetException
      */
@@ -109,5 +143,4 @@ class Item extends AbstractModel
 
         return parent::toArray();
     }
-
 }

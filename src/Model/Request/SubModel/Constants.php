@@ -1,31 +1,42 @@
 <?php
 
+/*
+ * Ratepay PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
+ *
+ * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request\SubModel;
 
-class Constants {
+class Constants
+{
+    /**
+     * Library system name default.
+     */
+    const LIBRARY_SYSTEM_NAME = 'RP_PHP_LIB';
 
     /**
-     * Library system name default
+     * Library version.
      */
-    const LIBRARY_SYSTEM_NAME = "RP_PHP_LIB";
+    const LIBRARY_VERSION = '0.9.5';
 
     /**
-     * Library version
+     * Supported RatePAY API version.
      */
-    const LIBRARY_VERSION = "0.9.5";
+    const RATEPAY_API_VERSION = '1.8';
 
     /**
-     * Supported RatePAY API version
+     * CustomerAllowCreditInquiry.
      */
-    const RATEPAY_API_VERSION = "1.8";
+    const CUSTOMER_ALLOW_CREDIT_INQUIRY = 'yes';
 
     /**
-     * CustomerAllowCreditInquiry
+     * NumberFormat.
      */
-    const CUSTOMER_ALLOW_CREDIT_INQUIRY = "yes";
-
-    /**
-     * NumberFormat
-     */
-    const NUMBER_FORMAT = "EN";
+    const NUMBER_FORMAT = 'EN';
 }

@@ -1,135 +1,146 @@
 <?php
 
+/*
+ * Ratepay PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
+ *
+ * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
+ */
+
 namespace RatePAY;
 
-use RatePAY\Model\Request\SubModel\Content\ShoppingBasket;
-use RatePAY\Service\Util;
-use RatePAY\Service\XmlBuilder;
-use RatePAY\Service\CommunicationService;
-use RatePAY\Service\ValidateGatewayResponse;
-use RatePAY\Service\ModelMapper;
 use RatePAY\Exception\RequestException;
+use RatePAY\Model\Request\SubModel\Content\ShoppingBasket;
+use RatePAY\Model\Response\AbstractResponse;
+use RatePAY\Service\CommunicationService;
+use RatePAY\Service\ModelMapper;
+use RatePAY\Service\Util;
+use RatePAY\Service\ValidateGatewayResponse;
+use RatePAY\Service\XmlBuilder;
 
 /**
- * Class RequestBuilder
- * @package Request
+ * Class RequestBuilder.
  */
 class RequestBuilder
 {
     /**
-     * Instance of current request class
+     * Instance of current request class.
      *
      * @var mixed
      */
     private $request;
 
     /**
-     * Instance of ValidateGatewayResponse
+     * Instance of ValidateGatewayResponse.
      *
      * @var ValidateGatewayResponse
      */
     private $response;
 
     /**
-     * Instance of ValidateGatewayResponse
+     * Instance of AbstractResponse.
      *
-     * @var ValidateGatewayResponse
+     * @var AbstractResponse
      */
     private $responseModel;
 
     /**
-     * Response time
+     * Response time.
      *
      * @var float
      */
     private $responseTime;
 
     /**
-     * Raw XML request string
+     * Raw XML request string.
      *
      * @var string
      */
     private $requestRaw;
 
     /**
-     * Raw XML response string
+     * Raw XML response string.
      *
      * @var string
      */
     private $responseRaw;
 
     /**
-     * Request object
+     * Request object.
      *
      * @var \SimpleXMLElement
      */
     private $requestXmlElement;
 
     /**
-     * Response object
+     * Response object.
      *
      * @var \SimpleXMLElement
      */
     private $responseXmlElement;
 
     /**
-     * Sandbox mode
+     * Sandbox mode.
      *
      * @var bool
      */
     private $sandbox = false;
 
     /**
-     * Head object
+     * Head object.
      *
      * @var Head
      */
     private $head = null;
 
     /**
-     * Content object
+     * Content object.
      *
      * @var Content
      */
     private $content = null;
 
     /**
-     * Request type (Operation)
+     * Request type (Operation).
      *
      * @var string
      */
     private $requestType = null;
 
     /**
-     * Operation subtype
+     * Operation subtype.
      *
      * @var string
      */
     private $subtype = null;
 
     /**
-     * Connect timeout
+     * Connect timeout.
      *
      * @var int
      */
     private $connectionTimeout = 0;
 
     /**
-     * Execution timeout
+     * Execution timeout.
      *
      * @var int
      */
     private $executionTimeout = 0;
 
     /**
-     * Connection retries
+     * Connection retries.
      *
      * @var int
      */
     private $connectionRetries = 0;
 
     /**
-     * Retry delay
+     * Retry delay.
      *
      * @var int
      */
@@ -144,13 +155,13 @@ class RequestBuilder
     private $gatewayUrl = null;
 
     /**
-     * RequestBuilder constructor. Sets sandbox mode
+     * RequestBuilder constructor. Sets sandbox mode.
      *
      * @param bool $sandbox
      */
     public function __construct($sandbox = false, $gatewayUrl = null)
     {
-        $this->sandbox = !!$sandbox;
+        $this->sandbox = (bool) $sandbox;
         $this->gatewayUrl = empty($gatewayUrl) ? null : $gatewayUrl;
     }
 
@@ -162,14 +173,18 @@ class RequestBuilder
      *
      * @param $name
      * @param $arguments
+     *
      * @return RequestBuilder
+     *
+     * @throws Exception\CurlException
+     * @throws Exception\ModelException
      * @throws RequestException
      */
     public function __call($name, $arguments)
     {
-        if (substr($name, 0, 4) == "call") {
+        if (substr($name, 0, 4) == 'call') {
             return $this->callMethod($name, $arguments);
-        } elseif (substr($name, 0, 3) == "get" || substr($name, 0, 2) == "is") {
+        } elseif (substr($name, 0, 3) == 'get' || substr($name, 0, 2) == 'is') {
             return $this->getMethod($name, $arguments);
         } else {
             throw new RequestException("Action '" . $name . "' not valid");
@@ -179,7 +194,11 @@ class RequestBuilder
     /**
      * @param $name
      * @param $arguments
+     *
      * @return $this|bool|RequestBuilder
+     *
+     * @throws Exception\CurlException
+     * @throws Exception\ModelException
      * @throws RequestException
      */
     private function callMethod($name, $arguments)
@@ -193,26 +212,26 @@ class RequestBuilder
             throw new RequestException("operation '" . $requestModelName . "' not valid");
         }
 
-        $this->requestModel = new $requestModelWithPath;
+        $this->requestModel = new $requestModelWithPath();
 
-        if (get_class($arguments[0]) == "RatePAY\\ModelBuilder") {
+        if (get_class($arguments[0]) == 'RatePAY\\ModelBuilder') {
             $arguments[0] = $arguments[0]->getModel();
         }
 
-        if (!key_exists(0, $arguments) || get_class($arguments[0]) != ModelMapper::getFullPathRequestSubModel("Head")) {
-            throw new RequestException("" . $requestModelName . " requires Head model");
+        if (!key_exists(0, $arguments) || get_class($arguments[0]) != ModelMapper::getFullPathRequestSubModel('Head')) {
+            throw new RequestException('' . $requestModelName . ' requires Head model');
         }
 
         $this->requestType = $requestModelName;
         $this->head = $arguments[0];
 
         if (key_exists(1, $arguments)) {
-            if (get_class($arguments[1]) == "RatePAY\\ModelBuilder") {
+            if (get_class($arguments[1]) == 'RatePAY\\ModelBuilder') {
                 $arguments[1] = $arguments[1]->getModel();
             }
 
-            if (get_class($arguments[1]) != ModelMapper::getFullPathRequestSubModel("Content")) {
-                throw new RequestException("" . $requestModelName . " requires Content model");
+            if (get_class($arguments[1]) != ModelMapper::getFullPathRequestSubModel('Content')) {
+                throw new RequestException('' . $requestModelName . ' requires Content model');
             }
 
             $this->content = $arguments[1];
@@ -222,7 +241,7 @@ class RequestBuilder
          * If Payment Request is called without transaction id,
          * Payment Init will called automatically before sending Payment Request.
          */
-        if ($requestModelName == "PaymentRequest" && is_null($this->head->getTransactionId())) {
+        if ($requestModelName == 'PaymentRequest' && is_null($this->head->getTransactionId())) {
             $autoPI = $this->callAutomaticPaymentInit();
             // callAutomaticPaymentInit returns true if call was successful. Just on failure it returns PI response model.
             if ($autoPI !== true) {
@@ -241,7 +260,7 @@ class RequestBuilder
         /*
          * Call automatic Confirmation Deliver if AutoDelivery is set
          */
-        if ($requestModelName == "PaymentRequest" && $this->isSuccessful()) {
+        if ($requestModelName == 'PaymentRequest' && $this->isSuccessful()) {
             $autoCD = $this->callAutomaticConfirmationDeliver();
             // callAutomaticConfirmationDeliver returns true if call is not necessary or was successful. Just on failure it returns CD response model.
             if ($autoCD !== true) {
@@ -255,7 +274,9 @@ class RequestBuilder
     /**
      * @param $name
      * @param $arguments
+     *
      * @return mixed
+     *
      * @throws RequestException
      */
     private function getMethod($name, $arguments)
@@ -272,7 +293,7 @@ class RequestBuilder
     }
 
     /**
-     * Calls requested request and saves results in class attributes
+     * Calls requested request and saves results in class attributes.
      *
      * @throws Exception\CurlException
      */
@@ -322,10 +343,12 @@ class RequestBuilder
     }
 
     /**
-     * Sets committed subtype and proceeds current request call
+     * Sets committed subtype and proceeds current request call.
      *
      * @param $subtype
+     *
      * @return $this
+     *
      * @throws Exception\CurlException
      * @throws RequestException
      */
@@ -334,9 +357,9 @@ class RequestBuilder
         $subtype = strtolower($subtype);
 
         if (!$this->requestModel->isSubtypeRequired()) {
-            throw new RequestException("" . $this->requestType . " denies Subtype");
+            throw new RequestException('' . $this->requestType . ' denies Subtype');
         } elseif (!in_array($subtype, $this->requestModel->getAdmittedSubtypes())) {
-            throw new RequestException("Subtype '" . $this->requestType . "' is invalid on ". $this->requestType);
+            throw new RequestException("Subtype '" . $this->requestType . "' is invalid on " . $this->requestType);
         }
 
         $this->subtype = $subtype;
@@ -346,57 +369,67 @@ class RequestBuilder
     }
 
     /**
-     * Sets the number of milliseconds to wait while trying to connect
+     * Sets the number of milliseconds to wait while trying to connect.
      *
      * @param int $timeout
+     *
      * @return $this
      */
     public function setConnectionTimeout($timeout = 0)
     {
         $this->connectionTimeout = (int) $timeout;
+
         return $this;
     }
 
     /**
-     * Sets the maximum number of milliseconds to allow cURL functions to execute
+     * Sets the maximum number of milliseconds to allow cURL functions to execute.
      *
      * @param int $timeout
+     *
      * @return $this
      */
     public function setExecutionTimeout($timeout = 0)
     {
         $this->executionTimeout = (int) $timeout;
+
         return $this;
     }
 
     /**
-     * Sets the number of retries
+     * Sets the number of retries.
      *
      * @param int $retries
+     *
      * @return $this
      */
     public function setConnectionRetries($retries = 0)
     {
         $this->connectionRetries = (int) $retries;
+
         return $this;
     }
 
     /**
-     * Sets the delay between retries in milliseconds
+     * Sets the delay between retries in milliseconds.
      *
      * @param int $delay
+     *
      * @return $this
      */
     public function setRetryDelay($delay = 0)
     {
         $this->retryDelay = (int) $delay;
+
         return $this;
     }
 
     /**
-     * Returns all available RatePAY request operations
+     * Returns all available RatePAY request operations.
      *
-     * @return array
+     * @param bool $returnAsJson
+     *
+     * @return array|string
      */
     public function getAvailableRequests($returnAsJson = false)
     {
@@ -411,7 +444,7 @@ class RequestBuilder
     }
 
     /**
-     * Returns the response time in seconds
+     * Returns the response time in seconds.
      *
      * @return float
      */
@@ -421,7 +454,7 @@ class RequestBuilder
     }
 
     /**
-     * Returns the raw XML request string
+     * Returns the raw XML request string.
      *
      * @return string
      */
@@ -431,7 +464,7 @@ class RequestBuilder
     }
 
     /**
-     * Returns the raw XML response string
+     * Returns the raw XML response string.
      *
      * @return string
      */
@@ -441,7 +474,7 @@ class RequestBuilder
     }
 
     /**
-     * Returns the request as SimpleXMLElement
+     * Returns the request as SimpleXMLElement.
      *
      * @return \SimpleXMLElement
      */
@@ -451,7 +484,7 @@ class RequestBuilder
     }
 
     /**
-     * Returns the response as SimpleXMLElement
+     * Returns the response as SimpleXMLElement.
      *
      * @return \SimpleXMLElement
      */
@@ -461,18 +494,18 @@ class RequestBuilder
     }
 
     /**
-     * Clears all class attributes
+     * Clears all class attributes.
      */
     private function clearAttributes()
     {
         foreach (get_class_vars(__CLASS__) as $attribute => $value) {
             switch ($attribute) {
-                case "sandbox":
-                case "connectionTimeout":
-                case "executionTimeout":
-                case "connectionRetries":
-                case "retryDelay":
-                case "gatewayUrl":
+                case 'sandbox':
+                case 'connectionTimeout':
+                case 'executionTimeout':
+                case 'connectionRetries':
+                case 'retryDelay':
+                case 'gatewayUrl':
                     continue 2;
                     break;
                 default:
@@ -482,7 +515,7 @@ class RequestBuilder
     }
 
     /**
-     * Calls an automated PaymentInit request
+     * Calls an automated PaymentInit request.
      *
      * @return bool|RequestBuilder
      */
@@ -500,11 +533,11 @@ class RequestBuilder
         return true;
     }
 
-
     /**
-     * Checks if shopping basket contains auto-deliver items and calls an automated ConfirmationDeliver request
+     * Checks if shopping basket contains auto-deliver items and calls an automated ConfirmationDeliver request.
      *
      * @return bool|RequestBuilder
+     *
      * @throws Exception\ModelException
      */
     private function callAutomaticConfirmationDeliver()
@@ -513,8 +546,8 @@ class RequestBuilder
         $shoppingItems = $shoppingBasket->getItems()->getItem();
 
         $autoDelivery = false;
-        $deliveryBasket = new ShoppingBasket;
-        $deliveryItems = new ShoppingBasket\Items;
+        $deliveryBasket = new ShoppingBasket();
+        $deliveryItems = new ShoppingBasket\Items();
 
         foreach ($shoppingItems as $shoppingItem) {
             if ($shoppingItem->getAutoDelivery() || $shoppingBasket->getAutoDelivery()) {
@@ -554,5 +587,13 @@ class RequestBuilder
         }
 
         return true;
+    }
+
+    /**
+     * @return AbstractResponse
+     */
+    public function getResponse()
+    {
+        return $this->responseModel;
     }
 }

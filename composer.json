@@ -1,7 +1,7 @@
 {
   "name": "ratepay/php-library",
-  "description": "RatePAY API PHP Library",
-  "version": "0.10.1",
+  "description": "Ratepay Payment-API PHP Library",
+  "version": "1.0.2",
   "license": "MIT",
   "type": "library",
   "homepage": "https://ratepay.gitbook.io/docs/",
@@ -11,20 +11,30 @@
   },
   "authors": [
     {
-      "name": "Aarne Welschlau",
-      "email": "aarne.welschlau@ratepay.com"
+      "name": "Eduardo Iriarte",
+      "email": "eduardo.iriarte-mendez@ratepay.com"
     }
   ],
+  "scripts": {
+    "test": "vendor/bin/phpunit --coverage-clover=coverage.xml",
+    "lint": "vendor/bin/php-cs-fixer fix --dry-run --stop-on-violation --using-cache=no --verbose",
+    "publish-coverage": "bash <(curl -s https://codecov.io/bash)"
+  },
   "require": {
-    "php": ">=5.4"
+    "php": ">=5.4",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "ext-simplexml": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "5.7.*"
+    "phpunit/phpunit": "5.7.*",
+    "donatj/mock-webserver": "v2.1.0",
+    "friendsofphp/php-cs-fixer": "^2.17@dev"
   },
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "RatePAY\\" : "src/"
+      "RatePAY\\": "src/"
     }
   },
   "autoload-dev": {

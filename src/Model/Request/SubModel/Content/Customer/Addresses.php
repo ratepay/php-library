@@ -1,17 +1,32 @@
 <?php
 
+/*
+ * Ratepay PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
+ *
+ * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request\SubModel\Content\Customer;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
+use RatePAY\Model\Request\SubModel\Content\Customer\Addresses\Address;
 
+/**
+ * @method $this     addAddress(Address $address)
+ * @method Address[] getAddresses()
+ */
 class Addresses extends AbstractModel
 {
-
     /**
      * List of admitted fields.
      * Each field is public accessible by certain getter and setter.
      * E.g:
-     * Set firstname value by using setFirstName(var). Get firstname by using getFirstName(). (Please consider the camel case)
+     * Set firstname value by using setFirstName(var). Get firstname by using getFirstName(). (Please consider the camel case).
      *
      * Settings:
      * mandatory            = field is mandatory (or optional)
@@ -28,9 +43,8 @@ class Addresses extends AbstractModel
     public $admittedFields = [
         'Address' => [
             'mandatory' => true,
-            'instanceOf' => "Content\\Customer\\Addresses\\Address",
-            'multiple' => true
-        ]
+            'instanceOf' => 'Content\\Customer\\Addresses\\Address',
+            'multiple' => true,
+        ],
     ];
-
 }

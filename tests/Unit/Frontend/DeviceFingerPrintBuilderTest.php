@@ -2,7 +2,6 @@
 
 namespace RatePAY\Tests\Unit\Frontend;
 
-
 use PHPUnit\Framework\TestCase;
 use RatePAY\Frontend\DeviceFingerprintBuilder;
 

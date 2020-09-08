@@ -1,0 +1,15 @@
+{
+    "header": "# Changelog",
+    "tagPrefix": "",
+    "bumpFiles": [
+      {
+        "filename": "composer.json",
+        "type": "json"
+      },
+      {
+        "filename": "README.md",
+        "updater": "./ci/readme-updater.js"
+      }
+    ]
+  }
+  

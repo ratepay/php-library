@@ -1,25 +1,33 @@
 <?php
 
-    namespace RatePAY\Model\Response;
+/*
+ * Ratepay PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
+ *
+ * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
+ */
 
-    use RatePAY\Service\LanguageService as lang;
+namespace RatePAY\Model\Response;
 
     class CalculationRequest extends AbstractResponse
     {
-
         /**
-         * Success codes
+         * Success codes.
          *
          * @var array
          */
         private $successCodes = [603, 671, 688, 689, 695, 696, 697, 698, 699];
 
         /**
-         * Validates response
+         * Validates response.
          */
         public function validateResponse()
         {
-            if ($this->getStatusCode() == "OK" && $this->getResultCode() == 502 && in_array($this->getReasonCode(), $this->getSuccessCodes())) {
+            if ($this->getStatusCode() == 'OK' && $this->getResultCode() == 502 && in_array($this->getReasonCode(), $this->getSuccessCodes())) {
                 $this->setResult(['totalAmount' => (float) $this->getResponse()->content->{'installment-calculation-result'}->{'total-amount'}]);
                 $this->setResult(['amount' => (float) $this->getResponse()->content->{'installment-calculation-result'}->{'amount'}]);
                 $this->setResult(['interestRate' => (float) $this->getResponse()->content->{'installment-calculation-result'}->{'interest-rate'}]);
@@ -36,10 +44,10 @@
             }
         }
 
-        ### Following methods are used for Payment Request -> Payment section
+        //## Following methods are used for Payment Request -> Payment section
 
         /**
-         * Returns all success codes
+         * Returns all success codes.
          *
          * @return array
          */
@@ -49,7 +57,7 @@
         }
 
         /**
-         * Returns amount value for payment section (Payment Request)
+         * Returns amount value for payment section (Payment Request).
          *
          * @return float
          */
@@ -59,7 +67,7 @@
         }
 
         /**
-         * Returns number of rates for installment details (Payment Request -> Payment)
+         * Returns number of rates for installment details (Payment Request -> Payment).
          *
          * @return int
          */
@@ -69,7 +77,7 @@
         }
 
         /**
-         * Returns rate for installment details (Payment Request -> Payment)
+         * Returns rate for installment details (Payment Request -> Payment).
          *
          * @return float
          */
@@ -79,7 +87,7 @@
         }
 
         /**
-         * Returns last rate for installment details (Payment Request -> Payment)
+         * Returns last rate for installment details (Payment Request -> Payment).
          *
          * @return float
          */
@@ -89,7 +97,7 @@
         }
 
         /**
-         * Returns interest rate for installment details (Payment Request -> Payment)
+         * Returns interest rate for installment details (Payment Request -> Payment).
          *
          * @return float
          */
@@ -99,7 +107,7 @@
         }
 
         /**
-         * Returns payment firstday for installment details (Payment Request -> Payment)
+         * Returns payment firstday for installment details (Payment Request -> Payment).
          *
          * @return int
          */
@@ -107,61 +115,61 @@
         {
             return $this->result['paymentFirstday'];
         }
-        
-        ### Following methods are used for installment calculation
+
+        //## Following methods are used for installment calculation
 
         /**
-         * Returns service charge
+         * Returns service charge.
          *
          * @return float
          */
         public function getServiceCharge()
         {
-            return number_format($this->result['serviceCharge'], 2, ",", ".");
+            return number_format($this->result['serviceCharge'], 2, ',', '.');
         }
 
         /**
-         * Returns annual percentage rate
+         * Returns annual percentage rate.
          *
          * @return float
          */
         public function getAnnualPercentageRate()
         {
-            return number_format($this->result['annualPercentageRate'], 2, ",", ".");
+            return number_format($this->result['annualPercentageRate'], 2, ',', '.');
         }
 
         /**
-         * Returns monthly debit interest
+         * Returns monthly debit interest.
          *
          * @return float
          */
         public function getMonthlyDebitInterest()
         {
-            return number_format($this->result['monthlyDebitInterest'], 2, ",", ".");
+            return number_format($this->result['monthlyDebitInterest'], 2, ',', '.');
         }
 
         /**
-         * Returns interest amount
+         * Returns interest amount.
          *
          * @return float
          */
         public function getInterestAmount()
         {
-            return number_format($this->result['interestAmount'], 2, ",", ".");
+            return number_format($this->result['interestAmount'], 2, ',', '.');
         }
 
         /**
-         * Returns total amount
+         * Returns total amount.
          *
          * @return float
          */
         public function getTotalAmount()
         {
-            return number_format($this->result['totalAmount'], 2, ",", ".");
+            return number_format($this->result['totalAmount'], 2, ',', '.');
         }
 
         /**
-         * Returns number of full rates
+         * Returns number of full rates.
          *
          * @return int
          */
@@ -171,7 +179,7 @@
         }
 
         /**
-         * Returns total number of rates
+         * Returns total number of rates.
          *
          * @return int
          */
@@ -181,23 +189,22 @@
         }
 
         /**
-         * Returns rate
+         * Returns rate.
          *
          * @return float
          */
         public function getRate()
         {
-            return number_format($this->result['rate'], 2, ",", ".");
+            return number_format($this->result['rate'], 2, ',', '.');
         }
 
         /**
-         * Returns last rate
+         * Returns last rate.
          *
          * @return float
          */
         public function getLastRate()
         {
-            return number_format($this->result['lastRate'], 2, ",", ".");
+            return number_format($this->result['lastRate'], 2, ',', '.');
         }
-
     }

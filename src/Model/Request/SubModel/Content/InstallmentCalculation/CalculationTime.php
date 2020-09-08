@@ -1,17 +1,27 @@
 <?php
 
+/*
+ * Ratepay PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
+ *
+ * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request\SubModel\Content\InstallmentCalculation;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
 class CalculationTime extends AbstractModel
 {
-
     /**
      * List of admitted fields.
      * Each field is public accessible by certain getter and setter.
      * E.g:
-     * Set payment items by using setItems(var). Get items by using getItems(). (Please consider the camel case)
+     * Set payment items by using setItems(var). Get items by using getItems(). (Please consider the camel case).
      *
      * Settings:
      * mandatory            = field is mandatory (or optional)
@@ -30,5 +40,4 @@ class CalculationTime extends AbstractModel
             'mandatory' => true,
         ],
     ];
-
 }

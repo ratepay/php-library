@@ -1,69 +1,78 @@
 <?php
 
-namespace RatePAY\Model\Response;
+/*
+ * Ratepay PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
+ *
+ * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
+ */
 
+namespace RatePAY\Model\Response;
 
 abstract class AbstractResponse
 {
-
     /**
-     * Request response
+     * Request response.
      *
      * @var \SimpleXmlElement
      */
     protected $response;
 
     /**
-     * Successful
+     * Successful.
      *
      * @var bool
      */
     protected $successful = false;
 
     /**
-     * Status code
+     * Status code.
      *
      * @var string
      */
     protected $statusCode = '';
 
     /**
-     * Status message
+     * Status message.
      *
      * @var string
      */
     protected $statusMessage = '';
 
     /**
-     * Result code
+     * Result code.
      *
      * @var int
      */
     protected $resultCode = null;
 
     /**
-     * Result message
+     * Result message.
      *
      * @var string
      */
     protected $resultMessage = '';
 
     /**
-     * Reason code
+     * Reason code.
      *
      * @var int
      */
     protected $reasonCode = null;
 
     /**
-     * Reason message
+     * Reason message.
      *
      * @var string
      */
     protected $reasonMessage = '';
 
     /**
-     * Result model
+     * Result model.
      *
      * @var array
      */
@@ -71,6 +80,7 @@ abstract class AbstractResponse
 
     /**
      * AbstractResponse constructor. Sets response.
+     *
      * @param \SimpleXmlElement $response
      */
     public function __construct(\SimpleXmlElement $response = null)
@@ -88,31 +98,30 @@ abstract class AbstractResponse
     }
 
     /**
-     * Child classes has to provide a validateResponse method
+     * Child classes has to provide a validateResponse method.
      */
-    public abstract function validateResponse();
-
+    abstract public function validateResponse();
 
     /**
-     * Get response object
+     * Get response object.
      *
      * @return \SimpleXmlElement
      */
-    public function getResponse() {
+    public function getResponse()
+    {
         return $this->response;
     }
 
     /**
-     * Set response object
-     *
-     * @param \SimpleXmlElement $response
+     * Set response object.
      */
-    public function setResponse(\SimpleXmlElement $response) {
+    public function setResponse(\SimpleXmlElement $response)
+    {
         $this->response = $response;
     }
 
     /**
-     * Is response successful
+     * Is response successful.
      *
      * @return bool
      */
@@ -122,7 +131,7 @@ abstract class AbstractResponse
     }
 
     /**
-     * Sets successful flag
+     * Sets successful flag.
      */
     protected function setSuccessful()
     {
@@ -130,7 +139,7 @@ abstract class AbstractResponse
     }
 
     /**
-     * Returns result array
+     * Returns result array.
      *
      * @return array
      */
@@ -140,9 +149,7 @@ abstract class AbstractResponse
     }
 
     /**
-     * Sets result array
-     *
-     * @param array $result
+     * Sets result array.
      */
     public function setResult(array $result)
     {
@@ -150,7 +157,7 @@ abstract class AbstractResponse
     }
 
     /**
-     * Returns status code
+     * Returns status code.
      *
      * @return string
      */
@@ -160,7 +167,7 @@ abstract class AbstractResponse
     }
 
     /**
-     * Sets status code
+     * Sets status code.
      *
      * @param string $statusCode
      */
@@ -170,7 +177,7 @@ abstract class AbstractResponse
     }
 
     /**
-     * Returns status message
+     * Returns status message.
      *
      * @return string
      */
@@ -180,7 +187,7 @@ abstract class AbstractResponse
     }
 
     /**
-     * Sets status message
+     * Sets status message.
      *
      * @param string $statusMessage
      */
@@ -190,7 +197,7 @@ abstract class AbstractResponse
     }
 
     /**
-     * Returns reason code
+     * Returns reason code.
      *
      * @return int
      */
@@ -200,9 +207,9 @@ abstract class AbstractResponse
     }
 
     /**
-     * Sets reason code
+     * Sets reason code.
      *
-     * @param integer $reasonCode
+     * @param int $reasonCode
      */
     public function setReasonCode($reasonCode)
     {
@@ -210,7 +217,7 @@ abstract class AbstractResponse
     }
 
     /**
-     * Returns reason message
+     * Returns reason message.
      *
      * @return int
      */
@@ -220,7 +227,7 @@ abstract class AbstractResponse
     }
 
     /**
-     * Sets reason message
+     * Sets reason message.
      *
      * @param string $reasonMessage
      */
@@ -230,7 +237,7 @@ abstract class AbstractResponse
     }
 
     /**
-     * Returns result code
+     * Returns result code.
      *
      * @return int
      */
@@ -240,9 +247,9 @@ abstract class AbstractResponse
     }
 
     /**
-     * Sets result code
+     * Sets result code.
      *
-     * @param integer $resultCode
+     * @param int $resultCode
      */
     public function setResultCode($resultCode)
     {
@@ -250,7 +257,7 @@ abstract class AbstractResponse
     }
 
     /**
-     * Returns result message
+     * Returns result message.
      *
      * @return int
      */
@@ -260,7 +267,7 @@ abstract class AbstractResponse
     }
 
     /**
-     * Sets result message
+     * Sets result message.
      *
      * @param string $resultMessage
      */
@@ -268,5 +275,4 @@ abstract class AbstractResponse
     {
         $this->resultMessage = $resultMessage;
     }
-
 }

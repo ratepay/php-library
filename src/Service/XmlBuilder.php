@@ -1,26 +1,37 @@
 <?php
 
+/*
+ * Ratepay PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
+ *
+ * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Service;
 
 /**
- * Class XmlBuilder
- * @package Service
+ * Class XmlBuilder.
  */
 class XmlBuilder
 {
-
     /**
-     * Initial xml base string including ratepay urn
+     * Initial xml base string including ratepay urn.
      */
     const XML_BASE_STRING = '<?xml version="1.0"?><request xmlns="urn://www.ratepay.com/payment/1_0" version="1.0"></request>';
 
     /**
-     * Returns SimpleXmlExtended element
+     * Returns SimpleXmlExtended element.
      *
      * @param array $array
+     *
      * @return SimpleXmlExtended
      */
-    public static function getXmlElement($array) {
+    public static function getXmlElement($array)
+    {
         $simpleXmlExtended = new SimpleXmlExtended(self::XML_BASE_STRING);
         $simpleXmlExtended = self::arrayToSimpleXml($simpleXmlExtended, $array);
 
@@ -28,14 +39,15 @@ class XmlBuilder
     }
 
     /**
-     * Converts array in SimpleXml structure
+     * Converts array in SimpleXml structure.
      *
      * @param SimpleXMLExtended $xml
-     * @param array $array
+     * @param array             $array
+     *
      * @return SimpleXMLExtended
      */
-    private static function arrayToSimpleXml($xml, $array) {
-
+    private static function arrayToSimpleXml($xml, $array)
+    {
         // ToDo: Complete refactoring of method, especially multiple case. No continue and unset anymore.
 
         foreach ($array as $elementName => $elementContent) {
@@ -54,7 +66,7 @@ class XmlBuilder
                 continue;
             }
 
-            if ($elementName == "attributes") {
+            if ($elementName == 'attributes') {
                 foreach ($elementContent as $attribute => $attributeValue) {
                     $xml->addAttribute($attribute, $attributeValue['value']);
                 }
@@ -64,11 +76,9 @@ class XmlBuilder
             if (key_exists('cdata', $elementContent)) {
                 $element = $xml->addCDataChild($elementName, $elementContent['cdata']);         // If value is an array with cdata key, set value in CData tag
                 unset($elementContent['cdata']);
-
             } elseif (key_exists('value', $elementContent)) {
                 $element = $xml->addChild($elementName, $elementContent['value']);
                 unset($elementContent['value']);
-
             } else {
                 $element = $xml->addChild($elementName);
             }
@@ -82,7 +92,7 @@ class XmlBuilder
 
             self::arrayToSimpleXml($element, $elementContent);                                  // If value is an array, recursive call‚
         }
+
         return $xml;
     }
-
 }
