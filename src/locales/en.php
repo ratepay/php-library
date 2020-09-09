@@ -64,7 +64,7 @@ return [
   'wcd_address' => 'RatePAY GmbH, Franklinstra&szlig;e 28-29, 10587 Berlin',
   'rp_creditor' => 'Creditor ID',
   'rp_creditor_id' => 'DE39RPY00000568463',
-  'wcd_creditor_id' => 'DE49ZZZ00000002773',
+  'wcd_creditor_id' => 'DE39RPY00000568463',
   'rp_mandate' => 'Mandate reference',
   'rp_mandate_ref' => '(will be provided after completing the purchase)',
   'rp_insert_bank_data' => 'Please provide your bank details',
