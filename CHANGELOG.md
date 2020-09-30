@@ -1,4 +1,13 @@
-# PHP-Library Changelog
+# Changelog
+### [1.0.3](http://bitbucket.ratepay.com:7999///compare/1.0.2...1.0.3) (2020-09-30)
+
+
+### Bug Fixes
+
+* change incorrect creditor id ([bfdcf59](http://bitbucket.ratepay.com:7999///commit/bfdcf59d2f2b6f88732e110a1c9455eb7122065a))
+* change incorrect text references ([89b5db0](http://bitbucket.ratepay.com:7999///commit/89b5db0e74af6498ba6458c56470e7ac93b6aeac))
+* pass response text to installment-plans ([3cec50f](http://bitbucket.ratepay.com:7999///commit/3cec50f493e92e37ed2fc64c361fd08d73c63547)), closes [#9](http://bitbucket.ratepay.com:7999///issues/9)
+
 ### [1.0.2](http://bitbucket.ratepay.com:7999///compare/1.0.1...1.0.2) (2020-07-15)
 
 
