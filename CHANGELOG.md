@@ -1,4 +1,11 @@
 # Changelog
+## [1.1.0](http://bitbucket.ratepay.com:7999///compare/1.0.3...1.1.0) (2020-10-12)
+
+
+### Features
+
+* update version on contant file ([1e3c609](http://bitbucket.ratepay.com:7999///commit/1e3c609173f5bc6fe34a21d2f4767821c7b66c55))
+
 ### [1.0.3](http://bitbucket.ratepay.com:7999///compare/1.0.2...1.0.3) (2020-09-30)
 
 
