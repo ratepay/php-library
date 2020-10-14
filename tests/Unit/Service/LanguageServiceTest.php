@@ -40,23 +40,11 @@ class LanguageServiceTest extends TestCase
 
     public function testTranslationKeyNotFound()
     {
-        $this->markTestSkipped('Fallback is set to DE until translation file exist.');
-
         $service = new LanguageService('DE');
 
         $this->expectException('RatePAY\Exception\LanguageException');
         $this->expectExceptionMessage('No translation for \'something_very_funny\' available');
         $message = $service->something_very_funny();
-    }
-
-    public function testTranslationTableNotFound()
-    {
-        $this->markTestSkipped('Fallback is set to DE until translation file exist.');
-
-        $this->expectException('RatePAY\Exception\LanguageException');
-        $this->expectExceptionMessage('No translation table for \'ES\' available');
-
-        $service = new LanguageService('ES');
     }
 
     public function testGetMessageList()
