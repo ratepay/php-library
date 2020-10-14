@@ -53,7 +53,7 @@ class BankAccount extends AbstractModel
      */
     public $admittedFields = [
         'Owner' => [
-            'mandatory' => true,
+            'mandatoryByRule' => true,
             'cdata' => true,
         ],
         'BankName' => [
