@@ -28,6 +28,8 @@ use RatePAY\Model\Request\SubModel\AbstractModel;
  * @method string getIban()
  * @method $this  setBicSwift(string $bicSwift)
  * @method string getBicSwift()
+ * @method $this  setReference(string $reference)
+ * @method string getReference()
  */
 class BankAccount extends AbstractModel
 {
@@ -51,7 +53,7 @@ class BankAccount extends AbstractModel
      */
     public $admittedFields = [
         'Owner' => [
-            'mandatory' => true,
+            'mandatoryByRule' => true,
             'cdata' => true,
         ],
         'BankName' => [
@@ -74,6 +76,10 @@ class BankAccount extends AbstractModel
             'mandatory' => false, // BicSwift is only for customers with billing address in germany optional
             'cdata' => true,
         ],
+        'Reference' => [
+            'mandatoryByRule' => true,
+            'cdata' => true,
+        ],
     ];
 
     /**
@@ -83,20 +89,32 @@ class BankAccount extends AbstractModel
      */
     protected function rule()
     {
-        if (key_exists('value', $this->admittedFields['BankAccountNumber'])) {
-            if (!key_exists('value', $this->admittedFields['BankCode'])) {
+        if (isset($this->admittedFields['Reference']['value'])) {
+            return true;
+        }
+
+        if (!isset($this->admittedFields['Owner']['value'])) {
+            $this->setErrorMsg('Bank account owner is required');
+
+            return false;
+        }
+
+        if (isset($this->admittedFields['BankAccountNumber']['value'])) {
+            if (!isset($this->admittedFields['BankCode']['value'])) {
                 $this->setErrorMsg('Bank code is required');
 
                 return false;
             } else {
                 return true;
             }
-        } elseif (key_exists('value', $this->admittedFields['Iban'])) {
-            return true;
-        } else {
-            $this->setErrorMsg('Bank account number or IBAN are required');
-
-            return false;
         }
+
+        if (isset($this->admittedFields['Iban']['value'])) {
+            return true;
+        }
+
+        $this->setErrorMsg('Bank account number or IBAN are required');
+
+        return false;
     }
 }

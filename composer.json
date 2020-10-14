@@ -28,8 +28,8 @@
   },
   "require-dev": {
     "phpunit/phpunit": "5.7.*",
-    "donatj/mock-webserver": "v2.1.0",
-    "friendsofphp/php-cs-fixer": "^2.17@dev"
+    "friendsofphp/php-cs-fixer": "^2.17@dev",
+    "donatj/mock-webserver": "dev-master"
   },
   "minimum-stability": "dev",
   "autoload": {
