@@ -1,4 +1,11 @@
 # Changelog
+## [1.2.0](http://bitbucket.ratepay.com:7999///compare/1.1.0...1.2.0) (2020-10-14)
+
+
+### Features
+
+* add field reference into backaccount ([1eab2c9](http://bitbucket.ratepay.com:7999///commit/1eab2c945c41c7928dd745e0bf3b3193d3f4107b))
+
 ## [1.1.0](http://bitbucket.ratepay.com:7999///compare/1.0.3...1.1.0) (2020-10-12)
 
 
