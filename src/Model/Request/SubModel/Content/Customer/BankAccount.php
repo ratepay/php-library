@@ -93,6 +93,12 @@ class BankAccount extends AbstractModel
             return true;
         }
 
+        if (!isset($this->admittedFields['Owner']['value'])) {
+            $this->setErrorMsg('Bank account owner is required');
+
+            return false;
+        }
+
         if (isset($this->admittedFields['BankAccountNumber']['value'])) {
             if (!isset($this->admittedFields['BankCode']['value'])) {
                 $this->setErrorMsg('Bank code is required');
