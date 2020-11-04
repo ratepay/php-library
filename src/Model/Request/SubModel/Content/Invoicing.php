@@ -13,8 +13,16 @@
 
 namespace RatePAY\Model\Request\SubModel\Content;
 
+use DateTime;
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
+/**
+ * @method self   setInvoiceId(string $invoiceId)
+ * @method string getInvoiceId()
+ * @method string getInvoiceDate()
+ * @method string getDeliveryDate()
+ * @method string getDueDate()
+ */
 class Invoicing extends AbstractModel
 {
     /**
@@ -49,4 +57,57 @@ class Invoicing extends AbstractModel
             'mandatory' => false,
         ],
     ];
+
+    /**
+     * @param string|DateTime $date
+     *
+     * @return self
+     *
+     * @throws \RatePAY\Exception\ModelException
+     */
+    public function setInvoiceDate($date)
+    {
+        if ($date instanceof DateTime) {
+            $date = $this->createDateString($date);
+        }
+
+        return $this->__set('InvoiceDate', $date);
+    }
+
+    /**
+     * @param string|DateTime $date
+     *
+     * @return self
+     *
+     * @throws \RatePAY\Exception\ModelException
+     */
+    public function setDeliveryDate($date)
+    {
+        if ($date instanceof DateTime) {
+            $date = $this->createDateString($date);
+        }
+
+        return $this->__set('DeliveryDate', $date);
+    }
+
+    /**
+     * @param string|DateTime $date
+     *
+     * @return self
+     *
+     * @throws \RatePAY\Exception\ModelException
+     */
+    public function setDueDate($date)
+    {
+        if ($date instanceof DateTime) {
+            $date = $this->createDateString($date);
+        }
+
+        return $this->__set('DueDate', $date);
+    }
+
+    private function createDateString(DateTime $dateTime)
+    {
+        return $dateTime->format('Y-m-d') . 'T' . $dateTime->format('H:i:s');
+    }
 }
