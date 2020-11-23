@@ -17,8 +17,7 @@ use RatePAY\Model\Request\SubModel\AbstractModel;
 use RatePAY\Model\Request\SubModel\Content\ShoppingBasket\Items\Item;
 
 /**
- * @method $this  addItem(Item $item)
- * @method Item[] getItems()
+ * @method $this addItem(Item $item)
  */
 class Items extends AbstractModel
 {
@@ -75,5 +74,10 @@ class Items extends AbstractModel
         }
 
         return true;
+    }
+
+    public function getItems()
+    {
+        return $this->__get('Item');
     }
 }
