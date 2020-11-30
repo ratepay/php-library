@@ -1,4 +1,16 @@
 # Changelog
+## [1.3.0](http://bitbucket.ratepay.com:7999///compare/1.2.0...1.3.0) (2020-11-30)
+
+
+### Features
+
+* **models:** add annotations and functions to set dates ([f0eee3a](http://bitbucket.ratepay.com:7999///commit/f0eee3a8f25475437e40377421cec5264d1a3680)), closes [#15](http://bitbucket.ratepay.com:7999///issues/15)
+
+
+### Bug Fixes
+
+* incorrect method annotation ([0b823fd](http://bitbucket.ratepay.com:7999///commit/0b823fd5645fc76df9fb327cabca4a1193d484a4)), closes [#14](http://bitbucket.ratepay.com:7999///issues/14)
+
 ## [1.2.0](http://bitbucket.ratepay.com:7999///compare/1.1.0...1.2.0) (2020-10-14)
 
 
