@@ -14,12 +14,10 @@
 namespace RatePAY\Model\Request\SubModel\Head\External;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
+use RatePAY\Model\Request\SubModel\Head\External\Tracking\Id;
 
 /**
- * @method $this  setId(string $id)
- * @method string getId()
- * @method $this  setProvider(string $provider)
- * @method string getProvider()
+ * @method Id addId(Id $id)
  */
 class Tracking extends AbstractModel
 {
@@ -43,12 +41,68 @@ class Tracking extends AbstractModel
      */
     public $admittedFields = [
         'Id' => [
-            'mandatory' => false,
-            'cdata' => true,
+            'mandatory' => true,
+            'multiple' => true,
+            'instanceOf' => 'Head\\External\\Tracking\\Id',
         ],
-            'Provider' => [
-                'mandatory' => false,
-                'isAttributeTo' => 'Id',
-            ],
+        'Provider' => [
+            'mandatory' => false,
+        ],
     ];
+
+    /**
+     * @return Id[]
+     */
+    public function getIds()
+    {
+        return $this->__get('Id');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function commonSetter($field, $arguments)
+    {
+        if ($field === 'Id' && $arguments[0] instanceof Tracking\Id === false) {
+            return $this->setId($arguments[0]);
+        }
+        if ($field === 'Provider') {
+            return $this->setProvider($arguments[0]);
+        }
+
+        return parent::commonSetter($field, $arguments);
+    }
+
+    /**
+     * @param $id
+     *
+     * @return Tracking
+     *
+     * @deprecated please use the SubModel "\RatePAY\Model\Request\SubModel\Head\External\Tracking\Id" to set the TrackingId
+     */
+    public function setId($id)
+    {
+        $this->addId((new Id())->setId($id));
+
+        return $this;
+    }
+
+    /**
+     * @param $provider
+     *
+     * @return Tracking
+     *
+     * @deprecated please use the SubModel "\RatePAY\Model\Request\SubModel\Head\External\Tracking\Id" to set the TrackingId
+     */
+    public function setProvider($provider)
+    {
+        $ids = $this->getIds();
+        if (!isset($ids[0]) || $ids[0] === null || count($ids) === 0) {
+            throw new \RuntimeException('please set the Id first');
+        }
+        $id = $ids[count($ids) - 1];
+        $id->setProvider($provider);
+
+        return $this;
+    }
 }
