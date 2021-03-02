@@ -81,6 +81,9 @@ namespace RatePAY\Tests\Unit\Service {
     use RatePAY\Exception\CurlException;
     use \RatePAY\Service\CommunicationService;
 
+    /**
+     * @requires PHPUnit 7.5
+     */
     class CommunicationServiceTest extends TestCase
     {
         public static $curlDataMock = [];
