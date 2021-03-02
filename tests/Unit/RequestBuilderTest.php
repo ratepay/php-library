@@ -19,6 +19,9 @@ use RatePAY\RequestBuilder;
 use RatePAY\Tests\Support\GatewayResponses;
 use RatePAY\Tests\Support\IntegrationTestCase;
 
+/**
+ * @requires PHPUnit 7.5
+ */
 class RequestBuilderTest extends IntegrationTestCase
 {
     use GatewayResponses;

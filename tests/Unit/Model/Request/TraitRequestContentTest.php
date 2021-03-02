@@ -24,12 +24,12 @@ class TraitRequestContentTest extends TestCase
 
         $data = $mock->toArray();
 
-        $this->assertInternalType('array', $data);
+        $this->assertTypeIsArray($data);
         $this->assertArrayHasKey('content', $data);
 
         $value = $data['content'];
 
-        $this->assertInternalType('array', $value);
+        $this->assertTypeIsArray($value);
         $this->assertEquals([], $value);
     }
 
@@ -50,11 +50,11 @@ class TraitRequestContentTest extends TestCase
 
         $data = $mock->toArray();
 
-        $this->assertInternalType('array', $data);
+        $this->assertTypeIsArray($data);
         $this->assertArrayHasKey('content', $data);
 
         $value = $data['content'];
-        $this->assertInternalType('array', $value);
+        $this->assertTypeIsArray($value);
 
         $expected = print_r([
             'payment' => [
@@ -66,5 +66,14 @@ class TraitRequestContentTest extends TestCase
         ], true);
         $current = print_r($value, true);
         $this->assertEquals($expected, $current);
+    }
+
+    public function assertTypeIsArray($data)
+    {
+        if (method_exists($this, 'assertIsArray')) {
+            $this->assertIsArray($data);
+        } else {
+            $this->assertInternalType('array', $data);
+        }
     }
 }
