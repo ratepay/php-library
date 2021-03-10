@@ -1,4 +1,11 @@
 # Changelog
+## [1.4.0](http://bitbucket.ratepay.com:7999///compare/1.3.0...1.4.0) (2021-03-10)
+
+
+### Features
+
+* add support for multiple tracking-ids ([8ab5c84](http://bitbucket.ratepay.com:7999///commit/8ab5c847bbd863abafd1548d1e7aee9e77c6c7b5))
+
 ## [1.3.0](http://bitbucket.ratepay.com:7999///compare/1.2.0...1.3.0) (2020-11-30)
 
 
