@@ -281,7 +281,7 @@ class RequestBuilder
      */
     private function getMethod($name, $arguments)
     {
-        if (method_exists($this->responseModel, $name)) {
+        if ($this->responseModel && method_exists($this->responseModel, $name)) {
             if (count($arguments) > 0) {
                 return $this->responseModel->$name(current($arguments));
             } else {
