@@ -22,6 +22,9 @@ namespace RatePAY\Tests\Unit\Service {
     use PHPUnit\Framework\TestCase;
     use RatePAY\Service\DeviceFingerprint;
 
+    /**
+     * @requires PHPUnit 7.5
+     */
     class DeviceFingerprintTest extends TestCase
     {
         public function testCreateDeviceIdentToken()
@@ -33,16 +36,16 @@ namespace RatePAY\Tests\Unit\Service {
             $this->assertEquals($expectedHash, $hash);
         }
 
+
         public function testGetDeviceIdentSnippet()
         {
             $deviceFingerprint = new DeviceFingerprint('hello-world-123');
 
             $snippet = $deviceFingerprint->getDeviceIdentSnippet('secure-token-123');
 
-            $expectedSnippet = '<script language="JavaScript">var di = {"t":"secure-token-123","v":"hello-world-123","l":"Checkout"};</script><script type=\"text/javascript\" src=\"//d.ratepay.com/hello-world-123/di.js\"></script>
-             <noscript><link rel=\"stylesheet\" type=\"text/css\" href=\"//d.ratepay.com/di.css?t=&v=hello-world-123&l=Checkout\"></noscript>';
-
-            $this->assertEquals($expectedSnippet, $snippet);
+            $this->assertStringContainsString('//d.ratepay.com/di.css?t=secure-token-123&v=hello-world-123&l=Checkout', $snippet);
+            $this->assertStringContainsString('{"t":"secure-token-123","v":"hello-world-123","l":"Checkout"}', $snippet);
+            $this->assertStringContainsString('//d.ratepay.com/hello-world-123/di.js', $snippet);
         }
     }
 }
