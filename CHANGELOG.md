@@ -1,4 +1,11 @@
 # Changelog
+## [1.5.0](https://github.com/ratepay/php-library/compare/1.4.0...1.5.0) (2021-06-10)
+
+
+### Features
+
+* adds php8.0 compatibility ([0d79010](https://github.com/ratepay/php-library/commit/0d79010fa4c337505c231ccb7ef35332b6172083))
+
 ## [1.4.0](http://bitbucket.ratepay.com:7999///compare/1.3.0...1.4.0) (2021-03-10)
 
 
