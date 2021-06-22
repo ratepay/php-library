@@ -17,7 +17,7 @@ use RatePAY\Model\Request\SubModel\AbstractModel;
 use RatePAY\Model\Request\SubModel\Head\External\Tracking\Id;
 
 /**
- * @method Id addId(Id $id)
+ * @method Tracking addId(Id $id)
  */
 class Tracking extends AbstractModel
 {
@@ -78,7 +78,7 @@ class Tracking extends AbstractModel
      *
      * @return Tracking
      *
-     * @deprecated please use the SubModel "\RatePAY\Model\Request\SubModel\Head\External\Tracking\Id" to set the TrackingId
+     * @deprecated please use the SubModel `\RatePAY\Model\Request\SubModel\Head\External\Tracking\Id` and add it with the method `addId`
      */
     public function setId($id)
     {
@@ -92,7 +92,7 @@ class Tracking extends AbstractModel
      *
      * @return Tracking
      *
-     * @deprecated please use the SubModel "\RatePAY\Model\Request\SubModel\Head\External\Tracking\Id" to set the TrackingId
+     * @deprecated please use the SubModel `\RatePAY\Model\Request\SubModel\Head\External\Tracking\Id` and add it with the method `addId`
      */
     public function setProvider($provider)
     {
@@ -104,5 +104,29 @@ class Tracking extends AbstractModel
         $id->setProvider($provider);
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     *
+     * @deprecated please use the function `getIds()` to get the tracking-ids
+     */
+    public function getId()
+    {
+        $ids = $this->getIds();
+
+        return isset($ids[0]) ? $ids[0]->getId() : null;
+    }
+
+    /**
+     * @return string|null
+     *
+     * @deprecated please use the function `getIds()` to get the provider information
+     */
+    public function getProvider()
+    {
+        $ids = $this->getIds();
+
+        return isset($ids[0]) ? $ids[0]->getProvider() : null;
     }
 }

@@ -35,6 +35,7 @@ class ModelMapper
             'CustomerDevice' => 'Head\\CustomerDevice',
             'External' => 'Head\\External',
                 'Tracking' => 'Head\\External\\Tracking',
+                    'Id' => 'Head\\External\\Tracking\\Id',
             'Meta' => 'Head\\Meta',
                 'Systems' => 'Head\\Meta\\Systems',
                     'System' => 'Head\\Meta\\Systems\\System',

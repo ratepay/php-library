@@ -16,9 +16,10 @@ namespace RatePAY\Model\Request\SubModel\Head\External\Tracking;
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
 /**
- * @method string getId()
  * @method $this  setProvider(string $provider)
  * @method string getProvider()
+ * @method string getDescription()
+ * @method $this  setDescription(string $description)
  */
 class Id extends AbstractModel
 {
@@ -52,12 +53,29 @@ class Id extends AbstractModel
     ];
 
     /**
+     * @param string|null $id
+     */
+    public function __construct($id = null)
+    {
+        parent::__construct();
+        $id && $this->setId($id);
+    }
+
+    /**
      * @param string $id
      *
      * @return Id
      */
     public function setId($id)
     {
-        return $this->__set('Description', $id);
+        return $this->setDescription($id);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getId()
+    {
+        return $this->getDescription();
     }
 }
