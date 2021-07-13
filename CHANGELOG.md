@@ -1,4 +1,12 @@
 # Changelog
+### [1.5.1](https://github.com/ratepay/php-library/compare/1.5.0...1.5.1) (2021-07-13)
+
+
+### Bug Fixes
+
+* missing model mapping for multiple tracking ids ([a0d8d99](https://github.com/ratepay/php-library/commit/a0d8d99873f5ae9c8c3c20e0bac2fb50cd5d0d0b))
+* multiple tracking ids: fix missing model mapping ([eebea1a](https://github.com/ratepay/php-library/commit/eebea1aca578d1e8cc758edd20c97f0773e16e90))
+
 ## [1.5.0](https://github.com/ratepay/php-library/compare/1.4.0...1.5.0) (2021-06-10)
 
 
