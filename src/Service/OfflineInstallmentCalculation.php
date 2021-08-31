@@ -113,46 +113,50 @@ class OfflineInstallmentCalculation
 
         $daysTillPaymentFirstday = ceil($difference / 60 / 60 / 24) + 1;
 
-        $interestRateMonth =
-            pow(
-                (1 + ($this->_interestRate / 100)),
-                (1 / 12)
-            )
-            -
-            1;
-
-        $interestRateTillStart =
-            pow(
-                (($this->_interestRate / 100) + 1),
-                ($daysTillPaymentFirstday / 365)
-            )
-            -
-            1;
-
-        $installment =
-            (
-                $this->_basketAmount
-                *
-                (1 + ($interestRateTillStart))
-                *
-                $interestRateMonth
-                *
+        if ($this->_interestRate > 0) {
+            $interestRateMonth =
                 pow(
-                    (1 + $interestRateMonth),
-                    ($this->_runtime - 1)
-                )
-            )
-            /
-            (
-                pow(
-                    (1 + $interestRateMonth),
-                    ($this->_runtime)
+                    (1 + ($this->_interestRate / 100)),
+                    (1 / 12)
                 )
                 -
-                1
-            )
-            +
-            ($this->_serviceCharge / $this->_runtime);
+                1;
+
+            $interestRateTillStart =
+                pow(
+                    (($this->_interestRate / 100) + 1),
+                    ($daysTillPaymentFirstday / 365)
+                )
+                -
+                1;
+
+            $installment =
+                (
+                    $this->_basketAmount
+                    *
+                    (1 + ($interestRateTillStart))
+                    *
+                    $interestRateMonth
+                    *
+                    pow(
+                        (1 + $interestRateMonth),
+                        ($this->_runtime - 1)
+                    )
+                )
+                /
+                (
+                    pow(
+                        (1 + $interestRateMonth),
+                        ($this->_runtime)
+                    )
+                    -
+                    1
+                );
+        } else {
+            $installment = $this->_basketAmount / $this->_runtime;
+        }
+
+        $installment += ($this->_serviceCharge / $this->_runtime);
 
         return round($installment, 2);
     }
