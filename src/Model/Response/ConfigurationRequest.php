@@ -1,16 +1,26 @@
 <?php
 
-    namespace RatePAY\Model\Response;
+/*
+ * Ratepay PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
+ *
+ * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
+ */
+
+namespace RatePAY\Model\Response;
 
     class ConfigurationRequest extends AbstractResponse
     {
-
         /**
-         * Validates response
+         * Validates response.
          */
         public function validateResponse()
         {
-            if ($this->getStatusCode() == "OK" && $this->getResultCode() == 500) {
+            if ($this->getStatusCode() == 'OK' && $this->getResultCode() == 500) {
                 $this->setResult(['interestrateMin' => (float) $this->getResponse()->content->{'installment-configuration-result'}->{'interestrate-min'}]);
                 $this->setResult(['interestRateDefault' => (float) $this->getResponse()->content->{'installment-configuration-result'}->{'interestrate-default'}]);
                 $this->setResult(['interestRateMax' => (float) $this->getResponse()->content->{'installment-configuration-result'}->{'interestrate-max'}]);
@@ -38,6 +48,7 @@
          * Returns allowed months. If order amount is entered it returns only admitted month for specific order amount.
          *
          * @param float $orderAmount
+         *
          * @return array
          */
         public function getAllowedMonths($orderAmount = 0)
@@ -53,10 +64,14 @@
             $interestRate = $this->result['interestRateDefault'] / 100;
             $interestRateMonth = $interestRate / 12;
 
-            foreach ($allowedMonths as $runtime){
-                $rateAmount = ceil($orderAmount * (($interestRateMonth * pow((1 + $interestRateMonth), $runtime)) / (pow((1 + $interestRateMonth), $runtime) - 1)));
-
-                if($rateAmount >= $rateMinNormal){
+            foreach ($allowedMonths as $runtime) {
+                if ($interestRate > 0) {
+                    $rateAmount = $orderAmount * (($interestRateMonth * pow((1 + $interestRateMonth), $runtime)) / (pow((1 + $interestRateMonth), $runtime) - 1));
+                } else {
+                    $rateAmount = $orderAmount / $runtime;
+                }
+                $rateAmount = ceil($rateAmount);
+                if ($rateAmount >= $rateMinNormal) {
                     $possibleMonths[] = $runtime;
                 }
             }
@@ -65,9 +80,10 @@
         }
 
         /**
-         * Returns minimum rate
+         * Returns minimum rate.
          *
          * @param float $orderAmount
+         *
          * @return array
          */
         public function getMinRate($orderAmount = 0)
@@ -77,9 +93,10 @@
         }
 
         /**
-         * Returns maximum rate
+         * Returns maximum rate.
          *
          * @param float $orderAmount
+         *
          * @return int
          */
         public function getMaxRate($orderAmount)
@@ -90,7 +107,7 @@
         }
 
         /**
-         * Returns valid payment firstdays
+         * Returns valid payment firstdays.
          *
          * @return int|array
          */
@@ -98,6 +115,4 @@
         {
             return $this->result['validPaymentFirstdays'];
         }
-
-
     }

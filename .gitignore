@@ -2,6 +2,7 @@
 composer.lock
 /vendor/
 /.idea/
+/build
 
 #ignore SDK files
 example*
@@ -10,3 +11,5 @@ ratepay_credentials.php
 build/
 
 \.vscode/
+/.phpunit.result.cache
+/.php_cs.cache

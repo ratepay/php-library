@@ -8,7 +8,6 @@
 
 namespace RatePAY\Tests\Unit\Service;
 
-
 use PHPUnit\Framework\TestCase;
 use RatePAY\Service\LanguageService;
 
@@ -46,14 +45,6 @@ class LanguageServiceTest extends TestCase
         $this->expectException('RatePAY\Exception\LanguageException');
         $this->expectExceptionMessage('No translation for \'something_very_funny\' available');
         $message = $service->something_very_funny();
-    }
-
-    public function testTranslationTableNotFound()
-    {
-        $this->expectException('RatePAY\Exception\LanguageException');
-        $this->expectExceptionMessage('No translation table for \'ES\' available');
-
-        $service = new LanguageService('ES');
     }
 
     public function testGetMessageList()

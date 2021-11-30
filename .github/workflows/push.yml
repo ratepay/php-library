@@ -1,0 +1,37 @@
+name: PHP-Library Checks
+
+on: [push, pull_request]
+
+jobs:
+  php-library:
+    name: Ratepay PHP-Library (PHP ${{ matrix.php-versions }} on  ${{ matrix.operating-system }})
+    runs-on:  ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: ['ubuntu-latest']
+        php-versions: ['7.0', '7.2', '7.4', '8.0']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, intl, curl, json, simplexml, xdebug
+          ini-values: post_max_size=256M, max_execution_time=360
+          coverage: xdebug
+          tools: php-cs-fixer
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: PHP CheckStyle tests
+        run: composer run-script lint
+
+      - name: PHPUnit tests
+        run: composer run-script test

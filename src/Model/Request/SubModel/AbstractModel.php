@@ -1,78 +1,104 @@
 <?php
 
+/*
+ * Ratepay PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
+ *
+ * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request\SubModel;
 
-use RatePAY\Service\Util;
+use RatePAY\Exception\ModelException;
 use RatePAY\Exception\RequestException;
 use RatePAY\Exception\RuleSetException;
-use RatePAY\Exception\ModelException;
+use RatePAY\Service\Util;
 
 abstract class AbstractModel
 {
     /**
-     * List of admitted fields
+     * List of admitted fields.
      *
      * @var array
      */
     public $admittedFields = [];
 
     /**
-     * Error message
+     * Error message.
      *
      * @var string
      */
-    private $errorMsg = "";
+    private $errorMsg = '';
 
     public function __construct()
     {
         array_walk($this->admittedFields, function (&$value) {
             if (key_exists('instanceOf', $value)) {
-                $value['instanceOf'] = __NAMESPACE__ . "\\" . $value['instanceOf'];
+                $value['instanceOf'] = __NAMESPACE__ . '\\' . $value['instanceOf'];
             }
         });
     }
 
     /**
-     * Collecting call function to validate action+field and split in getter and setter
+     * Collecting call function to validate action+field and split in getter and setter.
      *
      * @param $name
      * @param $arguments
+     *
      * @return bool|null
+     *
      * @throws ModelException
      * @throws RequestException
      */
-    public function __call($name, $arguments) {
+    public function __call($name, $arguments)
+    {
         $action = substr($name, 0, 3);
         $field = substr($name, 3);
 
-        if (!key_exists($field, $this->admittedFields) && (property_exists($this, "settings") && !key_exists($field, $this->settings))) {
+        if (!key_exists($field, $this->admittedFields) && (property_exists($this, 'settings') && !key_exists($field, $this->settings))) {
             throw new RequestException("Field '" . $field . "' invalid");
         }
 
-        if ($action == "set") {
+        if ($action == 'set' || $action == 'add') {
             return $this->commonSetter($field, $arguments);
-        } elseif ($action == "get") {
+        } elseif ($action == 'get') {
             return $this->commonGetter($field);
         } else {
-            throw new RequestException("Action invalid");
+            throw new RequestException('Action invalid');
         }
+    }
 
+    public function __set($field, $value)
+    {
+        return $this->commonSetter($field, [$value]);
+    }
 
+    public function __get($field)
+    {
+        return $this->commonGetter($field);
     }
 
     /**
-     * Common getter
+     * Common getter.
      *
      * @param $field
      * @param $arguments
+     *
      * @return $this
+     *
      * @throws ModelException
      */
-    public function commonSetter($field, $arguments) {
-        if (is_array($arguments) && $arguments[0] !== "") {
+    public function commonSetter($field, $arguments)
+    {
+        if (is_array($arguments) && $arguments[0] !== '') {
             if (property_exists($this, 'settings') && key_exists($field, $this->settings)) { // If it's a setting, save argument into settings
                 // @ToDo: find a better structure
                 $this->settings[$field] = $arguments[0];
+
                 return $this;
             } elseif (!key_exists($field, $this->admittedFields)) {
                 throw new ModelException("Invalid field '" . $field . "'");
@@ -87,21 +113,23 @@ abstract class AbstractModel
             } else {
                 $this->admittedFields[$field]['value'] = $arguments[0];
             }
-
         }
+
         return $this;
     }
 
     /**
-     * Common getter
+     * Common getter.
      *
      * @param $field
+     *
      * @return mixed
      */
-    public function commonGetter($field) {
-        if (property_exists($this, "settings") && key_exists($field, $this->settings)) {
+    public function commonGetter($field)
+    {
+        if (property_exists($this, 'settings') && key_exists($field, $this->settings)) {
             return $this->settings[$field];
-        } elseif (key_exists("value", $this->admittedFields[$field])) {
+        } elseif (key_exists('value', $this->admittedFields[$field])) {
             return $this->admittedFields[$field]['value'];
         }
 
@@ -109,9 +137,10 @@ abstract class AbstractModel
     }
 
     /**
-     * Return all values as Array
+     * Return all values as Array.
      *
      * @return array
+     *
      * @throws ModelException
      * @throws RuleSetException
      */
@@ -143,7 +172,7 @@ abstract class AbstractModel
                 } else {
                     throw new ModelException("Field '" . $fieldName . "' is required");
                 }
-            } elseif(key_exists('mandatoryByRule', $fieldSettings)) {                              // If field is mandatory by rule
+            } elseif (key_exists('mandatoryByRule', $fieldSettings)) {                              // If field is mandatory by rule
                 if ($this->rule() === true) {                                                      // If rule is passed
                     if (key_exists('value', $fieldSettings)) {                                     // If value is not empty
                         $returnPush = true;
@@ -175,7 +204,7 @@ abstract class AbstractModel
                     }
                 } else {
                     if (key_exists('cdata', $fieldSettings)) {                                     // If value should be encapsulated inside CDATA tag
-                        if (function_exists("mb_detect_encoding") && !mb_detect_encoding($fieldSettings['value'], 'UTF-8', true)) { // Check only if php mdstring extension is loaded
+                        if (function_exists('mb_detect_encoding') && !mb_detect_encoding($fieldSettings['value'], 'UTF-8', true)) { // Check only if php mdstring extension is loaded
                             throw new ModelException("Value of '" . $fieldName . "' has to be encoded in UTF-8");
                         }
                     }
@@ -190,10 +219,8 @@ abstract class AbstractModel
                         } else {
                             $return[$xmlField]['value'] = $fieldSettings['value'];
                         }
-
                     }
                 }
-
             }
         }
 
@@ -206,33 +233,37 @@ abstract class AbstractModel
      * Field 'Description' will automatically set as value of object.
      *
      * @param $object
+     *
      * @return array
      */
-    private function changeDescriptionToValue($object) {
+    private function changeDescriptionToValue($object)
+    {
         $tempArr = $object->toArray();
         if (key_exists('description', $tempArr)) {
             $tempArr = array_merge($tempArr['description'], $tempArr);
             unset($tempArr['description']);
         }
+
         return $tempArr;
     }
 
     /**
-     * Returns error message
+     * Returns error message.
      *
      * @return string
      */
-    public function getErrorMsg() {
+    public function getErrorMsg()
+    {
         return $this->errorMsg;
     }
 
     /**
-     * Sets error message
+     * Sets error message.
      *
      * @param string
      */
-    public function setErrorMsg($errorMsg) {
+    public function setErrorMsg($errorMsg)
+    {
         $this->errorMsg = $errorMsg;
     }
-
 }

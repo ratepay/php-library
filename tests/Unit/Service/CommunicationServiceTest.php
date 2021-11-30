@@ -1,37 +1,71 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: eiriarte-mendez
- * Date: 11.06.18
- * Time: 09:33
- */
+
+namespace {
+    $activateGlobalFunctionMocks = false;
+
+    function should_call_mocked_global_functions()
+    {
+        global $activateGlobalFunctionMocks;
+        return !!$activateGlobalFunctionMocks;
+    }
+}
+
 namespace RatePAY\Service {
     use RatePAY\Tests\Unit\Service\CommunicationServiceTest;
 
-    function curl_init() {
-        CommunicationServiceTest::$curlDataMock = [];
+    function curl_init()
+    {
+        if (!should_call_mocked_global_functions()) {
+            return call_user_func_array('\curl_init', func_get_args());
+        }
 
+        CommunicationServiceTest::$curlDataMock = [];
         return CommunicationServiceTest::$curlDataMock;
     }
 
-    function curl_setopt($handle, $option, $value) {
+    function curl_setopt($handle, $option, $value)
+    {
+        if (!should_call_mocked_global_functions()) {
+            return call_user_func_array('\curl_setopt', func_get_args());
+        }
+
         $handle[$option] = $value;
     }
 
-    function curl_exec() {
+    function curl_exec()
+    {
+        if (!should_call_mocked_global_functions()) {
+            return call_user_func_array('\curl_exec', func_get_args());
+        }
+
         CommunicationServiceTest::incrementCurlExcecutions();
         return CommunicationServiceTest::curlShouldFail() ? false : "cURL Executed!";
     }
 
-    function curl_errno() {
+    function curl_errno()
+    {
+        if (!should_call_mocked_global_functions()) {
+            return call_user_func_array('\curl_errno', func_get_args());
+        }
+
         return CommunicationServiceTest::curlShouldFail() ? 2 : 0;
     }
 
-    function curl_close() {
+    function curl_close()
+    {
+        if (!should_call_mocked_global_functions()) {
+            return call_user_func_array('\curl_close', func_get_args());
+        }
+
         return true;
     }
 
-    function curl_strerror($errorCode) {
+    function curl_strerror($errorCode)
+    {
+        if (!should_call_mocked_global_functions()) {
+            return call_user_func_array('\curl_strerror', func_get_args());
+        }
+
         $messages = [
             0 => "OK",
             1 => "Oh my gosh!",
@@ -44,19 +78,43 @@ namespace RatePAY\Service {
 
 namespace RatePAY\Tests\Unit\Service {
     use \PHPUnit\Framework\TestCase;
+    use RatePAY\Exception\CurlException;
     use \RatePAY\Service\CommunicationService;
 
+    /**
+     * @requires PHPUnit 7.5
+     */
     class CommunicationServiceTest extends TestCase
     {
-        static $curlDataMock = [];
-        static $curlExecutions = 0;
-        static $noOfCurlFailures = 0;
+        public static $curlDataMock = [];
+        public static $curlExecutions = 0;
+        public static $expectedCurlFailures = 0;
 
-        public function setUp()
+        /**
+         * This method is called before the first test of this test class is run.
+         */
+        public static function setUpBeforeClass(): void
+        {
+            global $activateGlobalFunctionMocks;
+
+            $activateGlobalFunctionMocks = true;
+        }
+
+        /**
+         * This method is called after the last test of this test class is run.
+         */
+        public static function tearDownAfterClass(): void
+        {
+            global $activateGlobalFunctionMocks;
+
+            $activateGlobalFunctionMocks = false;
+        }
+
+        public function setUp(): void
         {
             self::$curlDataMock = [];
             self::$curlExecutions = 0;
-            self::$noOfCurlFailures = 0;
+            self::$expectedCurlFailures = 0;
         }
 
         public function testSendCurlRequest()
@@ -77,7 +135,7 @@ namespace RatePAY\Tests\Unit\Service {
 
         public function testCurlRequestWillFail()
         {
-            self::$noOfCurlFailures = 1;
+            self::$expectedCurlFailures = 1;
             $xml = '<?xml version="1.0" encoding="UTF-8"?>
                 <note>
                   <to>Foo</to>
@@ -86,7 +144,7 @@ namespace RatePAY\Tests\Unit\Service {
                   <body>Don\'t forget me this weekend!</body>
                 </note>';
 
-            $this->expectException('RatePAY\Exception\CurlException');
+            $this->expectException(CurlException::class);
             $this->expectExceptionMessage('This request is blowing my mind!');
 
             $service = new CommunicationService();
@@ -95,7 +153,7 @@ namespace RatePAY\Tests\Unit\Service {
 
         public function testSendAndRetryCurl()
         {
-            self::$noOfCurlFailures = 4;
+            self::$expectedCurlFailures = 4;
             $xml = '<?xml version="1.0" encoding="UTF-8"?>
                 <note>
                   <to>Foo</to>
@@ -105,7 +163,7 @@ namespace RatePAY\Tests\Unit\Service {
                 </note>';
 
             $service = new CommunicationService();
-            $response = $service->send($xml, 0, 0, 5, 0);
+            $response = $service->send($xml, 0, 0, 6, 1);
 
             $this->assertEquals('cURL Executed!', $response);
         }
@@ -117,7 +175,11 @@ namespace RatePAY\Tests\Unit\Service {
 
         public static function curlShouldFail()
         {
-            return self::$noOfCurlFailures > 0 ? (self::$curlExecutions >= self::$noOfCurlFailures): false;
+            if (self::$expectedCurlFailures < 1) {
+                return false;
+            }
+
+            return self::$expectedCurlFailures >= self::$curlExecutions;
         }
     }
 }

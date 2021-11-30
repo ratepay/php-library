@@ -1,47 +1,64 @@
 <?php
 
+/*
+ * Ratepay PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
+ *
+ * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Service;
 
 use RatePAY\Exception\CurlException;
 
 class CommunicationService
 {
-
     /**
-     * URL of RatePAY production gateway
+     * URL of RatePAY production gateway.
      */
-    const RATEPAY_PRODUCTION_GATEWAY_URL = "https://gateway.ratepay.com/api/xml/1_0";
+    const RATEPAY_PRODUCTION_GATEWAY_URL = 'https://gateway.ratepay.com/api/xml/1_0';
 
     /**
-     * URL of RatePAY integration gateway
+     * URL of RatePAY integration gateway.
      */
-    const RATEPAY_INTEGRATION_GATEWAY_URL = "https://gateway-int.ratepay.com/api/xml/1_0";
+    const RATEPAY_INTEGRATION_GATEWAY_URL = 'https://gateway-int.ratepay.com/api/xml/1_0';
 
     /**
-     * Current URL of RatePAY gateway
+     * Current URL of RatePAY gateway.
      *
-     * @var null|string
+     * @var string|null
      */
     private $ratepayGatewayUrl = null;
 
     /**
      * CommunicationService constructor.
+     *
      * @param bool $sandbox
+     * @param null $gatewayUrl
+     *
+     * @throws CurlException
      */
     public function __construct($sandbox = false, $gatewayUrl = null)
     {
         if (!$this->isCurl()) {
-            throw new CurlException("Curl function not available");
+            throw new CurlException('Curl function not available');
         }
 
         $this->ratepayGatewayUrl = empty($gatewayUrl) ? $this->getStandardRatepayGateway($sandbox) : $gatewayUrl;
     }
 
     /**
-     * Executes the cURL request
+     * Executes the cURL request.
      *
      * @param string $xml
+     *
      * @return string
+     *
+     * @throws CurlException
      */
     public function send($xml, $connectionTimeout = 0, $executionTimeout = 0, $retries = 0, $retryDelay = 0)
     {
@@ -51,11 +68,11 @@ class CommunicationService
         curl_setopt($ch, CURLOPT_URL, $this->ratepayGatewayUrl);
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            "Content-Type: text/xml; charset=UTF-8",
-            "Accept: */*",
-            "Cache-Control: no-cache",
-            "Pragma: no-cache",
-            "Connection: keep-alive"
+            'Content-Type: text/xml; charset=UTF-8',
+            'Accept: */*',
+            'Cache-Control: no-cache',
+            'Pragma: no-cache',
+            'Connection: keep-alive',
         ]);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
@@ -84,6 +101,7 @@ class CommunicationService
                     // halt time in milliseconds (entered microseconds * 1000)
                     usleep((int) $retryDelay * 1000);
                 }
+
                 return $this->send($xml, $connectionTimeout, $executionTimeout, $retries - 1, $retryDelay);
             }
 
@@ -96,7 +114,7 @@ class CommunicationService
     }
 
     /**
-     * Checks if cURL is enabled
+     * Checks if cURL is enabled.
      *
      * @return bool
      */
@@ -109,10 +127,11 @@ class CommunicationService
      * Gets the standard Gateway URL-Address.
      *
      * @param bool $sandbox
+     *
      * @return string
      */
     private function getStandardRatepayGateway($sandbox)
     {
-        return (!!$sandbox) ? self::RATEPAY_INTEGRATION_GATEWAY_URL : self::RATEPAY_PRODUCTION_GATEWAY_URL;
+        return ((bool) $sandbox) ? self::RATEPAY_INTEGRATION_GATEWAY_URL : self::RATEPAY_PRODUCTION_GATEWAY_URL;
     }
 }

@@ -1,17 +1,27 @@
 <?php
 
+/*
+ * Ratepay PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
+ *
+ * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request\SubModel\Content;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
 class InstallmentCalculation extends AbstractModel
 {
-
     /**
      * List of admitted fields.
      * Each field is public accessible by certain getter and setter.
      * E.g:
-     * Set payment items by using setItems(var). Get items by using getItems(). (Please consider the camel case)
+     * Set payment items by using setItems(var). Get items by using getItems(). (Please consider the camel case).
      *
      * Settings:
      * mandatory            = field is mandatory (or optional)
@@ -31,18 +41,18 @@ class InstallmentCalculation extends AbstractModel
         ],
         'CalculationRate' => [
             'mandatoryByRule' => true,
-            'instanceOf' => "Content\\InstallmentCalculation\\CalculationRate",
+            'instanceOf' => 'Content\\InstallmentCalculation\\CalculationRate',
         ],
         'CalculationTime' => [
             'mandatoryByRule' => true,
-            'instanceOf' => "Content\\InstallmentCalculation\\CalculationTime",
+            'instanceOf' => 'Content\\InstallmentCalculation\\CalculationTime',
         ],
         'PaymentFirstday' => [
             'mandatory' => false,
         ],
         'Configuration' => [
             'mandatory' => false,
-            'instanceOf' => "Content\\Configuration",
+            'instanceOf' => 'Content\\Configuration',
         ],
         'CalculationStart' => [
             'mandatory' => false,
@@ -53,22 +63,22 @@ class InstallmentCalculation extends AbstractModel
         ],
         'InterestRate' => [
             'mandatory' => false,
-        ]
+        ],
     ];
 
     /**
-     * Installment calculation rule : time or rate has to be set
+     * Installment calculation rule : time or rate has to be set.
      *
      * @return bool
      */
     protected function rule()
     {
         if (!key_exists('value', $this->admittedFields['CalculationTime']) && !key_exists('value', $this->admittedFields['CalculationRate'])) {
-            $this->setErrorMsg("Calculation type is missing");
+            $this->setErrorMsg('Calculation type is missing');
+
             return false;
         }
 
         return true;
     }
-
 }

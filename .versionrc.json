@@ -1,0 +1,19 @@
+{
+    "header": "# Changelog",
+    "tagPrefix": "",
+    "bumpFiles": [
+      {
+        "filename": "composer.json",
+        "type": "json"
+      },
+      {
+        "filename": "README.md",
+        "updater": "./ci/readme-updater.js"
+      },
+      {
+        "filename": "src/Model/Request/SubModel/Constants.php",
+        "updater": "./ci/rp-constant-updater.js"
+      }
+    ]
+  }
+  

@@ -1,17 +1,38 @@
 <?php
 
+/*
+ * Ratepay PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
+ *
+ * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request\SubModel\Content;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
+use RatePAY\Model\Request\SubModel\Content\Payment\InstallmentDetails;
 
+/**
+ * @method $this              setMethod(string $method)
+ * @method string             getMethod()
+ * @method $this              setAmount(float $amount)
+ * @method float              getAmount()
+ * @method $this              setInstallmentDetails(InstallmentDetails $installmentDetails)
+ * @method InstallmentDetails getInstallmentDetails()
+ * @method $this              setDebitPayType(string $debitPayType)
+ * @method string             getDebitPayType()
+ */
 class Payment extends AbstractModel
 {
-
     /**
      * List of admitted fields.
      * Each field is public accessible by certain getter and setter.
      * E.g:
-     * Set payment method value by using setPaymentMethod(var). Get payment method by using getPaymentMethod(). (Please consider the camel case)
+     * Set payment method value by using setPaymentMethod(var). Get payment method by using getPaymentMethod(). (Please consider the camel case).
      *
      * Settings:
      * mandatory            = field is mandatory (or optional)
@@ -30,18 +51,18 @@ class Payment extends AbstractModel
         'Method' => [
             'mandatoryByRule' => true,
             'isAttribute' => true,
-            'uppercase' => true
+            'uppercase' => true,
         ],
         'Amount' => [
-            'mandatory' => true
+            'mandatory' => true,
         ],
         'InstallmentDetails' => [
             'mandatoryByRule' => true,
-            'instanceOf' => "Content\\Payment\\InstallmentDetails"
+            'instanceOf' => 'Content\\Payment\\InstallmentDetails',
         ],
         'DebitPayType' => [
-            'mandatoryByRule' => true
-        ]
+            'mandatoryByRule' => true,
+        ],
     ];
 
     /*
@@ -49,33 +70,33 @@ class Payment extends AbstractModel
      *  @ToDo: find better place to save (but stay compatible with PHP 5.4 (now array within constant))
      */
     private $ratepayPaymentMethods = [
-        "INVOICE",
-        "INSTALLMENT",
-        "ELV",
-        "PREPAYMENT"
+        'INVOICE',
+        'INSTALLMENT',
+        'ELV',
+        'PREPAYMENT',
     ];
 
     /**
-     * Installment details rule : if payment method is installment, InstallmentDetails are mandatory
+     * Installment details rule : if payment method is installment, InstallmentDetails are mandatory.
      *
      * @return bool
      */
     protected function rule()
     {
-
         if (!in_array(strtoupper($this->admittedFields['Method']['value']), $this->ratepayPaymentMethods)) {
-            $this->setErrorMsg("Payment method invalid");
+            $this->setErrorMsg('Payment method invalid');
+
             return false;
         }
 
         if ('INSTALLMENT' == $this->admittedFields['Method']['value'] &&
             (!key_exists('value', $this->admittedFields['InstallmentDetails']) || !key_exists('value', $this->admittedFields['DebitPayType']))
         ) {
-            $this->setErrorMsg("installment details missing");
+            $this->setErrorMsg('installment details missing');
+
             return false;
         }
 
         return true;
     }
-
 }

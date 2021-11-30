@@ -1,17 +1,35 @@
 <?php
 
+/*
+ * Ratepay PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
+ *
+ * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request\SubModel\Content;
 
+use DateTime;
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
+/**
+ * @method self   setInvoiceId(string $invoiceId)
+ * @method string getInvoiceId()
+ * @method string getInvoiceDate()
+ * @method string getDeliveryDate()
+ * @method string getDueDate()
+ */
 class Invoicing extends AbstractModel
 {
-
     /**
      * List of admitted fields.
      * Each field is public accessible by certain getter and setter.
      * E.g:
-     * Set invoice id value by using setInvoiceId(var). Get invoice id by using getInvoiceId(). (Please consider the camel case)
+     * Set invoice id value by using setInvoiceId(var). Get invoice id by using getInvoiceId(). (Please consider the camel case).
      *
      * Settings:
      * mandatory            = field is mandatory (or optional)
@@ -27,16 +45,69 @@ class Invoicing extends AbstractModel
      */
     public $admittedFields = [
         'InvoiceId' => [
-            'mandatory' => false
+            'mandatory' => false,
         ],
         'InvoiceDate' => [
-            'mandatory' => false
+            'mandatory' => false,
         ],
         'DeliveryDate' => [
-            'mandatory' => false
+            'mandatory' => false,
         ],
         'DueDate' => [
-            'mandatory' => false
+            'mandatory' => false,
         ],
     ];
+
+    /**
+     * @param string|DateTime $date
+     *
+     * @return self
+     *
+     * @throws \RatePAY\Exception\ModelException
+     */
+    public function setInvoiceDate($date)
+    {
+        if ($date instanceof DateTime) {
+            $date = $this->createDateString($date);
+        }
+
+        return $this->__set('InvoiceDate', $date);
+    }
+
+    /**
+     * @param string|DateTime $date
+     *
+     * @return self
+     *
+     * @throws \RatePAY\Exception\ModelException
+     */
+    public function setDeliveryDate($date)
+    {
+        if ($date instanceof DateTime) {
+            $date = $this->createDateString($date);
+        }
+
+        return $this->__set('DeliveryDate', $date);
+    }
+
+    /**
+     * @param string|DateTime $date
+     *
+     * @return self
+     *
+     * @throws \RatePAY\Exception\ModelException
+     */
+    public function setDueDate($date)
+    {
+        if ($date instanceof DateTime) {
+            $date = $this->createDateString($date);
+        }
+
+        return $this->__set('DueDate', $date);
+    }
+
+    private function createDateString(DateTime $dateTime)
+    {
+        return $dateTime->format('Y-m-d') . 'T' . $dateTime->format('H:i:s');
+    }
 }

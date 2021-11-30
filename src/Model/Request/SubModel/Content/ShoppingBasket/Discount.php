@@ -1,18 +1,38 @@
 <?php
 
+/*
+ * Ratepay PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
+ *
+ * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Model\Request\SubModel\Content\ShoppingBasket;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 use RatePAY\Service\Util;
 
+/**
+ * @method $this  setDescription(string $description)
+ * @method string getDescription()
+ * @method $this  setUnitPriceGross(float $unitPriceGross)
+ * @method float  getUnitPriceGross()
+ * @method $this  setTaxRate(float $taxRate)
+ * @method float  getTaxRate()
+ * @method $this  setDescriptionAddition(string $amount)
+ * @method string getDescriptionAddition()
+ */
 class Discount extends AbstractModel
 {
-
     /**
      * List of admitted fields.
      * Each field is public accessible by certain getter and setter.
      * E.g:
-     * Set payment unit price gross by using setUnitPriceGross(var). Get unit price gross by using getUnitPriceGross(). (Please consider the camel case)
+     * Set payment unit price gross by using setUnitPriceGross(var). Get unit price gross by using getUnitPriceGross(). (Please consider the camel case).
      *
      * Settings:
      * mandatory            = field is mandatory (or optional)
@@ -28,21 +48,21 @@ class Discount extends AbstractModel
      */
     public $admittedFields = [
         'Description' => [
-            'mandatory' => true,
-            'cdata' => true
+            'mandatory' => false,
+            'cdata' => true,
         ],
         'UnitPriceGross' => [
             'mandatory' => true,
-            'isAttribute' => true
+            'isAttribute' => true,
         ],
         'TaxRate' => [
             'mandatory' => true,
-            'isAttribute' => true
+            'isAttribute' => true,
         ],
         'DescriptionAddition' => [
             'mandatory' => false,
-            'isAttribute' => true
-        ]
+            'isAttribute' => true,
+        ],
     ];
 
     /*
@@ -50,11 +70,11 @@ class Discount extends AbstractModel
      * In addition to API fields there are settings possible to control library behavior.
      */
     public $settings = [
-        'AutoDelivery' => false
+        'AutoDelivery' => false,
     ];
 
     /**
-     * Changes discount to negative value (if necessary)
+     * Changes discount to negative value (if necessary).
      *
      * @return array
      */
@@ -65,5 +85,4 @@ class Discount extends AbstractModel
 
         return parent::toArray();
     }
-
 }

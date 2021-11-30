@@ -1,90 +1,101 @@
 <?php
 
+/*
+ * Ratepay PHP-Library
+ *
+ * This document contains trade secret data which are the property of
+ * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
+ * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
+ * All rights reserved by Ratepay GmbH.
+ *
+ * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
+ */
+
 namespace RatePAY\Frontend;
 
+use RatePAY\Exception\RequestException;
 use RatePAY\Model\Request\ConfigurationRequest;
 use RatePAY\ModelBuilder;
 use RatePAY\RequestBuilder;
-use RatePAY\Service\Util;
 use RatePAY\Service\LanguageService;
-use RatePAY\Exception\RequestException;
+use RatePAY\Service\Util;
 
 class InstallmentBuilder
 {
-
     /**
-     * Sandbox mode
+     * Sandbox mode.
      *
      * @var bool
      */
     private $sandbox = false;
 
     /**
-     * RatePAY profile id
+     * RatePAY profile id.
      *
      * @var string
      */
     private $profileId;
 
     /**
-     * RatePAY security code
+     * RatePAY security code.
      *
      * @var string
      */
     private $securitycode;
 
     /**
-     * Language object contains translation text blocks
+     * Language object contains translation text blocks.
      *
      * @var LanguageService
      */
     private $lang;
 
     /**
-     * Customers billing country
+     * Customers billing country.
      *
      * @var string
      */
-    private $billingCountry = "DE";
+    private $billingCountry = 'DE';
 
     /**
-     * Connect timeout
+     * Connect timeout.
      *
      * @var int
      */
     private $connectionTimeout = 0;
 
     /**
-     * Execution timeout
+     * Execution timeout.
      *
      * @var int
      */
     private $executionTimeout = 0;
 
     /**
-     * Connection retries
+     * Connection retries.
      *
      * @var int
      */
     private $connectionRetries = 0;
 
     /**
-     * Retry delay
+     * Retry delay.
      *
      * @var int
      */
     private $retryDelay = 0;
 
     /**
-     * DebitPayTypes
+     * DebitPayTypes.
+     *
      * @ToDo: find better place to save (but stay compatible with PHP 5.4 (now array within constant))
      */
     private $debitPayTypes = [
-        2 => "DIRECT-DEBIT",
-        28 => "BANK-TRANSFER"
+        2 => 'DIRECT-DEBIT',
+        28 => 'BANK-TRANSFER',
     ];
 
-    public function __construct($sandbox = false, $profileId = null, $securitycode = null, $language = "DE", $country = "DE")
+    public function __construct($sandbox = false, $profileId = null, $securitycode = null, $language = 'DE', $country = 'DE')
     {
         if ($sandbox) {
             $this->sandbox = true;
@@ -103,7 +114,7 @@ class InstallmentBuilder
     }
 
     /**
-     * Sets RatePAY profile id
+     * Sets RatePAY profile id.
      *
      * @param string $profileId
      */
@@ -113,7 +124,8 @@ class InstallmentBuilder
     }
 
     /**
-     * Sets RatePAY security code
+     * Sets RatePAY security code.
+     *
      * @param string $securitycode
      */
     public function setSecuritycode($securitycode)
@@ -122,9 +134,10 @@ class InstallmentBuilder
     }
 
     /**
-     * Sets current language
+     * Sets current language.
      *
      * @param $language
+     *
      * @throws \RatePAY\Exception\LanguageException
      */
     public function setLanguage($language)
@@ -133,7 +146,7 @@ class InstallmentBuilder
     }
 
     /**
-     * Sets customer billing country which is necessary to allow classic account number
+     * Sets customer billing country which is necessary to allow classic account number.
      *
      * @param $country
      */
@@ -143,9 +156,10 @@ class InstallmentBuilder
     }
 
     /**
-     * Calls Configuration Request
+     * Calls Configuration Request.
      *
      * @return ConfigurationRequest
+     *
      * @throws RequestException
      */
     private function getInstallmentConfiguration()
@@ -165,11 +179,13 @@ class InstallmentBuilder
     }
 
     /**
-     * Returns processed html template
+     * Returns processed html template.
      *
-     * @param float $amount
+     * @param float  $amount
      * @param string $template
+     *
      * @return string
+     *
      * @throws RequestException
      */
     public function getInstallmentCalculatorByTemplate($amount, $template)
@@ -179,7 +195,7 @@ class InstallmentBuilder
         $replacements = array_merge(
             ['rp_minimumRate' => $configuration->getMinRate()],
             ['rp_maximumRate' => $configuration->getMaxRate($amount)],
-            ['rp_amount'      => $amount],
+            ['rp_amount' => $amount],
             $this->getDebitPayType($configuration->getValidPaymentFirstdays()),
             $this->lang->getArray()
         );
@@ -191,10 +207,12 @@ class InstallmentBuilder
     }
 
     /**
-     * Returns installment configuration as JSON
+     * Returns installment configuration as JSON.
      *
      * @param $amount
+     *
      * @return string
+     *
      * @throws RequestException
      */
     public function getInstallmentCalculatorAsJson($amount)
@@ -202,39 +220,40 @@ class InstallmentBuilder
         $configuration = $this->getInstallmentConfiguration();
 
         return json_encode([
-            'rp_minimumRate'   => $configuration->getMinRate(),
-            'rp_maximumRate'   => $configuration->getMaxRate($amount),
+            'rp_minimumRate' => $configuration->getMinRate(),
+            'rp_maximumRate' => $configuration->getMaxRate($amount),
             'rp_allowedMonths' => $configuration->getAllowedMonths($amount),
-            'rp_debitPayType' => $this->getDebitPayType($configuration->getValidPaymentFirstdays())
+            'rp_debitPayType' => $this->getDebitPayType($configuration->getValidPaymentFirstdays()),
         ]);
     }
 
-
     /**
-     * Calls CalculationRequest
+     * Calls CalculationRequest.
      *
      * @param $type
      * @param $value
      * @param $amount
      * @param null $firstday
+     *
      * @return CalculationRequest
+     *
      * @throws RequestException
      * @throws \RatePAY\Exception\ModelException
      */
     private function getInstallmentCalculation($type, $value, $amount, $firstday = null)
     {
         if (floatval($value) <= 0) {
-            throw new RequestException("Invalid calculation value");
+            throw new RequestException('Invalid calculation value');
         }
 
         if (floatval($amount) <= 0) {
-            throw new RequestException("Invalid calculation amount");
+            throw new RequestException('Invalid calculation amount');
         }
 
         $installmentCalculation = [
             'InstallmentCalculation' => [
-                'Amount' => $amount
-            ]
+                'Amount' => $amount,
+            ],
         ];
 
         switch ($type) {
@@ -271,12 +290,13 @@ class InstallmentBuilder
     }
 
     /**
-     * Returns processed html template
+     * Returns processed html template.
      *
      * @param $amount
      * @param $type
      * @param $value
      * @param $template
+     *
      * @return string
      */
     public function getInstallmentPlanByTemplate($template, $amount, $type, $value, $firstday = null)
@@ -287,19 +307,19 @@ class InstallmentBuilder
 
         $replacements = array_merge(
             [
-                'rp_amount'                      => number_format($amount, 2, ",", "."),
-                'rp_serviceCharge'               => $calculation->getServiceCharge(),
-                'rp_annualPercentageRate'        => $calculation->getAnnualPercentageRate(),
-                'rp_monthlyDebitInterest'        => $calculation->getMonthlyDebitInterest(),
-                'rp_interestRate'                => $calculation->getInterestRate(),
-                'rp_interestAmount'              => $calculation->getInterestAmount(),
-                'rp_totalAmount'                 => $calculation->getTotalAmount(),
-                'rp_numberOfRatesFull'           => $calculation->getNumberOfRatesFull(),
+                'rp_amount' => number_format($amount, 2, ',', '.'),
+                'rp_serviceCharge' => $calculation->getServiceCharge(),
+                'rp_annualPercentageRate' => $calculation->getAnnualPercentageRate(),
+                'rp_monthlyDebitInterest' => $calculation->getMonthlyDebitInterest(),
+                'rp_interestRate' => $calculation->getInterestRate(),
+                'rp_interestAmount' => $calculation->getInterestAmount(),
+                'rp_totalAmount' => $calculation->getTotalAmount(),
+                'rp_numberOfRatesFull' => $calculation->getNumberOfRatesFull(),
                 'rp_numberOfRatesDecreasedByOne' => $calculation->getNumberOfRatesFull() - 1,
-                'rp_numberOfRates'               => $calculation->getNumberOfRates(),
-                'rp_rate'                        => $calculation->getRate(),
-                'rp_lastRate'                    => $calculation->getLastRate(),
-                'rp_responseText'                => $this->lang->$rpReasonCodeTranslation()
+                'rp_numberOfRates' => $calculation->getNumberOfRates(),
+                'rp_rate' => $calculation->getRate(),
+                'rp_lastRate' => $calculation->getLastRate(),
+                'rp_responseText' => $this->lang->$rpReasonCodeTranslation(),
             ],
             $this->lang->getArray()
         );
@@ -308,22 +328,27 @@ class InstallmentBuilder
     }
 
     /**
-     * Returns installment calculation as JSON
+     * Returns installment calculation as JSON.
      *
      * @param $amount
      * @param $type
      * @param $value
+     *
      * @return string
      */
     public function getInstallmentPlanAsJson($amount, $type, $value)
     {
         $configuration = $this->getInstallmentCalculation($type, $value, $amount);
 
-        return json_encode($configuration->getResult());
+        $result = $configuration->getResult();
+        $rpReasonCodeTranslation = 'rp_reason_code_translation_' . $configuration->getReasonCode();
+        $result['responseText'] = $this->lang->$rpReasonCodeTranslation();
+
+        return json_encode($result);
     }
 
     /**
-     * Returns common head model
+     * Returns common head model.
      *
      * @return \RatePAY\ModelBuilder
      */
@@ -331,27 +356,28 @@ class InstallmentBuilder
     {
         $mbHead = new ModelBuilder();
         $mbHead->setArray([
-            'SystemId' => "RatePAY API PHP SDK",
+            'SystemId' => 'RatePAY API PHP SDK',
             'Credential' => [
                 'ProfileId' => $this->profileId,
-                'Securitycode' => $this->securitycode
-            ]
+                'Securitycode' => $this->securitycode,
+            ],
         ]);
 
         return $mbHead;
     }
 
     /**
-     * Maps valid first days to pay types
+     * Maps valid first days to pay types.
      *
      * @param array|int $validPaymentFirstdays
+     *
      * @return array
      */
     private function getDebitPayType($validPaymentFirstdays)
     {
         $result = [
             'rp_paymentType_directDebit' => false,
-            'rp_paymentType_bankTransfer' => false
+            'rp_paymentType_bankTransfer' => false,
         ];
 
         if (is_array($validPaymentFirstdays)) {
@@ -361,11 +387,11 @@ class InstallmentBuilder
         } else {
             if (key_exists($validPaymentFirstdays, $this->debitPayTypes)) {
                 switch ($this->debitPayTypes[$validPaymentFirstdays]) {
-                    case "DIRECT-DEBIT":
+                    case 'DIRECT-DEBIT':
                         $result['rp_paymentType_directDebit'] = true;
                         $result['rp_paymentType_directDebit_firstday'] = $validPaymentFirstdays;
                         break;
-                    case "BANK-TRANSFER":
+                    case 'BANK-TRANSFER':
                         $result['rp_paymentType_bankTransfer'] = true;
                         $result['rp_paymentType_bankTransfer_firstday'] = $validPaymentFirstdays;
                         break;
@@ -377,51 +403,58 @@ class InstallmentBuilder
     }
 
     /**
-     * Sets the number of milliseconds to wait while trying to connect
+     * Sets the number of milliseconds to wait while trying to connect.
      *
      * @param int $timeout
+     *
      * @return $this
      */
     public function setConnectionTimeout($timeout = 0)
     {
         $this->connectionTimeout = (int) $timeout;
+
         return $this;
     }
 
     /**
-     * Sets the maximum number of milliseconds to allow cURL functions to execute
+     * Sets the maximum number of milliseconds to allow cURL functions to execute.
      *
      * @param int $timeout
+     *
      * @return $this
      */
     public function setExecutionTimeout($timeout = 0)
     {
         $this->executionTimeout = (int) $timeout;
+
         return $this;
     }
 
     /**
-     * Sets the number of retries
+     * Sets the number of retries.
      *
      * @param int $retries
+     *
      * @return $this
      */
     public function setConnectionRetries($retries = 0)
     {
         $this->connectionRetries = (int) $retries;
+
         return $this;
     }
 
     /**
-     * Sets the delay between retries in milliseconds
+     * Sets the delay between retries in milliseconds.
      *
      * @param int $delay
+     *
      * @return $this
      */
     public function setRetryDelay($delay = 0)
     {
         $this->retryDelay = (int) $delay;
+
         return $this;
     }
-
 }
