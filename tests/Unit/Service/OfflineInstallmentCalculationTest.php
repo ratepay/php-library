@@ -22,4 +22,23 @@ class OfflineInstallmentCalculationTest extends TestCase
         $calculation = $service->callOfflineCalculation(new ModelBuilder());
         $this->assertEquals('today', $calculation);
     }
+
+    public function testCallZeroPercentOfflineCalculation()
+    {
+        $content = new ModelBuilder('Content');
+        $content->setArray([
+            'InstallmentCalculation' => [
+                'Amount' => 2000,
+                'CalculationTime' => ['Month' => 24],
+                'PaymentFirstday' => 2,
+                'ServiceCharge' => 0,
+                'InterestRate' => 0,
+            ]
+        ]);
+
+        $service = new OfflineInstallmentCalculation();
+        $monthlyInstalment = $service->callOfflineCalculation($content)->subtype('calculation-by-time');
+
+        $this->assertEquals(round(83.33, 2), $monthlyInstalment);
+    }
 }

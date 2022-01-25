@@ -87,7 +87,7 @@ class OfflineInstallmentCalculation
     {
         switch ($subtype) {
             case 'calculation-by-time':
-                return $this->callCalculationByTime();
+                return (round($this->_interestRate, 2) > 0) ? $this->callCalculationByTime() : $this->callZeroPercentCalculationByTime();
                 break;
 
             case '':
@@ -155,5 +155,17 @@ class OfflineInstallmentCalculation
             ($this->_serviceCharge / $this->_runtime);
 
         return round($installment, 2);
+    }
+
+    private function callZeroPercentCalculationByTime()
+    {
+        if ((int) $this->_runtime === 0) {
+            throw new \Exception('Runtime of 0 months not allowed.');
+        }
+
+        $monthlyInstalment = $this->_basketAmount / $this->_runtime;
+        $charges = $this->_serviceCharge / $this->_runtime;
+
+        return round($monthlyInstalment + $charges, 2);
     }
 }
