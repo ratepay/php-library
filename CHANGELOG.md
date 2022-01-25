@@ -1,4 +1,11 @@
 # Changelog
+## [1.6.0](https://github.com/ratepay/php-library/compare/1.5.1...1.6.0) (2022-01-25)
+
+
+### Features
+
+* implement 0% instalment calculation ([#23](https://github.com/ratepay/php-library/issues/23)) ([946cec6](https://github.com/ratepay/php-library/commit/946cec6287e9860647097960caec9f5520f81dc1))
+
 ### [1.5.1](https://github.com/ratepay/php-library/compare/1.5.0...1.5.1) (2021-07-13)
 
 
