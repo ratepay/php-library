@@ -14,7 +14,8 @@ All rights reserved by Ratepay GmbH.
 Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
 EOF;
 
-$finder = Finder::create()->in(__DIR__ . '/src');
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__ . '/src');
 
 $rules = [
     '@PSR1' => true,
@@ -26,12 +27,12 @@ $rules = [
     'list_syntax' => ['syntax' => 'short'],
     'no_unused_imports' => true,
     'concat_space' => ['spacing' => 'one'],
-    'trailing_comma_in_multiline_array' => true,
+    'trailing_comma_in_multiline' => true,
     'no_blank_lines_after_phpdoc' => true,
     'class_attributes_separation' => true,
 ];
 
-return Config::create()
+return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules($rules)
     ->setFinder($finder);

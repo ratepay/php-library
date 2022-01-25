@@ -159,7 +159,7 @@ class OfflineInstallmentCalculation
 
     private function callZeroPercentCalculationByTime()
     {
-        if ((int)$this->_runtime === 0) {
+        if ((int) $this->_runtime === 0) {
             throw new \Exception('Runtime of 0 months not allowed.');
         }
 
