@@ -1,4 +1,11 @@
 # Changelog
+### [1.6.1](https://github.com/ratepay/php-library/compare/1.6.0...1.6.1) (2022-01-26)
+
+
+### Bug Fixes
+
+* incorrect locale code for Austria ([#24](https://github.com/ratepay/php-library/issues/24)) ([a7d07f3](https://github.com/ratepay/php-library/commit/a7d07f315e032ddb3f9718f0d6d65b8d3120f090))
+
 ## [1.6.0](https://github.com/ratepay/php-library/compare/1.5.1...1.6.0) (2022-01-25)
 
 
