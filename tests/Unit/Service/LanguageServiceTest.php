@@ -33,8 +33,12 @@ class LanguageServiceTest extends TestCase
     {
         return [
             ['DE', 'rp_mouseover_effective_rate', 'Gesamtkosten des Kredits als j&auml;hrlicher Prozentsatz.'],
-            ['AU', 'rp_sepa_link', 'Einwilligungserkl&auml;rung zum SEPA-Mandat lesen'],
+            ['AT', 'rp_sepa_link', 'Einwilligungserkl&auml;rung zum SEPA-Mandat lesen'],
             ['CH', 'wcd_sepa_terms_block_3', 'Es gelten dabei die mit dem Kreditinstitut vereinbarten Bedingungen.'],
+            ['EN', 'rp_sepa_link', 'Declaration of SEPA mandate'],
+            // Unknown locale code will use english language by default:
+            ['AU', 'wcd_sepa_terms_block_3', 'My rights are explained in a statement that I can obtain from my bank.'],
+            ['FR', 'wcd_sepa_terms_block_3', 'My rights are explained in a statement that I can obtain from my bank.'],
         ];
     }
 
