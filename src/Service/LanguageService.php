@@ -40,7 +40,7 @@ class LanguageService
      */
     public function __construct($language = 'EN')
     {
-        $language = in_array(strtoupper($language), ['AU', 'CH']) ? 'DE' : $language;
+        $language = in_array(strtoupper($language), ['AT', 'CH']) ? 'DE' : $language;
 
         if (!$this->localeFileExists($language)) {
             $language = 'EN';
