@@ -13,8 +13,10 @@
 
 namespace RatePAY\Service;
 
+use RatePAY\Exception\OfflineInstalmentCalculationException;
 use RatePAY\Exception\RequestException;
 use RatePAY\ModelBuilder as ModelBuilder;
+use RatePAY\Service\DateTime\DateTime;
 
 /**
  * Class OfflineInstallmentCalculation.
@@ -107,60 +109,33 @@ class OfflineInstallmentCalculation
      */
     private function callCalculationByTime()
     {
-        $datePaymentFirstday = mktime(0, 0, 0, $this->_paymentFirstday == 28 ? (int) date('m') + 1 : (int) date('m') + 2, $this->_paymentFirstday, date('Y'));
-        $today = time();
-        $difference = $datePaymentFirstday - $today;
+        $totalMonths = (int) ($this->_runtime ?: 0);
 
-        $daysTillPaymentFirstday = ceil($difference / 60 / 60 / 24) + 1;
+        if ($totalMonths === 0) {
+            throw new OfflineInstalmentCalculationException('Runtime of 0 months not allowed.');
+        }
 
-        $interestRateMonth =
-            pow(
-                (1 + ($this->_interestRate / 100)),
-                (1 / 12)
-            )
-            -
-            1;
+        $daysUntilFirstDueDate = DateTime::today()
+            ->addMonths($this->_paymentFirstday == 28 ? 1 : 2)
+            ->setDay($this->_paymentFirstday + 1)
+            ->diffInDays(DateTime::today());
+        $monthlyInterestRate = Math::interestByInterval($this->_interestRate, (1 / 12));
+        $interestRateUntilFirstDue = Math::interestByInterval($this->_interestRate, ($daysUntilFirstDueDate / 365));
+        $interestRateProduct = pow((1 + $monthlyInterestRate), $totalMonths) - 1;
+        $monthlyServiceCharge = $this->_serviceCharge / $totalMonths;
+        $paymentStreamFactor = $this->_basketAmount * (1 + $interestRateUntilFirstDue) * $monthlyInterestRate;
 
-        $interestRateTillStart =
-            pow(
-                (($this->_interestRate / 100) + 1),
-                ($daysTillPaymentFirstday / 365)
-            )
-            -
-            1;
+        $monthlyInstalment = ($paymentStreamFactor / $interestRateProduct)
+            * pow((1 + $monthlyInterestRate), ($totalMonths - 1))
+            + $monthlyServiceCharge;
 
-        $installment =
-            (
-                $this->_basketAmount
-                *
-                (1 + ($interestRateTillStart))
-                *
-                $interestRateMonth
-                *
-                pow(
-                    (1 + $interestRateMonth),
-                    ($this->_runtime - 1)
-                )
-            )
-            /
-            (
-                pow(
-                    (1 + $interestRateMonth),
-                    ($this->_runtime)
-                )
-                -
-                1
-            )
-            +
-            ($this->_serviceCharge / $this->_runtime);
-
-        return round($installment, 2);
+        return round($monthlyInstalment, 2);
     }
 
     private function callZeroPercentCalculationByTime()
     {
         if ((int) $this->_runtime === 0) {
-            throw new \Exception('Runtime of 0 months not allowed.');
+            throw new OfflineInstalmentCalculationException('Runtime of 0 months not allowed.');
         }
 
         $monthlyInstalment = $this->_basketAmount / $this->_runtime;

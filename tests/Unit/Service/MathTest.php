@@ -50,4 +50,28 @@ class MathTest extends TestCase
             [29.99, 2.5, 30.74],
         ];
     }
+
+    /** @dataProvider provideZeroValues */
+    public function testIsZero($number, $precission, $expectation)
+    {
+        $isZero = Math::isZero($number, $precission);
+
+        $this->assertEquals($expectation, $isZero);
+    }
+
+    public function provideZeroValues()
+    {
+        return [
+            [ -0.000001, 0, true ],
+            [ -0.000001, 1, true ],
+            [ -0.000001, 2, true ],
+            [ -0.000001, 3, true ],
+            [ -0.000001, 4, true ],
+            [ -0.000001, 5, true ],
+            [ -0.000001, 6, false ],
+            [ -0.3 + 0.09 + 0.2, 0, true ],
+            [ -0.3 + 0.09 + 0.2, 1, true ],
+            [ -0.3 + 0.09 + 0.2, 2, false ],
+        ];
+    }
 }

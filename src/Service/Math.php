@@ -18,6 +18,11 @@ namespace RatePAY\Service;
  */
 class Math
 {
+    public static function isZero($number, $precission = 2)
+    {
+        return round($number, $precission) === 0.0;
+    }
+
     /**
      * @param float     $netPrice
      * @param float|int $taxPercentage
@@ -36,5 +41,16 @@ class Math
         $rounded = round($withTax, 2);
 
         return $rounded;
+    }
+
+    /**
+     * @param float $annualInterestRate annual percentage interest rate
+     * @param float $interval           Fraction of a year
+     *
+     * @return float|int
+     */
+    public static function interestByInterval($annualInterestRate, $interval)
+    {
+        return pow((1 + ($annualInterestRate / 100)), $interval) - 1;
     }
 }
