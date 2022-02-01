@@ -1,4 +1,11 @@
 # Changelog
+## [1.7.0](https://github.com/ratepay/php-library/compare/1.6.1...1.7.0) (2022-02-01)
+
+
+### Features
+
+* reorganize offline inst-calculation ([624cc8e](https://github.com/ratepay/php-library/commit/624cc8e5f5539f0a39d6b5a725c49b6a744d8840))
+
 ### [1.6.1](https://github.com/ratepay/php-library/compare/1.6.0...1.6.1) (2022-01-26)
 
 
