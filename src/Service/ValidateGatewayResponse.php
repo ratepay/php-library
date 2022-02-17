@@ -13,6 +13,8 @@
 
 namespace RatePAY\Service;
 
+use RatePAY\Exception\RequestException;
+
 /**
  * Class ValidateGatewayResponse.
  */
@@ -44,9 +46,17 @@ class ValidateGatewayResponse
         $responsePath = 'RatePAY\\Model\\Response\\';
         $responseInstance = $responsePath . $this->responseType;
 
-        $this->responseModel = new $responseInstance($response);
+        try {
+            $this->responseModel = new $responseInstance($response);
 
-        $this->responseModel->validateResponse();
+            $this->responseModel->validateResponse();
+        } catch (\Throwable $exception) {
+            // this catch works only on PHP < 7.0. On PHP versions lower than 7.0 the error will be propagated because
+            // it is not catchable.
+            // This will catch all errors which will throw by accessing non-existing fields or methods on objects
+            $message = $exception->getPrevious() ? $exception->getPrevious()->getMessage() : $exception->getMessage();
+            throw new RequestException(sprintf('An error occurred during the processing of the response from the gateway. Error message: %s', $message));
+        }
     }
 
     /**
