@@ -87,10 +87,15 @@ class CommunicationService
 
         $errno = curl_errno($ch);
 
+        $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
         // close connection
         curl_close($ch);
 
-        if ($response === false) {
+        // status codes 3xx and 5xx are not processable by the SDK (we assume that the body will be invalid too)
+        $invalidStatusCode = $statusCode < 200 || ($statusCode >= 300 && ($statusCode < 400 || $statusCode >= 500));
+
+        if ($invalidStatusCode || $response === false) {
             if ($retries > 0) {
                 if ($retryDelay > 0) {
                     // halt time in milliseconds (entered microseconds * 1000)
@@ -102,6 +107,10 @@ class CommunicationService
 
             if ($errno > 0) {
                 throw new CurlException(curl_strerror($errno));
+            }
+
+            if ($invalidStatusCode) {
+                throw new CurlException('There server answered with an invalid status code.');
             }
         }
 

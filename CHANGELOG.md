@@ -1,4 +1,11 @@
 # Changelog
+## [1.8.0](https://github.com/ratepay/php-library/compare/1.7.0...1.8.0) (2022-03-28)
+
+
+### Features
+
+* add handling for fatal errors by the gateway ([#25](https://github.com/ratepay/php-library/issues/25)) ([29eae73](https://github.com/ratepay/php-library/commit/29eae7378d061e423e501d078a9d31d1e5f8db8c))
+
 ## [1.7.0](https://github.com/ratepay/php-library/compare/1.6.1...1.7.0) (2022-02-01)
 
 

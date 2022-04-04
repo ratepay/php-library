@@ -80,6 +80,19 @@ namespace RatePAY\Service {
 
         return $messages[$errorCode];
     }
+
+    function curl_getinfo($handle, $optionCode)
+    {
+        if (!should_call_mocked_global_functions()) {
+            return call_user_func_array('\curl_getinfo', func_get_args());
+        }
+
+        if ($optionCode === CURLINFO_HTTP_CODE) {
+            return CommunicationServiceTest::$forceHttpStatus;
+        }
+
+        return null;
+    }
 }
 
 namespace RatePAY\Tests\Unit\Service {
@@ -95,6 +108,7 @@ namespace RatePAY\Tests\Unit\Service {
         public static $curlDataMock = [];
         public static $curlExecutions = 0;
         public static $expectedCurlFailures = 0;
+        public static $forceHttpStatus = 200;
 
         /**
          * This method is called before the first test of this test class is run.
@@ -172,6 +186,18 @@ namespace RatePAY\Tests\Unit\Service {
             $response = $service->send($xml, 0, 0, 6, 1);
 
             $this->assertEquals('cURL Executed!', $response);
+        }
+
+        public function testCurlRequestWillFailWithHttpError500()
+        {
+            self::$forceHttpStatus = 500;
+            $xml = '<?xml version="1.0" encoding="UTF-8"?><note><to>Foo</to></note>';
+
+            $this->expectException(CurlException::class);
+            $this->expectExceptionMessage('There server answered with an invalid status code.');
+
+            $service = new CommunicationService();
+            $service->send($xml, 0, 0, 6, 1);
         }
 
         public static function incrementCurlExcecutions()
