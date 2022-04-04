@@ -1,5 +1,6 @@
 <?php
-/**
+
+/*
  * Copyright (c) Ratepay GmbH
  *
  * For the full copyright and license information, please view the LICENSE
@@ -8,19 +9,19 @@
 
 namespace RatePAY\Model\Response;
 
-    class PaymentConfirm extends AbstractResponse
+class PaymentConfirm extends AbstractResponse
+{
+    use TraitTransactionId;
+
+    /**
+     * Validates response.
+     */
+    public function validateResponse()
     {
-        use TraitTransactionId;
-
-        /**
-         * Validates response.
-         */
-        public function validateResponse()
-        {
-            if ($this->getStatusCode() == 'OK' && $this->getResultCode() == 400) {
-                $this->setSuccessful();
-            }
-
-            $this->setTransactionId((string) $this->getResponse()->head->{'transaction-id'});
+        if ($this->getStatusCode() == 'OK' && $this->getResultCode() == 400) {
+            $this->setSuccessful();
         }
+
+        $this->setTransactionId((string) $this->getResponse()->head->{'transaction-id'});
     }
+}
