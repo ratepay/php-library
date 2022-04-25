@@ -204,7 +204,7 @@ abstract class AbstractModel
                     }
                 } else {
                     if (key_exists('cdata', $fieldSettings)) {                                     // If value should be encapsulated inside CDATA tag
-                        if (function_exists('mb_detect_encoding') && !mb_detect_encoding($fieldSettings['value'], 'UTF-8', true)) { // Check only if php mdstring extension is loaded
+                        if (function_exists('mb_detect_encoding') && is_string($fieldSettings['value']) && !mb_detect_encoding($fieldSettings['value'], 'UTF-8', true)) { // Check only if php mdstring extension is loaded
                             throw new ModelException("Value of '" . $fieldName . "' has to be encoded in UTF-8");
                         }
                     }
