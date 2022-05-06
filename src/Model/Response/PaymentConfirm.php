@@ -1,31 +1,27 @@
 <?php
 
 /*
- * Ratepay PHP-Library
+ * Copyright (c) Ratepay GmbH
  *
- * This document contains trade secret data which are the property of
- * Ratepay GmbH, Berlin, Germany. Information contained herein must not be used,
- * copied or disclosed in whole or part unless permitted in writing by Ratepay GmbH.
- * All rights reserved by Ratepay GmbH.
- *
- * Copyright (c) 2019 Ratepay GmbH / Berlin / Germany
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace RatePAY\Model\Response;
 
-    class PaymentConfirm extends AbstractResponse
+class PaymentConfirm extends AbstractResponse
+{
+    use TraitTransactionId;
+
+    /**
+     * Validates response.
+     */
+    public function validateResponse()
     {
-        use TraitTransactionId;
-
-        /**
-         * Validates response.
-         */
-        public function validateResponse()
-        {
-            if ($this->getStatusCode() == 'OK' && $this->getResultCode() == 400) {
-                $this->setSuccessful();
-            }
-
-            $this->setTransactionId((string) $this->getResponse()->head->{'transaction-id'});
+        if ($this->getStatusCode() == 'OK' && $this->getResultCode() == 400) {
+            $this->setSuccessful();
         }
+
+        $this->setTransactionId((string) $this->getResponse()->head->{'transaction-id'});
     }
+}

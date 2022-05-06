@@ -1,13 +1,9 @@
 <?php
-/*
- * RatePAY php-library
+/**
+ * Copyright (c) Ratepay GmbH
  *
- * This document contains trade secret data which are the property of
- * RatePAY GmbH, Berlin, Germany. Information contained herein must not be used,
- * copied or disclosed in whole or part unless permitted in writing by RatePAY GmbH.
- * All rights reserved by RatePAY GmbH.
- *
- * Copyright (c) 2020 RatePAY GmbH / Berlin / Germany
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace RatePAY\Tests\Unit;
