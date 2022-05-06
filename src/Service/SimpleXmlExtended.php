@@ -41,6 +41,10 @@ class SimpleXmlExtended extends \SimpleXMLElement
      */
     private function removeSpecialChars($str)
     {
+        if (!is_string($str)) {
+            return '';
+        }
+
         $search = ['–', '´', '‹', '›', '‘', '’', '‚', '“', '”', '„', '‟', '•', '‒', '―', '—', '™', '¼', '½', '¾'];
         $replace = ['-', "'", '<', '>', "'", "'", ',', '"', '"', '"', '"', '-', '-', '-', '-', 'TM', '1/4', '1/2', '3/4'];
 
