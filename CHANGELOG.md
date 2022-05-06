@@ -1,4 +1,11 @@
 # Changelog
+### [1.8.1](https://github.com/ratepay/php-library/compare/1.8.0...1.8.1) (2022-05-06)
+
+
+### Bug Fixes
+
+* deprecated nullish value as string on PHP8.1 ([77e6b3a](https://github.com/ratepay/php-library/commit/77e6b3adc3178b7e1980e8f965662dc1194643d8)), closes [#27](https://github.com/ratepay/php-library/issues/27)
+
 ## [1.8.0](https://github.com/ratepay/php-library/compare/1.7.0...1.8.0) (2022-03-28)
 
 
