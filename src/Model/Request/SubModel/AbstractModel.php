@@ -90,6 +90,7 @@ abstract class AbstractModel
      */
     public function commonSetter($field, $arguments)
     {
+        $arguments = $this->cleanValues($arguments);
         if (is_array($arguments) && $arguments[0] !== '') {
             if (property_exists($this, 'settings') && key_exists($field, $this->settings)) { // If it's a setting, save argument into settings
                 // @ToDo: find a better structure
@@ -112,6 +113,17 @@ abstract class AbstractModel
         }
 
         return $this;
+    }
+
+    private function cleanValues($value)
+    {
+        if (is_array($value)) {
+            return array_map([$this, 'cleanValues'], $value);
+        } elseif (is_string($value)) {
+            return trim($value);
+        }
+
+        return $value;
     }
 
     /**
