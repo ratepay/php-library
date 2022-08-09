@@ -9,6 +9,9 @@
 
 namespace RatePAY\Model\Response;
 
+    use RatePAY\ModelBuilder;
+    use RatePAY\Service\OfflineInstallmentCalculation;
+
     class ConfigurationRequest extends AbstractResponse
     {
         /**
@@ -44,30 +47,34 @@ namespace RatePAY\Model\Response;
          * Returns allowed months. If order amount is entered it returns only admitted month for specific order amount.
          *
          * @param float $orderAmount
+         * @param float $paymentFirstDay
          *
          * @return array
          */
-        public function getAllowedMonths($orderAmount = 0)
+        public function getAllowedMonths($orderAmount = 0, $paymentFirstDay = null)
         {
             if ($orderAmount == 0) {
                 return $this->result['monthAllowed'];
             }
 
-            $allowedMonths = $this->result['monthAllowed'];
             $possibleMonths = [];
 
-            $rateMinNormal = $this->result['rateMinNormal'];
-            $interestRate = $this->result['interestRateDefault'] / 100;
-            $interestRateMonth = $interestRate / 12;
+            foreach ($this->result['monthAllowed'] as $runtime) {
+                $mbContent = new ModelBuilder('Content');
+                $mbContent->setArray([
+                    'InstallmentCalculation' => [
+                        'Amount' => $orderAmount,
+                        'PaymentFirstday' => $paymentFirstDay ? $paymentFirstDay : $this->result['paymentFirstday'],
+                        'InterestRate' => $this->result['interestRateDefault'],
+                        'ServiceCharge' => $this->result['serviceCharge'],
+                        'CalculationTime' => [
+                            'Month' => $runtime,
+                        ],
+                    ],
+                ]);
 
-            foreach ($allowedMonths as $runtime) {
-                if ($interestRate > 0) {
-                    $rateAmount = $orderAmount * (($interestRateMonth * pow((1 + $interestRateMonth), $runtime)) / (pow((1 + $interestRateMonth), $runtime) - 1));
-                } else {
-                    $rateAmount = $orderAmount / $runtime;
-                }
-                $rateAmount = ceil($rateAmount);
-                if ($rateAmount >= $rateMinNormal) {
+                $monthlyRate = (new OfflineInstallmentCalculation())->callOfflineCalculation($mbContent)->subtype('calculation-by-time');
+                if ($monthlyRate >= $this->result['rateMinNormal']) {
                     $possibleMonths[] = $runtime;
                 }
             }
