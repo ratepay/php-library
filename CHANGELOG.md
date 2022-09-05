@@ -1,4 +1,12 @@
 # Changelog
+### [1.8.2](https://github.com/ratepay/php-library/compare/1.8.1...1.8.2) (2022-09-05)
+
+
+### Bug Fixes
+
+* installment: fix calculation of getAllowedMoth on ConfigurationRequest ([#29](https://github.com/ratepay/php-library/issues/29)) ([10e5e6d](https://github.com/ratepay/php-library/commit/10e5e6d6235dd4fdd39224f940f981dcb60aed06))
+* trim leading/trailing whitespaces from model-values ([#28](https://github.com/ratepay/php-library/issues/28)) ([35d4fc5](https://github.com/ratepay/php-library/commit/35d4fc536ee16b35156e5660efd7e46ecd6dc28f))
+
 ### [1.8.1](https://github.com/ratepay/php-library/compare/1.8.0...1.8.1) (2022-05-06)
 
 
