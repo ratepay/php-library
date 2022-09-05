@@ -21,6 +21,8 @@ class ConfigurationRequestTest extends TestCase
             'monthAllowed' => [3, 6, 9, 12, 18, 24, 36],
             'rateMinNormal' => 20.0,
             'interestRateDefault' => 13.7,
+            'paymentFirstday' => 2,
+            'serviceCharge' => 0
         ]);
 
         $allowedMonths = $response->getAllowedMonths($amount);
