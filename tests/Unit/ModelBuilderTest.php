@@ -13,6 +13,7 @@ use RatePAY\Model\Request\SubModel\Content\ShoppingBasket\Items;
 use RatePAY\Model\Request\SubModel\Head;
 use RatePAY\Model\Request\SubModel\Head\Meta;
 use RatePAY\ModelBuilder;
+use RatePAY\Tests\Mocks\SimpleRequestModel;
 
 class ModelBuilderTest extends TestCase
 {
@@ -103,5 +104,50 @@ class ModelBuilderTest extends TestCase
 
         $this->assertInstanceOf('RatePAY\Model\Request\SubModel\Content\ShoppingBasket\Items', $items);
         // TODO: check item values...
+    }
+
+    public function testRemovingWhiteSpaceMethodModelBuilderSetter()
+    {
+        $baseString = "       \t\n\r       leading empty\t\r\nspace (%s)       \t\n\r       ";
+        $builder = $this->getModelBuilderWithCustomModel(new SimpleRequestModel());
+        $builder->setFieldDefault(sprintf($baseString, 'FieldDefault'))
+            ->setFieldRequired(sprintf($baseString, 'FieldRequired'))
+            ->setFieldMultiple(sprintf($baseString, 'FieldMultiple 1'))
+            ->setFieldMultiple(sprintf($baseString, 'FieldMultiple 2'));
+
+        $baseCorrectedString = "leading empty\t\r\nspace (%s)";
+        $data = $builder->getModel()->toArray();
+        self::assertEquals($data['field-default']['value'], sprintf($baseCorrectedString, 'FieldDefault'));
+        self::assertEquals($data['field-required']['value'], sprintf($baseCorrectedString, 'FieldRequired'));
+        self::assertEquals($data['field-multiple']['value'][0], sprintf($baseCorrectedString, 'FieldMultiple 1'));
+        self::assertEquals($data['field-multiple']['value'][1], sprintf($baseCorrectedString, 'FieldMultiple 2'));
+    }
+
+    public function testRemovingWhiteSpaceMethodModelBuilderArray()
+    {
+        $baseString = "       \t\n\r       leading empty\t\r\nspace (%s)       \t\n\r       ";
+        $builder = $this->getModelBuilderWithCustomModel(new SimpleRequestModel());
+        $builder->setArray([
+            'FieldDefault' => sprintf($baseString, 'FieldDefault'),
+            'FieldRequired' => sprintf($baseString, 'FieldRequired'),
+            'FieldMultiple' => sprintf($baseString, 'FieldMultiple 1')
+        ]);
+
+        $baseCorrectedString = "leading empty\t\r\nspace (%s)";
+        $data = $builder->getModel()->toArray();
+        self::assertEquals($data['field-default']['value'], sprintf($baseCorrectedString, 'FieldDefault'));
+        self::assertEquals($data['field-required']['value'], sprintf($baseCorrectedString, 'FieldRequired'));
+        self::assertEquals($data['field-multiple']['value'][0], sprintf($baseCorrectedString, 'FieldMultiple 1'));
+    }
+
+    private function getModelBuilderWithCustomModel($model)
+    {
+        $builder = new ModelBuilder();
+        $refClass = new \ReflectionClass($builder);
+        $refProp = $refClass->getProperty('model');
+        $refProp->setAccessible(true);
+        $refProp->setValue($builder, $model);
+
+        return $builder;
     }
 }
