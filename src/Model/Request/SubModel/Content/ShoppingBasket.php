@@ -117,6 +117,8 @@ class ShoppingBasket extends AbstractModel
                 $unitPrice = Util::changeAmountToFloat($discount['attributes']['unit-price-gross']['value']);
                 $amount += floatval($unitPrice);
             }
+            
+            $amount = number_format($amount, 2, ".", "");
 
             $this->admittedFields['Amount']['value'] = $amount;
         }

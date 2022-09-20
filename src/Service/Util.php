@@ -14,24 +14,25 @@ use RatePAY\Model\Request\SubModel\Constants;
 class Util
 {
     /**
-     * Changes value to negative if necessary.
+     * Changes value to negative if necessary
      *
      * @param $string
-     *
      * @return string
      */
     public static function changeValueToNegative($value)
     {
         $value = floatval($value);
+        $value =  ($value > 0) ? $value * -1 : $value;
 
-        return ($value > 0) ? $value * -1 : $value;
+        $value = number_format($value, 2, ".", "");
+
+        return $value;
     }
 
     /**
-     * Changes the camel case notation to separation by underscore.
+     * Changes the camel case notation to separation by underscore
      *
      * @param $string
-     *
      * @return string
      */
     public static function changeCamelCaseToUnderscore($string)
