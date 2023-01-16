@@ -28,7 +28,7 @@ class Math
      */
     public static function netToGross($netPrice, $taxPercentage, $round = false)
     {
-        $withTax = $netPrice + $netPrice * $taxPercentage / 100;
+        $withTax = $netPrice + $netPrice / 100 * $taxPercentage;
 
         if (!$round) {
             return $withTax;

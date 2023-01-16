@@ -19,7 +19,7 @@ class Constants
     /**
      * Library version.
      */
-    const LIBRARY_VERSION = '1.8.2';
+    const LIBRARY_VERSION = '1.8.3';
 
     /**
      * Supported RatePAY API version.
