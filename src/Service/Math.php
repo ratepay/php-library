@@ -28,10 +28,10 @@ class Math
      */
     public static function netToGross($netPrice, $taxPercentage, $round = false)
     {
-        $withTax = $netPrice + $netPrice / 100 * $taxPercentage;
+        $withTax = $netPrice * (1 + $taxPercentage / 100);
 
         if (!$round) {
-            return $withTax;
+            return floatval(number_format($withTax, 5));
         }
 
         $rounded = round($withTax, 2);
