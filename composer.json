@@ -28,7 +28,7 @@
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^2.17@dev",
-    "donatj/mock-webserver": "dev-master",
+    "donatj/mock-webserver": "~2.5.0",
     "phpunit/phpunit": "^6.5||^7.5||^8.5||^9.0"
   },
   "minimum-stability": "dev",
