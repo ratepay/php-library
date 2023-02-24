@@ -31,7 +31,8 @@ class Math
         $withTax = $netPrice * (1 + $taxPercentage / 100);
 
         if (!$round) {
-            return floatval(number_format($withTax, 5));
+            $localInfo = localeconv();
+            return floatval(number_format($withTax, 5, $localInfo['decimal_point'], $localInfo['thousands_sep']));
         }
 
         $rounded = round($withTax, 2);
