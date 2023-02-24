@@ -32,6 +32,7 @@ class Math
 
         if (!$round) {
             $localInfo = localeconv();
+
             return floatval(number_format($withTax, 5, $localInfo['decimal_point'], $localInfo['thousands_sep']));
         }
 
