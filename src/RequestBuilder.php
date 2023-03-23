@@ -101,6 +101,11 @@ class RequestBuilder
     private $content = null;
 
     /**
+     * @var null 
+     */
+    private $requestModel = null;
+
+    /**
      * Request type (Operation).
      *
      * @var string
