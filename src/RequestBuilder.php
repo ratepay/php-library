@@ -101,7 +101,7 @@ class RequestBuilder
     private $content = null;
 
     /**
-     * @var null 
+     * @var null
      */
     private $requestModel = null;
 
