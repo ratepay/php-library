@@ -1,4 +1,11 @@
 # Changelog
+### [1.8.3](https://github.com/ratepay/php-library/compare/1.8.2...1.8.3) (2023-05-04)
+
+### [1.8.3](https://github.com/ratepay/php-library/compare/1.8.2...1.8.3) (2023-01-16)
+
+### Update
+* Change Ratepay address
+
 ### [1.8.2](https://github.com/ratepay/php-library/compare/1.8.1...1.8.2) (2022-09-05)
 
 
