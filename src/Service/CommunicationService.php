@@ -90,10 +90,8 @@ class CommunicationService
 
         $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        if (version_compare(PHP_VERSION, '8.0.0', '<')) { // curl_close does nothing since 8.0 and is deprecated since 8.5
-            // close connection
-            curl_close($ch);
-        }
+        // close connection
+        curl_close($ch);
 
         // status codes 3xx and 5xx are not processable by the SDK (we assume that the body will be invalid too)
         $invalidStatusCode = $statusCode < 200 || ($statusCode >= 300 && ($statusCode < 400 || $statusCode >= 500));

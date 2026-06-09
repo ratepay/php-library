@@ -76,10 +76,12 @@ abstract class AbstractResponse
 
     /**
      * AbstractResponse constructor. Sets response.
+     *
+     * @param \SimpleXmlElement $response
      */
-    public function __construct($response = null)
+    public function __construct(\SimpleXmlElement $response = null)
     {
-        if ($response !== null && $response instanceof \SimpleXmlElement) {
+        if ($response !== null) {
             $this->setResponse($response);
 
             $this->setStatusCode((string) $this->getResponse()->head->processing->status->attributes()->code);
