@@ -1,4 +1,7 @@
 # Changelog
+### [1.8.5](https://github.com/ratepay/php-library/compare/1.8.4...1.8.5) (2026-06-11)
+* Added compatibility to PHP 8.5
+
 ### [1.8.4](https://github.com/ratepay/php-library/compare/1.8.3...1.8.4) (2023-05-09)
 
 ### [1.8.3](https://github.com/ratepay/php-library/compare/1.8.2...1.8.3) (2023-05-04)
