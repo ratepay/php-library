@@ -90,6 +90,7 @@ return [
   'rp_secci_description' => 'EU consumer credit rules have changed and now require additional information for this payment method. This information helps you understand the key credit terms before completing your purchase. If you choose Get by email, our payment partner Ratepay will use your email address only to send this information, using a third-party email delivery provider.',
   'rp_secci_get_by_email' => 'Get by email',
   'rp_secci_download_pdf' => 'Download PDF',
+  'rp_secci_choose_email' => "We've sent the required Standard European Consumer Credit Information to",
   'rp_secci_payment_methods' => 'Payment Method',
   'rp_secci_choose_payment_method' => 'Selecting Open invoice or installment purchase will automatically send this information to',
   'rp_secci_choose_payment_method2' => 'sent.',
