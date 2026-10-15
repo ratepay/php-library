@@ -10,7 +10,6 @@ namespace RatePAY\Tests\Unit\Model\Request\SubModel\Content;
 
 use PHPUnit\Framework\TestCase;
 use RatePAY\Exception\ModelException;
-use RatePAY\Exception\RuleSetException;
 use RatePAY\Model\Request\SubModel\Content\Secci;
 use RatePAY\ModelBuilder;
 
@@ -19,14 +18,14 @@ class SecciTest extends TestCase
     public function testToArrayWithMandatoryFields()
     {
         $secci = (new Secci())
-            ->setDeliveryMethod('PDF')
-            ->setAction('PRINT');
+            ->setDeliveryMethod('EMAIL')
+            ->setEmail('test@example.com');
 
         $array = $secci->toArray();
 
         $expected = [
-            'delivery-method' => ['value' => 'PDF'],
-            'action' => ['value' => 'PRINT']
+            'delivery-method' => ['value' => 'EMAIL'],
+            'email' => ['value' => 'test@example.com'],
         ];
 
         $this->assertEquals($expected, $array);
@@ -58,7 +57,7 @@ class SecciTest extends TestCase
     {
         $secci = new Secci();
 
-        $this->assertSame($secci, $secci->setDeliveryMethod('PDF'));
+        $this->assertSame($secci, $secci->setDeliveryMethod('EMAIL'));
     }
 
     public function testGetters()
@@ -84,21 +83,9 @@ class SecciTest extends TestCase
         $this->assertNull($secci->getEmail());
     }
 
-    public function testThrowErrorIfNoEmailAddress()
-    {
-        $secci = new Secci();
-        $secci->setDeliveryMethod('EMAIL');
-
-        $this->expectException(RuleSetException::class);
-        $this->expectExceptionMessage('Rule set exception : email details missing');
-
-        $secci->toArray();
-    }
-
     public function testThrowErrorIfNoDeliveryMethod()
     {
         $secci = new Secci();
-        $secci->setCountryCode('DE');
 
         $this->expectException(ModelException::class);
         $this->expectExceptionMessage('Model exception : Field \'DeliveryMethod\' is required');

@@ -27,8 +27,8 @@ class ContentTest extends TestCase
     public function testHandleSecci()
     {
         $secci = (new Secci())
-            ->setDeliveryMethod('PDF')
-            ->setAction('PRINT');
+            ->setDeliveryMethod('EMAIL')
+            ->setEmail('test@example.com');
 
         $content = new Content();
         $content->setSecci($secci);
@@ -36,8 +36,8 @@ class ContentTest extends TestCase
         $array = $content->toArray();
 
         $expectedSecci = [
-            'delivery-method' => ['value' => 'PDF'],
-            'action' => ['value' => 'PRINT']
+            'delivery-method' => ['value' => 'EMAIL'],
+            'email' => ['value' => 'test@example.com'],
         ];
 
         $this->assertEquals($expectedSecci, $array['secci']);
@@ -46,7 +46,7 @@ class ContentTest extends TestCase
     public function testGetSecci()
     {
         $secci = (new Secci())
-            ->setDeliveryMethod('PDF');
+            ->setDeliveryMethod('EMAIL');
 
         $content = new Content();
         $content->setSecci($secci);

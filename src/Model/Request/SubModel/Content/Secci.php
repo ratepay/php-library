@@ -11,13 +11,20 @@ namespace RatePAY\Model\Request\SubModel\Content;
 
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
+/**
+ * @method string getDeliveryMethod()
+ * @method string getEmail()
+ * @method string getAction()
+ * @method string getLanguage()
+ * @method string getCountryCode()
+ */
 class Secci extends AbstractModel
 {
     /**
      * List of admitted fields.
      * Each field is public accessible by certain getter and setter.
      * E.g:
-     * Set payment method value by using setPaymentMethod(var). Get payment method by using getPaymentMethod(). (Please consider the camel case).
+     * Set delivery method value by using setDeliveryMethod(var). Get delivery method by using getDeliveryMethod(). (Please consider the camel case).
      *
      * Settings:
      * mandatory            = field is mandatory (or optional)
@@ -55,7 +62,7 @@ class Secci extends AbstractModel
     ];
 
     /**
-     * Installment details rule : if payment method is installment, InstallmentDetails are mandatory.
+     * Secci rule : if DeliveryMethod is EMAIL, Email parameter must be given. if DeliveryMethod is PDF, Action parameter must be either PRINT or DOWNLOAD.
      *
      * @return bool
      */
@@ -78,18 +85,6 @@ class Secci extends AbstractModel
         }
 
         return true;
-    }
-
-    /**
-     * @param string $paymentMethod
-     *
-     * @return self
-     *
-     * @throws \RatePAY\Exception\ModelException
-     */
-    public function setPaymentMethod($paymentMethod)
-    {
-        return $this->__set('PaymentMethod', $paymentMethod);
     }
 
     /**
@@ -141,14 +136,14 @@ class Secci extends AbstractModel
     }
 
     /**
-     * @param string $country
+     * @param string $countryCode
      *
      * @return self
      *
      * @throws \RatePAY\Exception\ModelException
      */
-    public function setCountryCode($country)
+    public function setCountryCode($countryCode)
     {
-        return $this->__set('CountryCode', $country);
+        return $this->__set('CountryCode', $countryCode);
     }
 }

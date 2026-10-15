@@ -14,11 +14,10 @@ use RatePAY\ModelBuilder;
 
 class PaymentTest extends TestCase
 {
-    public function testHandleCurrency()
+    public function testToArray()
     {
         $payment = (new Payment())
             ->setMethod('INVOICE')
-            ->setCurrency('EUR')
             ->setAmount(100.00);
 
         $array = $payment->toArray();
@@ -26,7 +25,6 @@ class PaymentTest extends TestCase
         $expected = [
             'attributes' => [
                 'method' => ['value' => 'INVOICE'],
-                'currency' => ['value' => 'EUR'],
             ],
             'amount' => ['value' => 100.00],
         ];
@@ -34,49 +32,25 @@ class PaymentTest extends TestCase
         $this->assertEquals($expected, $array);
     }
 
-    public function testCurrencyIsUppercased()
-    {
-        $payment = (new Payment())
-            ->setMethod('INVOICE')
-            ->setCurrency('eur')
-            ->setAmount(100.00);
-
-        $array = $payment->toArray();
-
-        $this->assertEquals('EUR', $array['attributes']['currency']['value']);
-    }
-
-    public function testCurrencyIsOptional()
-    {
-        $payment = (new Payment())
-            ->setMethod('INVOICE')
-            ->setAmount(100.00);
-
-        $array = $payment->toArray();
-
-        $this->assertNull($payment->getCurrency());
-        $this->assertArrayNotHasKey('currency', $array['attributes']);
-    }
-
-    public function testGetCurrency()
-    {
-        $payment = new Payment();
-        $payment->setCurrency('EUR');
-
-        $this->assertEquals('EUR', $payment->getCurrency());
-    }
-
-    public function testHandleCurrencyByModelBuilder()
+    public function testHandleByModelBuilder()
     {
         $builder = new ModelBuilder('Payment');
         $builder->setArray([
             'Method' => 'INVOICE',
-            'Currency' => 'EUR',
             'Amount' => 100.00,
         ]);
 
         $array = $builder->getModel()->toArray();
 
-        $this->assertEquals('EUR', $array['attributes']['currency']['value']);
+        $this->assertEquals('INVOICE', $array['attributes']['method']['value']);
+        $this->assertEquals(100.00, $array['amount']['value']);
+    }
+
+    public function testCurrencyIsNotAdmitted()
+    {
+        // Currency is delivered by ShoppingBasket, not by Payment
+        $payment = new Payment();
+
+        $this->assertArrayNotHasKey('Currency', $payment->admittedFields);
     }
 }

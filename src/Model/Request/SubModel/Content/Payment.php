@@ -17,8 +17,6 @@ use RatePAY\Model\Request\SubModel\Content\Payment\InstallmentDetails;
  * @method string             getMethod()
  * @method $this              setAmount(float $amount)
  * @method float              getAmount()
- * @method $this              setCurrency(string $currency)
- * @method string             getCurrency()
  * @method $this              setInstallmentDetails(InstallmentDetails $installmentDetails)
  * @method InstallmentDetails getInstallmentDetails()
  * @method $this              setDebitPayType(string $debitPayType)
@@ -48,11 +46,6 @@ class Payment extends AbstractModel
     public $admittedFields = [
         'Method' => [
             'mandatoryByRule' => true,
-            'isAttribute' => true,
-            'uppercase' => true,
-        ],
-        'Currency' => [
-            'mandatoryByRule' => false,
             'isAttribute' => true,
             'uppercase' => true,
         ],

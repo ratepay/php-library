@@ -93,7 +93,7 @@ return [
   'rp_secci_choose_email' => "We've sent the required Standard European Consumer Credit Information to",
   'rp_secci_payment_methods' => 'Payment Method',
   'rp_secci_choose_payment_method' => 'Selecting Open invoice or installment purchase will automatically send this information to',
-  'rp_secci_choose_payment_method2' => 'sent.',
+  'rp_secci_choose_payment_method2' => '.',
   'rp_secci_change_email' => 'Change email',
   'rp_secci_save' => 'Save',
   'rp_secci_method_invoice' => 'Ratepay Invoice',

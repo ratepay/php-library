@@ -50,7 +50,7 @@ class SecciRequestTest extends TestCase
 
     public function testGetsSecciResultWithDocument()
     {
-        $document = '<document>'.base64_encode('JVBERi0xLjQK').'</document>
+        $document = '<document>JVBERi0xLjQK</document>
                         <content-type>application/pdf</content-type>';
         $xml = $this->getResponseXml('OK', 504, $document);
 
@@ -58,19 +58,89 @@ class SecciRequestTest extends TestCase
         $response->validateResponse();
 
         $this->assertTrue($response->isSuccessful());
-        $this->assertEquals('JVBERi0xLjQK', $response->getDocument());
+        // Document is delivered base64 encoded and returned decoded
+        $this->assertSame("%PDF-1.4\n", $response->getDocument());
         $this->assertEquals('application/pdf', $response->getContentType());
     }
 
-    public function testGetsEmptyAttestationToken()
+    /** @dataProvider provideEmptySecciResultFields */
+    public function testIsNotSuccessfulOnEmptySecciResultField($field)
     {
         $xml = $this->getResponseXml('OK', 504);
-        $xml->content->{'secci-result'}->{'attestation-token'} = '';
+        $xml->content->{'secci-result'}->{$field} = '  ';
 
         $response = new SecciRequest($xml);
         $response->validateResponse();
 
-        $this->assertSame('', $response->getAttestationToken());
+        $this->assertFalse($response->isSuccessful());
+        $this->assertNull($response->getAttestationToken());
+        $this->assertNull($response->getDocumentId());
+    }
+
+    public function provideEmptySecciResultFields()
+    {
+        return [
+            ['attestation-token'],
+            ['document-id'],
+        ];
+    }
+
+    /** @dataProvider provideMissingSecciResultFields */
+    public function testIsNotSuccessfulOnMissingSecciResultField($field)
+    {
+        $xml = $this->getResponseXml('OK', 504);
+        unset($xml->content->{'secci-result'}->{$field});
+
+        $response = new SecciRequest($xml);
+        $response->validateResponse();
+
+        $this->assertFalse($response->isSuccessful());
+        $this->assertNull($response->getAttestationToken());
+        $this->assertNull($response->getDocumentId());
+    }
+
+    public function provideMissingSecciResultFields()
+    {
+        return [
+            ['attestation-token'],
+            ['document-id'],
+        ];
+    }
+
+    public function testIsNotSuccessfulOnMissingSecciResult()
+    {
+        $xml = $this->getResponseXml('OK', 504);
+        unset($xml->content->{'secci-result'});
+
+        $response = new SecciRequest($xml);
+        $response->validateResponse();
+
+        $this->assertFalse($response->isSuccessful());
+        $this->assertNull($response->getAttestationToken());
+        $this->assertNull($response->getDocumentId());
+    }
+
+    /** @dataProvider provideInvalidDocuments */
+    public function testIsNotSuccessfulOnInvalidDocument($document)
+    {
+        $xml = $this->getResponseXml('OK', 504, $document);
+
+        $response = new SecciRequest($xml);
+        $response->validateResponse();
+
+        $this->assertFalse($response->isSuccessful());
+        $this->assertNull($response->getDocument());
+        $this->assertNull($response->getContentType());
+    }
+
+    public function provideInvalidDocuments()
+    {
+        return [
+            'empty document' => ['<document></document><content-type>application/pdf</content-type>'],
+            'invalid base64' => ['<document>!!!no-base64!!!</document><content-type>application/pdf</content-type>'],
+            'missing content type' => ['<document>JVBERi0xLjQK</document>'],
+            'empty content type' => ['<document>JVBERi0xLjQK</document><content-type></content-type>'],
+        ];
     }
 
     public function testGettersReturnNullIfResponseIsNotSuccessful()

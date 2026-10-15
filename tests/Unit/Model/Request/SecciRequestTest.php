@@ -42,7 +42,7 @@ class SecciRequestTest extends TestCase
         $head = new ModelBuilder();
         $head->setArray([
             'SystemId' => 'SuperSystem',
-            'Operation' => 'SECCI',
+            'Operation' => 'SECCI_REQUEST',
             'Credential' => [
                 'ProfileId' => 'MY_AMAZING_PROFILE',
                 'Securitycode' => 'super-secure-code',
@@ -82,7 +82,7 @@ class SecciRequestTest extends TestCase
         $head = new ModelBuilder();
         $head->setArray([
             'SystemId' => 'SuperSystem',
-            'Operation' => 'SECCI',
+            'Operation' => 'SECCI_REQUEST',
             'TransactionId' => 'foo-1234567890',
             'Credential' => [
                 'ProfileId' => 'MY_AMAZING_PROFILE',
@@ -94,6 +94,7 @@ class SecciRequestTest extends TestCase
         $content->setArray([
             'Secci' => [
                 'DeliveryMethod' => 'EMAIL',
+                'Email' => 'test@example.com',
             ],
         ]);
 
