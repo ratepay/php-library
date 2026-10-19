@@ -1,4 +1,7 @@
 # Changelog
+### [2.0.0](https://github.com/ratepay/php-library/compare/1.8.5...2.0.0) (2026-10-19)
+* Added SECCI Api Calls
+
 ### [1.8.5](https://github.com/ratepay/php-library/compare/1.8.4...1.8.5) (2026-06-11)
 * Added compatibility to PHP 8.5
 
