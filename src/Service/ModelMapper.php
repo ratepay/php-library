@@ -23,6 +23,7 @@ class ModelMapper
         'PaymentChange' => 'PaymentChange',
         'PaymentConfirm' => 'PaymentConfirm',
         'ProfileRequest' => 'ProfileRequest',
+        'SecciRequest' => 'SecciRequest',
     ];
 
     private static $subModelNamePathMapping = [
@@ -57,6 +58,7 @@ class ModelMapper
             'Payment' => 'Content\\Payment',
                 'InstallmentDetails' => 'Content\\Payment\\InstallmentDetails',
             'Invoicing' => 'Content\\Invoicing',
+            'Secci' => 'Content\\Secci',
     ];
 
     public static function getFullPathRequestModel($requestedModel)

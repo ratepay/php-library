@@ -157,6 +157,45 @@ trait GatewayResponses
         return new Response($this->processXmlTemplate($xml, $bindings));
     }
 
+    public function getSecciRequestResponse($params = [])
+    {
+        $bindings = array_merge(
+            [
+                'system-id' => 'FooSystem',
+                'attestation-token' => 'foo-attestation-token',
+                'document-id' => 'SCE2QIAE-10092026',
+                'status-code' => 'OK',
+                'reason-code' => '308',
+                'result-code' => '504',
+            ],
+            $params
+        );
+
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>
+            <response version="1.0" xmlns="urn://www.ratepay.com/payment/1_0">
+                <head>
+                    <system-id>{{ system-id }}</system-id>
+                    <operation>SECCI_REQUEST</operation>
+                    <response-type>SECCI_DOCUMENT</response-type>
+                    <external />
+                    <processing>
+                        <timestamp />
+                        <status code="{{ status-code }}" />
+                        <reason code="{{ reason-code }}" />
+                        <result code="{{ result-code }}" />
+                    </processing>
+                </head>
+                <content>
+                    <secci-result>
+                        <attestation-token>{{ attestation-token }}</attestation-token>
+                        <document-id>{{ document-id }}</document-id>
+                    </secci-result>
+                </content>
+            </response>';
+
+        return new Response($this->processXmlTemplate($xml, $bindings));
+    }
+
     /**
      * @param string $template
      * @param array $bindings

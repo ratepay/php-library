@@ -33,6 +33,7 @@ class ModelMapperTest extends TestCase
             ["PaymentChange", \RatePAY\Model\Request\PaymentChange::class],
             ["PaymentConfirm", \RatePAY\Model\Request\PaymentConfirm::class],
             ["ProfileRequest", \RatePAY\Model\Request\ProfileRequest::class],
+            ["SecciRequest", \RatePAY\Model\Request\SecciRequest::class],
         ];
     }
 
@@ -75,6 +76,7 @@ class ModelMapperTest extends TestCase
             ['Payment', \RatePAY\Model\Request\SubModel\Content\Payment::class],
             ['InstallmentDetails', \RatePAY\Model\Request\SubModel\Content\Payment\InstallmentDetails::class],
             ['Invoicing', \RatePAY\Model\Request\SubModel\Content\Invoicing::class],
+            ['Secci', \RatePAY\Model\Request\SubModel\Content\Secci::class],
         ];
     }
 
@@ -98,6 +100,14 @@ class ModelMapperTest extends TestCase
             ['PaymentQuery', \RatePAY\Model\Response\PaymentQuery::class],
             ['PaymentRequest', \RatePAY\Model\Response\PaymentRequest::class],
             ['ProfileRequest', \RatePAY\Model\Response\ProfileRequest::class],
+            ['SecciRequest', \RatePAY\Model\Response\SecciRequest::class],
         ];
+    }
+
+    public function testGetRequestModels()
+    {
+        $requestModels = ModelMapper::getRequestModels();
+
+        $this->assertContains('SecciRequest', $requestModels);
     }
 }

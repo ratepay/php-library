@@ -12,16 +12,16 @@ namespace RatePAY\Model\Request\SubModel\Content\Payment;
 use RatePAY\Model\Request\SubModel\AbstractModel;
 
 /**
- * @method $this              setInstallmentNumber(string $installmentNumber)
- * @method string             getInstallmentNumber()
- * @method $this              setInstallmentAmount(float $installmentAmount)
- * @method float              getInstallmentAmount()
- * @method $this              setLastInstallmentAmount(InstallmentDetails $lastInstallmentAmount)
- * @method InstallmentDetails getLastInstallmentAmount()
- * @method $this              setInterestRate(string $interestRate)
- * @method string             getInterestRate()
- * @method $this              setPaymentFirstday(string $paymentFirstday)
- * @method string             getPaymentFirstday()
+ * @method $this  setInstallmentNumber(string $installmentNumber)
+ * @method string getInstallmentNumber()
+ * @method $this  setInstallmentAmount(float $installmentAmount)
+ * @method float  getInstallmentAmount()
+ * @method $this  setLastInstallmentAmount(float $lastInstallmentAmount)
+ * @method float  getLastInstallmentAmount()
+ * @method $this  setInterestRate(string $interestRate)
+ * @method string getInterestRate()
+ * @method $this  setPaymentFirstday(string $paymentFirstday)
+ * @method string getPaymentFirstday()
  */
 class InstallmentDetails extends AbstractModel
 {

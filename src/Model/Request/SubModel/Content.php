@@ -14,6 +14,7 @@ use RatePAY\Model\Request\SubModel\Content\Customer;
 use RatePAY\Model\Request\SubModel\Content\InstallmentCalculation;
 use RatePAY\Model\Request\SubModel\Content\Invoicing;
 use RatePAY\Model\Request\SubModel\Content\Payment;
+use RatePAY\Model\Request\SubModel\Content\Secci;
 use RatePAY\Model\Request\SubModel\Content\ShoppingBasket;
 
 /**
@@ -29,6 +30,8 @@ use RatePAY\Model\Request\SubModel\Content\ShoppingBasket;
  * @method InstallmentCalculation getInstallmentCalculation()
  * @method $this                  setAdditional(Additional $additional)
  * @method Additional             getAdditional()
+ * @method $this                  setSecci(Secci $secci)
+ * @method Secci                  getSecci()
  */
 class Content extends AbstractModel
 {
@@ -74,6 +77,10 @@ class Content extends AbstractModel
         'Additional' => [
             'mandatory' => false,
             'instanceOf' => 'Content\\Additional',
+        ],
+        'Secci' => [
+            'mandatory' => false,
+            'instanceOf' => 'Content\\Secci',
         ],
     ];
 }

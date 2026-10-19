@@ -38,6 +38,33 @@ class HeadTest extends TestCase
         $this->assertTrue($head->isSubtypeSet());
     }
 
+    public function testAttestationTokenIsOptional()
+    {
+        $head = new Head();
+        $head->setSystemId('test-system');
+        $head->setOperation('testing');
+        $head->setCredential((new Credential())->setProfileId('MY_PROFILE')->setSecuritycode('5€CUr|tyK0D3'));
+
+        $array = $head->toArray();
+
+        $this->assertNull($head->getAttestationToken());
+        $this->assertArrayNotHasKey('attestation-token', $array);
+    }
+
+    public function testHandleAttestationToken()
+    {
+        $head = new Head();
+        $head->setSystemId('test-system');
+        $head->setOperation('testing');
+        $head->setCredential((new Credential())->setProfileId('MY_PROFILE')->setSecuritycode('5€CUr|tyK0D3'));
+        $head->setAttestationToken('foo-attestation-token');
+
+        $array = $head->toArray();
+
+        $this->assertEquals('foo-attestation-token', $head->getAttestationToken());
+        $this->assertEquals(['value' => 'foo-attestation-token'], $array['attestation-token']);
+    }
+
     public function testThrowErrorIfNoSystemId()
     {
         $head = new Head();

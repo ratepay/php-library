@@ -274,4 +274,41 @@ class RequestBuilderTest extends IntegrationTestCase
 
         $this->assertTrue($response->isSuccessful());
     }
+
+    public function testCallSecciRequest()
+    {
+        self::$gateway->setResponseOfPath(
+            '/',
+            $this->getSecciRequestResponse()
+        );
+
+        $builder = new RequestBuilder(true, self::$gateway->getServerRoot());
+
+        $head = new ModelBuilder();
+        $head->setArray([
+            'SystemId' => 'SuperSystem',
+            'Credential' => [
+                'ProfileId' => 'MY_AMAZING_PROFILE',
+                'Securitycode' => 'super-secure-code',
+            ],
+        ]);
+
+        $content = new ModelBuilder('Content');
+        $content->setArray([
+            'Secci' => [
+                'DeliveryMethod' => 'EMAIL',
+                'Email' => 'test@example.com',
+            ],
+        ]);
+
+        $response = $builder->callSecciRequest($head, $content);
+
+        $this->assertTrue($response->isSuccessful());
+        $this->assertEquals('foo-attestation-token', $response->getAttestationToken());
+        $this->assertEquals('SCE2QIAE-10092026', $response->getDocumentId());
+
+        $requestRaw = $builder->getRequestRaw();
+        $this->assertStringContainsString('<operation>SECCI_REQUEST</operation>', $requestRaw);
+        $this->assertStringContainsString('<delivery-method>EMAIL</delivery-method>', $requestRaw);
+    }
 }
